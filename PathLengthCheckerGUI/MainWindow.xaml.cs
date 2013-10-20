@@ -30,12 +30,12 @@ namespace PathLengthCheckerGUI
 			cmbTypesToInclude.SelectedValue = FileSystemTypes.All;
 		}
 
-		public IEnumerable<PathInfo> Paths
+		public List<PathInfo> Paths
 		{
-			get { return (IEnumerable<PathInfo>)GetValue(PathsProperty); }
+			get { return (List<PathInfo>)GetValue(PathsProperty); }
 			set { SetValue(PathsProperty, value); }
 		}
-		public static readonly DependencyProperty PathsProperty = DependencyProperty.Register("Paths", typeof(IEnumerable<PathInfo>), typeof(MainWindow), new UIPropertyMetadata(new List<PathInfo>()));
+		public static readonly DependencyProperty PathsProperty = DependencyProperty.Register("Paths", typeof(List<PathInfo>), typeof(MainWindow), new UIPropertyMetadata(new List<PathInfo>()));
 
 		/// <summary>
 		/// Handles the Click event of the btnBrowseForRootDirectory control.
@@ -118,10 +118,10 @@ namespace PathLengthCheckerGUI
 			};
 
 			// Get and display the new paths.
-			Paths = PathLengthChecker.PathLengthChecker.GetPathsWithLengths(searchOptions);
+			Paths = PathLengthChecker.PathLengthChecker.GetPathsWithLengths(searchOptions).ToList();
 
 			// Display the number of paths found.
-			txtNumberOfPaths.Text = Paths.Count() + " Paths Found";
+			txtNumberOfPaths.Text = Paths.Count + " Paths Found";
 
 			// Display the shortest and longest path lengths.
 			int shortestPathLength = Paths.Min(p => p.Length);

@@ -1,0 +1,17 @@
+*.cache
+*.cachefile
+*.docstates
+*.ncrunchsolution
+*.pdb
+*.suo
+*.user
+bin/
+obj/
+_[Rr]e[Ss]harper.*
+*.appx
+*.appxupload
+*.appxsym
+*.log
+*.backup
+*.nupkg
+AppPackages/

@@ -15,21 +15,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathLengthCheckerGUI", "PathLengthCheckerGUI\PathLengthCheckerGUI.csproj", "{C8A77E53-DFBB-4078-B9FC-5016A7562322}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs26
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = PathLengthChecker.Tests\\PathLengthChecker.Tests.csproj
-		SccProjectName1 = PathLengthChecker.Tests
-		SccLocalPath1 = PathLengthChecker.Tests
-		SccProjectUniqueName2 = PathLengthChecker\\PathLengthChecker.csproj
-		SccProjectName2 = PathLengthChecker
-		SccLocalPath2 = PathLengthChecker
-		SccProjectUniqueName3 = PathLengthCheckerGUI\\PathLengthCheckerGUI.csproj
-		SccProjectName3 = PathLengthCheckerGUI
-		SccLocalPath3 = PathLengthCheckerGUI
-	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = PathLengthChecker.vsmdi
 	EndGlobalSection
