@@ -100,6 +100,8 @@ namespace PathLengthCheckerGUI
 
 			// Clear any previous paths out.
 			this.Paths = new List<PathInfo>();
+			txtNumberOfPaths.Text = string.Empty;
+			txtMinAndMaxPathLengths.Text = string.Empty;
 
 			// If we should NOT be replacing the Root Directory text, make sure we don't pass anything in for that parameter.
 			if (!(chkReplaceRootDirectory.IsChecked ?? false))
@@ -117,16 +119,23 @@ namespace PathLengthCheckerGUI
 				MaximumPathLength = maxPathLength
 			};
 
-			// Get and display the new paths.
-			Paths = PathLengthChecker.PathLengthChecker.GetPathsWithLengths(searchOptions).ToList();
+			try
+			{
+				// Get and display the new paths.
+				Paths = PathLengthChecker.PathLengthChecker.GetPathsWithLengths(searchOptions).ToList();
 
-			// Display the number of paths found.
-			txtNumberOfPaths.Text = Paths.Count + " Paths Found";
+				// Display the number of paths found.
+				txtNumberOfPaths.Text = Paths.Count + " Paths Found";
 
-			// Display the shortest and longest path lengths.
-			int shortestPathLength = Paths.Min(p => p.Length);
-			int longestPathLength = Paths.Max(p => p.Length);
-			txtMinAndMaxPathLengths.Text = string.Format("Shortest Path: {0}, Longest Path: {1} characters", shortestPathLength, longestPathLength);
+				// Display the shortest and longest path lengths.
+				int shortestPathLength = Paths.Count > 0 ? Paths.Min(p => p.Length) : 0;
+				int longestPathLength = Paths.Count > 0 ? Paths.Max(p => p.Length) : 0;
+				txtMinAndMaxPathLengths.Text = string.Format("Shortest Path: {0}, Longest Path: {1} characters", shortestPathLength, longestPathLength);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Error Occurred");
+			}
 		}
 
 		/// <summary>

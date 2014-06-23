@@ -68,6 +68,7 @@ namespace PathLengthChecker
 
 			// Get the paths according to the search parameters
 			var paths = new List<string>();
+
 			switch (searchOptions.TypesToGet)
 			{
 				case FileSystemTypes.All:
@@ -82,7 +83,7 @@ namespace PathLengthChecker
 					paths = Directory.GetFiles(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption).ToList();
 					break;
 			}
-
+			
 			// Return each of the paths, replacing the Root Directory if specified to do so.
 			foreach (var path in paths)
 			{

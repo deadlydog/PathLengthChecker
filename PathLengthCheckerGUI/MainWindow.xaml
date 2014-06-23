@@ -6,7 +6,7 @@
         xmlns:PathLengthChecker="clr-namespace:PathLengthChecker;assembly=PathLengthChecker"
 		Height="700" Width="900" WindowStartupLocation="CenterScreen"
 		FocusManager.FocusedElement="{Binding ElementName=txtRootDirectory}"
-		Title="Path Length Checker v1.1 - Written by Daniel Schroeder">
+		Title="Path Length Checker v1.1.1 - Written by Daniel Schroeder">
 	<Window.Resources>
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
