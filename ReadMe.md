@@ -4,6 +4,6 @@ Path Length Checker is a stand-alone app that allows you to specify a root direc
 
 To run the Path Length Checker using the GUI, just run the PathLengthCheckerGUI.exe. The PathLengthChecker.exe is the command-line alternative to the GUI.
 
-![](docs\Images\PathLengthChecker.png)
+![](docs/Images/PathLengthChecker.png)
 
 There is currently [a bug](https://pathlengthchecker.codeplex.com/workitem/1156) with the Path Length Checker tool where it is not able to process paths in Windows restricted directories (e.g. C:\Documents and Settings).  In the meantime you can use [this PowerShell script](http://blog.danskingdom.com/powershell-script-to-check-path-lengths/) to get those path lengths.
