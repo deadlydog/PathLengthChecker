@@ -1,0 +1,72 @@
+﻿<Window x:Class="PathLengthCheckerGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:PathLengthChecker="clr-namespace:PathLengthChecker;assembly=PathLengthChecker"
+		Height="700" Width="900" WindowStartupLocation="CenterScreen"
+		FocusManager.FocusedElement="{Binding ElementName=txtRootDirectory}"
+		Title="Path Length Checker v1.1.1 - Written by Daniel Schroeder">
+	<Window.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+		<!-- Default all tooltips to show for 60 seconds -->
+		<Style TargetType="{x:Type Button}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+		<Style TargetType="{x:Type MenuItem}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+		<Style TargetType="{x:Type TextBlock}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+		<Style TargetType="{x:Type TextBox}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+		<Style TargetType="{x:Type CheckBox}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+		<Style TargetType="{x:Type ComboBox}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+		<Style TargetType="{x:Type ListBox}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+
+		<ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type System:Enum}" x:Key="FileSystemTypesEnumValues">
+			<ObjectDataProvider.MethodParameters>
+				<x:Type TypeName="PathLengthChecker:FileSystemTypes" />
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
+
+	</Window.Resources>
+    <Grid>
+		<TextBlock Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBlock1" Text="Root Directory:" VerticalAlignment="Top" FontSize="14" ToolTip="The directory to look for files and/or directories in." />
+		<TextBox Height="23" HorizontalAlignment="Left" Margin="112,12,0,0" Name="txtRootDirectory" VerticalAlignment="Top" Width="709" FontSize="14" ToolTip="The directory to look for files and/or directories in." />
+		<Button Content="..." Height="23" HorizontalAlignment="Left" Margin="826,12,0,0" Name="btnBrowseForRootDirectory" VerticalAlignment="Top" Width="40" Click="btnBrowseForRootDirectory_Click" FontSize="14" ToolTip="Browse for a folder to search in." />
+		<ComboBox Height="23" HorizontalAlignment="Left" Margin="66,41,0,0" Name="cmbTypesToInclude" ItemsSource="{Binding Source={StaticResource FileSystemTypesEnumValues}}" VerticalAlignment="Top" Width="120" FontSize="14" ToolTip="The file system types to find and return the path length of." />
+		<TextBlock Height="23" HorizontalAlignment="Left" Margin="12,41,0,0" Name="textBlock2" Text="Include:" VerticalAlignment="Top" FontSize="14" ToolTip="The file system types to find and return the path length of." />
+		<TextBlock Height="23" HorizontalAlignment="Left" Margin="220,41,0,0" Name="textBlock3" Text="" VerticalAlignment="Top" />
+		<CheckBox Content="Include Subdirectories" Height="16" HorizontalAlignment="Left" Margin="220,44,0,0" Name="chkIncludeSubdirectories" VerticalAlignment="Top" IsChecked="True" FontSize="14" ToolTip="If true it will search for files/directories in all subdirectories of the Root Directory." />
+		<extToolkit:IntegerUpDown Height="23" HorizontalAlignment="Left" Margin="545,44,0,0" Name="numMinPathLength" Value="0" DefaultValue="0" Minimum="0" Maximum="999999" VerticalAlignment="Top" Width="82" FontSize="14" ToolTip="Only paths with this many or more characters will be returned in the search results." />
+		<extToolkit:IntegerUpDown DefaultValue="0" FontSize="14" Height="23" HorizontalAlignment="Left" Margin="764,44,0,0" Maximum="999999" Minimum="0" Name="numMaxPathLength" ToolTip="Only paths with this many or less characters will be returned in the search results." Value="999999" VerticalAlignment="Top" Width="82" />
+		<TextBox Height="23" HorizontalAlignment="Left" Margin="112,78,0,0" Name="txtSearchPattern" VerticalAlignment="Top" Width="709" FontSize="14" ToolTip="Only files/directories that match the given pattern will be returned. The * is a wildcard." Text="" />
+		<CheckBox Content="Replace the Root Directory in the returned paths with:" HorizontalAlignment="Left" Margin="12,115,0,426" Name="chkReplaceRootDirectory" FontSize="14" ToolTip="If this is not enabled, the Root Directory will not be modified in the returned paths." />
+		<TextBox Height="23" HorizontalAlignment="Left" Margin="34,141,0,0" Name="txtReplaceRootDirectory" VerticalAlignment="Top" Width="786" FontSize="14" ToolTip="The path to replace the Root Directory with in the paths that are returned." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
+		<Button Content="..." Height="23" HorizontalAlignment="Left" Margin="826,141,0,0" Name="btnBrowseForReplaceRootDirectory" VerticalAlignment="Top" Width="40" Click="btnBrowseForReplaceRootDirectory_Click" FontSize="14" ToolTip="Browse for a path to replace the Root Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
+		<TextBlock Height="23" HorizontalAlignment="Left" Margin="12,78,0,0" Name="textBlock4" Text="Search Pattern:" VerticalAlignment="Top" FontSize="14" ToolTip="Only files/directories that match the given pattern will be returned." />
+		<Button Content="Get Path Lengths..." Height="62" HorizontalAlignment="Left" Margin="12,179,0,0" Name="btnGetPathLengths" VerticalAlignment="Top" Width="854" FontSize="40" Click="btnGetPathLengths_Click" IsDefault="True" />
+		<DataGrid AutoGenerateColumns="False" Height="332" HorizontalAlignment="Left" Margin="12,256,0,0" Name="dataPaths" VerticalAlignment="Top" Width="854" IsReadOnly="False" ItemsSource="{Binding Path=Paths}" IsTextSearchEnabled="True" IsTabStop="False">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Length" IsReadOnly="True" Binding="{Binding Path=Length}" />
+				<DataGridTextColumn Header="Path" IsReadOnly="True" Binding="{Binding Path=Path}" />
+			</DataGrid.Columns>
+		</DataGrid>
+		<TextBlock FontSize="14" Height="23" HorizontalAlignment="Left" Margin="436,44,0,0" Name="textBlock5" Text="Min Path Length:" VerticalAlignment="Top" />
+		<TextBlock Height="23" HorizontalAlignment="Left" Margin="12,594,0,0" Name="txtNumberOfPaths" Text="" VerticalAlignment="Top" FontSize="14" Width="370" />
+		<TextBlock FontSize="14" Height="23" HorizontalAlignment="Left" Margin="651,44,0,0" Name="textBlock6" Text="Max Path Length:" VerticalAlignment="Top" />
+		<TextBlock FontSize="14" Height="23" HorizontalAlignment="Left" Margin="12,626,0,0" Name="txtMinAndMaxPathLengths" Text="" VerticalAlignment="Top" Width="370" />
+		<Button Content="Copy Paths to Clipboard without Lengths" FontSize="14" Height="55" HorizontalAlignment="Left" Margin="388,594,0,0" Name="btnCopyToClipboardWithoutLengths" VerticalAlignment="Top" Width="280" Click="btnCopyToClipboardWithoutLengths_Click" />
+		<Button Content="Copy Paths to Clipboard" Height="55" HorizontalAlignment="Left" Margin="674,594,0,0" Name="btnCopyToClipboard" VerticalAlignment="Top" Width="192" FontSize="14" Click="btnCopyToClipboard_Click" />
+	</Grid>
+</Window>
