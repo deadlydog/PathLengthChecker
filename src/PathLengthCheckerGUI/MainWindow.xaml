@@ -4,7 +4,7 @@
 		xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:PathLengthChecker="clr-namespace:PathLengthChecker;assembly=PathLengthChecker"
-		Height="700" Width="900" WindowStartupLocation="CenterScreen"
+		Height="700" Width="900" MinWidth="770" WindowStartupLocation="CenterScreen"
 		FocusManager.FocusedElement="{Binding ElementName=txtRootDirectory}"
 		Title="Path Length Checker v1.1.1 - Written by Daniel Schroeder">
 	<Window.Resources>
