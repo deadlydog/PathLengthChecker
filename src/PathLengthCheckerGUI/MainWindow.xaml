@@ -41,69 +41,111 @@
 
 	</Window.Resources>
     <Grid Margin="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="40"/>
-        </Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="5"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="5"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="5"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="5"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="5"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="5"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="5"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Name="textBlock1" Text="Root Directory:" FontSize="14" ToolTip="The directory to look for files and/or directories in." Margin="5" />
-        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Name="txtRootDirectory" FontSize="14" ToolTip="The directory to look for files and/or directories in." Margin="0,5,5,5" />
-        <Button Grid.Row="0" Grid.Column="3" Content="..." Name="btnBrowseForRootDirectory" Click="btnBrowseForRootDirectory_Click" FontSize="14" ToolTip="Browse for a folder to search in." Margin="0,5,5,5" />
+		<Grid Grid.Row="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="5" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="40" />
+			</Grid.ColumnDefinitions>
+			
+			<TextBlock Grid.Column="0" Text="Root Directory:" FontSize="14" ToolTip="The directory to look for files and/or directories in." />
+			<TextBox Grid.Column="2" Name="txtRootDirectory" FontSize="14" HorizontalAlignment="Stretch" ToolTip="The directory to look for files and/or directories in." />
+			<Button Grid.Column="3" Content="..." Name="btnBrowseForRootDirectory" Click="btnBrowseForRootDirectory_Click" FontSize="14" ToolTip="Browse for a folder to search in." />
+		</Grid>
 
-        <Grid Grid.Row="1" Grid.ColumnSpan="4">
+		<!--<DockPanel Grid.Row="0">
+			<TextBlock Grid.Column="0" Text="Root Directory:" FontSize="14" ToolTip="The directory to look for files and/or directories in." />
+			<TextBox Grid.Column="2" Name="txtRootDirectory" FontSize="14" HorizontalAlignment="Stretch" ToolTip="The directory to look for files and/or directories in." />
+			<Button Grid.Column="3" Content="..." Name="btnBrowseForRootDirectory" Click="btnBrowseForRootDirectory_Click" FontSize="14" Width="40" ToolTip="Browse for a folder to search in." />
+		</DockPanel>-->
+
+		<Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="120"/>
                 <ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Name="textBlock2" Text="Include:" FontSize="14" ToolTip="The file system types to find and return the path length of." Margin="5,0,5,5" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Name="cmbTypesToInclude" ItemsSource="{Binding Source={StaticResource FileSystemTypesEnumValues}}" FontSize="14" ToolTip="The file system types to find and return the path length of." Margin="0,0,5,5" />
-            <CheckBox Grid.Column="2" Content="Include Subdirectories" Name="chkIncludeSubdirectories" IsChecked="True" FontSize="14" ToolTip="If true it will search for files/directories in all subdirectories of the Root Directory." Margin="0,0,5,5" VerticalAlignment="Center" />
-            <TextBlock Grid.Column="3" FontSize="14" Name="textBlock5" Text="Min Path Length:" Grid.Row="1" Margin="0,0,5,5" VerticalAlignment="Center" />
-            <extToolkit:IntegerUpDown Grid.Column="4" Name="numMinPathLength" Value="0" DefaultValue="0" Minimum="0" Maximum="999999" FontSize="14" ToolTip="Only paths with this many or more characters will be returned in the search results." Margin="0,0,5,5" />
-            <TextBlock Grid.Column="5" FontSize="14" Name="textBlock6" Text="Max Path Length:" Grid.Row="1" Margin="0,0,5,5" VerticalAlignment="Center" />
-            <extToolkit:IntegerUpDown Grid.Column="6" DefaultValue="0" FontSize="14" Maximum="999999" Minimum="0" Name="numMaxPathLength" ToolTip="Only paths with this many or less characters will be returned in the search results." Value="999999" Grid.Row="1" Margin="0,0,5,5" />
+            <TextBlock Grid.Column="0" Text="Include:" FontSize="14" Margin="0,0,5,0" ToolTip="The file system types to find and return the path length of." VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Name="cmbTypesToInclude" ItemsSource="{Binding Source={StaticResource FileSystemTypesEnumValues}}" FontSize="14" ToolTip="The file system types to find and return the path length of." />
+            <CheckBox Grid.Column="3" Content="Include Subdirectories" Name="chkIncludeSubdirectories" IsChecked="True" FontSize="14" ToolTip="If true it will search for files/directories in all subdirectories of the Root Directory." VerticalAlignment="Center" />
+			<TextBlock Grid.Column="5" FontSize="14" Margin="0,0,5,0" Text="Min Path Length:" VerticalAlignment="Center" />
+            <extToolkit:IntegerUpDown Grid.Column="6" Name="numMinPathLength" Value="0" DefaultValue="0" Minimum="0" Maximum="999999" FontSize="14" ToolTip="Only paths with this many or more characters will be returned in the search results." />
+			<TextBlock Grid.Column="8" FontSize="14" Margin="0,0,5,0" Text="Max Path Length:" VerticalAlignment="Center" />
+            <extToolkit:IntegerUpDown Grid.Column="9" DefaultValue="0" FontSize="14" Maximum="999999" Minimum="0" Name="numMaxPathLength" ToolTip="Only paths with this many or less characters will be returned in the search results." Value="999999" Grid.Row="2" />
         </Grid>
 
-        <TextBlock Name="textBlock4" Text="Search Pattern:" FontSize="14" ToolTip="Only files/directories that match the given pattern will be returned." Grid.Row="2" Margin="5,0,5,5" />        
-        <TextBox Name="txtSearchPattern" FontSize="14" ToolTip="Only files/directories that match the given pattern will be returned. The * is a wildcard." Text="" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,5,5" />
+		<DockPanel Grid.Row="4">
+			<TextBlock Text="Search Pattern:" FontSize="14" Margin="0,0,5,0" ToolTip="Only files/directories that match the given pattern will be returned." />
+			<TextBox Name="txtSearchPattern" FontSize="14" HorizontalAlignment="Stretch" ToolTip="Only files/directories that match the given pattern will be returned. The * is a wildcard." Text="" />
+		</DockPanel>
 
-		<CheckBox Content="Replace the Root Directory in the returned paths with:" Name="chkReplaceRootDirectory" FontSize="14" ToolTip="If this is not enabled, the Root Directory will not be modified in the returned paths." Grid.Row="3" Grid.ColumnSpan="4" Margin="5,0,5,5" />
+		<Grid Grid.Row="6">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="20" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="40" />
+			</Grid.ColumnDefinitions>
 
-		<TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Name="txtReplaceRootDirectory" FontSize="14" ToolTip="The path to replace the Root Directory with in the paths that are returned." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" Margin="5,0,5,5" />
-        <Button Grid.Row="4" Grid.Column="3" Content="..."  Name="btnBrowseForReplaceRootDirectory" Click="btnBrowseForReplaceRootDirectory_Click" FontSize="14" ToolTip="Browse for a path to replace the Root Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" Margin="0,0,5,5" />
+			<CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="Replace the Root Directory in the returned paths with:" Name="chkReplaceRootDirectory" FontSize="14" ToolTip="If this is not enabled, the Root Directory will not be modified in the returned paths." />
+
+			<TextBox Grid.Row="1" Grid.Column="1" Name="txtReplaceRootDirectory" FontSize="14" HorizontalAlignment="Stretch" ToolTip="The path to replace the Root Directory with in the paths that are returned." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
+			<Button Grid.Row="1" Grid.Column="2" Content="..."  Name="btnBrowseForReplaceRootDirectory" Click="btnBrowseForReplaceRootDirectory_Click" FontSize="14" ToolTip="Browse for a path to replace the Root Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
+		</Grid>
+
+		<!--<StackPanel Orientation="Vertical" Grid.Row="6">
+			<CheckBox Content="Replace the Root Directory in the returned paths with:" Name="chkReplaceRootDirectory" FontSize="14" ToolTip="If this is not enabled, the Root Directory will not be modified in the returned paths." />
+
+			<DockPanel>
+				<TextBox Name="txtReplaceRootDirectory" FontSize="14" HorizontalAlignment="Stretch" Margin="20,0,0,0" ToolTip="The path to replace the Root Directory with in the paths that are returned." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
+				<Button Content="..."  Name="btnBrowseForReplaceRootDirectory" Click="btnBrowseForReplaceRootDirectory_Click" FontSize="14" Width="40" HorizontalAlignment="Right" ToolTip="Browse for a path to replace the Root Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
+			</DockPanel>
+		</StackPanel>-->
+
+		<Button Grid.Row="8" Content="Get Path Lengths..." Name="btnGetPathLengths" FontSize="40" Click="btnGetPathLengths_Click" IsDefault="True" />
         
-        <Button Grid.Row="5" Content="Get Path Lengths..." Name="btnGetPathLengths" FontSize="40" Click="btnGetPathLengths_Click" IsDefault="True" Grid.ColumnSpan="4" Margin="5,0,5,5" />
-        
-        <DataGrid Grid.Row="6" AutoGenerateColumns="False" Name="dataPaths" IsReadOnly="False" ItemsSource="{Binding Path=Paths}" IsTextSearchEnabled="True" IsTabStop="False" Grid.ColumnSpan="4" Margin="5,0,5,5">
+        <DataGrid Grid.Row="10" AutoGenerateColumns="False" Name="dataPaths" IsReadOnly="False" ItemsSource="{Binding Path=Paths}" IsTextSearchEnabled="True" IsTabStop="False" Grid.ColumnSpan="4">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Length" IsReadOnly="True" Binding="{Binding Path=Length}" />
                 <DataGridTextColumn Header="Path" IsReadOnly="True" Binding="{Binding Path=Path}" />
             </DataGrid.Columns>
         </DataGrid>
         
-        <TextBlock Grid.Row="7" Grid.ColumnSpan="2" Name="txtNumberOfPaths" Text="" FontSize="14" Margin="5,0,5,5" />
-        <TextBlock Grid.Row="8" Grid.ColumnSpan="2" FontSize="14" Name="txtMinAndMaxPathLengths" Text="" Margin="5,0,5,5" />
+        <TextBlock Grid.Row="12" Name="txtNumberOfPaths" Text="" FontSize="14" />
+        <TextBlock Grid.Row="14" FontSize="14" Name="txtMinAndMaxPathLengths" Text="" />
 
-		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="7" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="4">
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="12" Grid.RowSpan="4">
 			<Button Content="Copy Paths to Clipboard without Lengths" FontSize="14" Name="btnCopyToClipboardWithoutLengths" Click="btnCopyToClipboardWithoutLengths_Click" Padding="5" Margin="0,0,20,0" />
 			<Button Content="Copy Paths to Clipboard" Name="btnCopyToClipboard" FontSize="14" Click="btnCopyToClipboard_Click" Padding="5" />
 		</StackPanel>
