@@ -92,7 +92,7 @@ namespace PathLengthChecker.Tests
 	/// </summary>
 	public class PathLengthCheckerTests : IClassFixture<FilesFixtureForClassSetupAndTeardown>
 	{
-		private static FilesFixtureForClassSetupAndTeardown _filesFixture;
+		private readonly FilesFixtureForClassSetupAndTeardown _filesFixture;
 		
 		public PathLengthCheckerTests(FilesFixtureForClassSetupAndTeardown filesFixture)
 		{
