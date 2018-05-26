@@ -21,7 +21,7 @@ namespace PathLengthChecker.Tests
 			EmptyDirectoryPath = Path.Combine(RootPath, "EmptyDir");
 
 			// Specify the directories and files that the unit tests expect to be there.
-			Directories = new List<PathInfo>()
+			Directories = new List<PathInfo>
 							   {
 								   new PathInfo(){Path = Path.Combine(RootPath, "TestDir1")},
 								new PathInfo(){Path = Path.Combine(RootPath, "TestDir2")},
@@ -29,7 +29,7 @@ namespace PathLengthChecker.Tests
 								new PathInfo(){Path = EmptyDirectoryPath}
 							   };
 
-			Files = new List<PathInfo>()
+			Files = new List<PathInfo>
 						 {
 							new PathInfo(){Path = Path.Combine(RootPath, "TestFile0.test")},
 							new PathInfo(){Path = Path.Combine(RootPath, "TestDir1\\TestFile1.test")},
