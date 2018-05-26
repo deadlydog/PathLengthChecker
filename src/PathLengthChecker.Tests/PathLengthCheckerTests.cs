@@ -9,11 +9,11 @@ namespace PathLengthChecker.Tests
 {
 	public class FilesFixtureForClassSetupAndTeardown : IDisposable
 	{
-		public List<PathInfo> Directories;
-		public List<PathInfo> Files;
-		public List<PathInfo> AllPaths;
-		public readonly string RootPath;
-		public readonly string EmptyDirectoryPath;
+		public List<PathInfo> Directories { get; }
+		public List<PathInfo> Files { get; }
+		public List<PathInfo> AllPaths { get; }
+		public string RootPath { get; }
+		public string EmptyDirectoryPath { get; }
 
 		public FilesFixtureForClassSetupAndTeardown()
 		{
