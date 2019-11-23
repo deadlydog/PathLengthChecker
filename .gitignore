@@ -1,3 +1,4 @@
+# Ignore the executables created by the post-build events.
 src/Executables
 
 # Created by https://www.gitignore.io/api/visualstudio
