@@ -21,4 +21,4 @@ The `PathLengthChecker.exe` is the command-line alternative to the GUI. Simply r
 
 ## Extra Info
 
-There is currently [a bug](https://pathlengthchecker.codeplex.com/workitem/1156) with the Path Length Checker tool where it is not able to process paths in Windows restricted directories (e.g. C:\Documents and Settings).  In the meantime you can use [this PowerShell script](https://github.com/deadlydog/PathLengthChecker/PathLengthChecker.ps1) to get those path lengths.
+There is currently [a bug](https://pathlengthchecker.codeplex.com/workitem/1156) with the Path Length Checker tool where it is not able to process paths in Windows restricted directories (e.g. C:\Documents and Settings).  In the meantime you can use [this PowerShell script](https://github.com/A9G-Data-Droid/PathLengthChecker/blob/AddPowershellScript/PathLengthChecker.ps1) to get those path lengths.
