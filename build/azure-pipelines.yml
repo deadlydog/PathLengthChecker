@@ -21,13 +21,13 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'deadlydog'
-    scannerMode: 'MSBuild'
-    projectKey: 'PathLengthChecker'
-    projectName: 'PathLengthChecker'
+# - task: SonarCloudPrepare@1
+#   inputs:
+#     SonarCloud: 'SonarCloud'
+#     organization: 'deadlydog'
+#     scannerMode: 'MSBuild'
+#     projectKey: 'PathLengthChecker'
+#     projectName: 'PathLengthChecker'
 
 - task: VSBuild@1
   inputs:
@@ -40,8 +40,8 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: SonarCloudAnalyze@1
+# - task: SonarCloudAnalyze@1
 
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
+# - task: SonarCloudPublish@1
+#   inputs:
+#     pollingTimeoutSec: '300'
