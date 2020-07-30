@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Pipes;
-using System.Linq;
-using System.Text;
 
 namespace PathLengthChecker
 {
-	/// <summary>
-	/// The type of Paths that should be included.
-	/// </summary>
-	[Flags]
+    /// <summary>
+    /// The type of Paths that should be included.
+    /// </summary>
+    [Flags]
 	public enum FileSystemTypes
 	{
 		Files = 1,
@@ -67,31 +64,40 @@ namespace PathLengthChecker
 				searchOptions.SearchPattern = "*";
 
 			// Get the paths according to the search parameters
-			var paths = new List<string>();
-
+			IEnumerable<string> paths = null;
 			switch (searchOptions.TypesToGet)
 			{
 				case FileSystemTypes.All:
-					paths = Directory.GetFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption).ToList();
+					paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
 					break;
-					
+
 				case FileSystemTypes.Directories:
-					paths = Directory.GetDirectories(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption).ToList();
+					paths = Directory.EnumerateDirectories(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
 					break;
 
 				case FileSystemTypes.Files:
-					paths = Directory.GetFiles(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption).ToList();
+					paths = Directory.EnumerateFiles(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
 					break;
 			}
-			
+
 			// Return each of the paths, replacing the Root Directory if specified to do so.
+			var newPaths = new List<string>();
 			foreach (var path in paths)
 			{
-				if (searchOptions.RootDirectoryReplacement == null)
-					yield return path;
-				else
-					yield return path.Replace(searchOptions.RootDirectory, searchOptions.RootDirectoryReplacement);
+				try
+				{
+					if (!(searchOptions.RootDirectoryReplacement == null))
+						newPaths.Add(path);
+					else
+						newPaths.Add(path.Replace(searchOptions.RootDirectory, searchOptions.RootDirectoryReplacement));
+				}
+				catch (Exception ex)
+				{
+					Debug.Print(ex.Message);				
+				}
 			}
+
+			return newPaths;
 		}
 	}
 }
