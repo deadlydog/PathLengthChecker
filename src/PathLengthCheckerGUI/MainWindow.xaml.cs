@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,6 +24,8 @@ namespace PathLengthCheckerGUI
 
 			// Set the default type for the combo boxes.
 			cmbTypesToInclude.SelectedValue = FileSystemTypes.All;
+
+			this.Title = "Path Length Checker v" + Assembly.GetEntryAssembly().GetName().Version + " - Written by Daniel Schroeder";
 		}
 
 		public BindingList<PathInfo> Paths
