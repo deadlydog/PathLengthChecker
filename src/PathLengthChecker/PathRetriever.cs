@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
+//using System.IO;
+using SearchOption = System.IO.SearchOption;
+using Alphaleonis.Win32.Filesystem;
 
 namespace PathLengthChecker
 {
@@ -53,11 +55,12 @@ namespace PathLengthChecker
 	/// </summary>
 	public static class PathRetriever
 	{
-		/// <summary>
-		/// Gets the paths.
-		/// </summary>
-		/// <param name="searchOptions">The search options to use.</param>
-		public static IEnumerable<string> GetPaths(PathSearchOptions searchOptions)
+        /// <summary>
+        /// Gets the paths.
+        /// </summary>
+        /// <param name="searchOptions">The search options to use.</param>
+        [Obsolete]
+        public static IEnumerable<string> GetPaths(PathSearchOptions searchOptions)
 		{
 			// If no Search Pattern was provided, then find everything.
 			if (string.IsNullOrEmpty(searchOptions.SearchPattern))
@@ -67,20 +70,37 @@ namespace PathLengthChecker
 			IEnumerable<string> paths = null;
 			try
             {
-				switch (searchOptions.TypesToGet)
-				{
-					case FileSystemTypes.All:
-						paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
-						break;
+				DirectoryEnumerationOptions options = (DirectoryEnumerationOptions)searchOptions.TypesToGet | 
+					DirectoryEnumerationOptions.ContinueOnException | DirectoryEnumerationOptions.SkipReparsePoints;
 
-					case FileSystemTypes.Directories:
-						paths = Directory.EnumerateDirectories(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
-						break;
+				if (searchOptions.SearchOption == SearchOption.AllDirectories)
+					options |= DirectoryEnumerationOptions.Recursive;
 
-					case FileSystemTypes.Files:
-						paths = Directory.EnumerateFiles(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
-						break;
-				}
+				//DirectoryEnumerationFilters filters = new DirectoryEnumerationFilters
+				//{
+				//	InclusionFilter = new FileSystemEntryInfo()
+				//	{
+				//		FileName = searchOptions.SearchPattern
+				//	}
+				//};
+				//paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, options, filters);
+
+				paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, options);
+
+				//switch (searchOptions.TypesToGet)
+				//{
+				//	case FileSystemTypes.All:
+				//		paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
+				//		break;
+
+				//	case FileSystemTypes.Directories:
+				//		paths = Directory.EnumerateDirectories(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
+				//		break;
+
+				//	case FileSystemTypes.Files:
+				//		paths = Directory.EnumerateFiles(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
+				//		break;
+				//}
 			} catch (Exception ex)
             {
 				Debug.Print(ex.Message);
