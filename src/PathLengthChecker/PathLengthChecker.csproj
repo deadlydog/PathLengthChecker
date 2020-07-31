@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net48;netstandard2.0</TargetFrameworks>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -18,10 +18,5 @@
     </PackageReference>
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.6.0-preview3.19128.7" />
   </ItemGroup>
-  <PropertyGroup>
-    <PostBuildEvent>REM Copy the executable, config file, and DLLs to the Executables directory.
-xcopy "$(TargetPath)" "$(SolutionDir)Executables\" /R /Y
-xcopy "$(TargetPath).config" "$(SolutionDir)Executables\" /R /Y
-xcopy "$(TargetDir)*.dll" "$(SolutionDir)Executables\" /R /Y</PostBuildEvent>
-  </PropertyGroup>
+  <PropertyGroup />
 </Project>

@@ -84,27 +84,17 @@ namespace PathLengthChecker
 			} catch (Exception ex)
             {
 				Debug.Print(ex.Message);
-				return paths;
+				yield break;
 			}
 
 			// Return each of the paths, replacing the Root Directory if specified to do so.
-			var newPaths = new List<string>();
 			foreach (var path in paths)
 			{
-				try
-				{
-					if (!(searchOptions.RootDirectoryReplacement == null))
-						newPaths.Add(path);
-					else
-						newPaths.Add(path.Replace(searchOptions.RootDirectory, searchOptions.RootDirectoryReplacement));
-				}
-				catch (Exception ex)
-				{
-					Debug.Print(ex.Message);				
-				}
+				if (!(searchOptions.RootDirectoryReplacement == null))
+					yield return path;
+				else
+					yield return path.Replace(searchOptions.RootDirectory, searchOptions.RootDirectoryReplacement);
 			}
-
-			return newPaths;
 		}
 	}
 }
