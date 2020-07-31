@@ -130,21 +130,22 @@ namespace PathLengthCheckerGUI
 				MaximumPathLength = maxPathLength
 			};
 
-			try
+
+			// Get the new paths.
+			await Task.Run(() =>
 			{
-				// Get the new paths.
-				await Task.Run(() =>
+				try
 				{
 					foreach (var pathItem in PathLengthChecker.PathLengthChecker.GetPathsWithLengths(searchOptions))
-                    {
+					{
 						AddPathToList(pathItem);
 					}
-				});
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message, "Error Occurred");
-			}
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.Message, "Error Occurred");
+				}
+			});
 		}
 
 

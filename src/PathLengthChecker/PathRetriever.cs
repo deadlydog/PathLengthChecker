@@ -65,19 +65,26 @@ namespace PathLengthChecker
 
 			// Get the paths according to the search parameters
 			IEnumerable<string> paths = null;
-			switch (searchOptions.TypesToGet)
-			{
-				case FileSystemTypes.All:
-					paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
-					break;
+			try
+            {
+				switch (searchOptions.TypesToGet)
+				{
+					case FileSystemTypes.All:
+						paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
+						break;
 
-				case FileSystemTypes.Directories:
-					paths = Directory.EnumerateDirectories(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
-					break;
+					case FileSystemTypes.Directories:
+						paths = Directory.EnumerateDirectories(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
+						break;
 
-				case FileSystemTypes.Files:
-					paths = Directory.EnumerateFiles(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
-					break;
+					case FileSystemTypes.Files:
+						paths = Directory.EnumerateFiles(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
+						break;
+				}
+			} catch (Exception ex)
+            {
+				Debug.Print(ex.Message);
+				return paths;
 			}
 
 			// Return each of the paths, replacing the Root Directory if specified to do so.
