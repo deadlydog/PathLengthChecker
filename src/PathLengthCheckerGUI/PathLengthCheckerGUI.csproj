@@ -133,8 +133,11 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>REM Copy the executable, config file, and DLLs to the Executables directory.
+
 xcopy "$(TargetPath)" "$(SolutionDir)Executables\" /R /Y
+
 xcopy "$(TargetPath).config" "$(SolutionDir)Executables\" /R /Y
+
 xcopy "$(TargetDir)*.dll" "$(SolutionDir)Executables\" /R /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
