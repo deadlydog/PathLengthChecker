@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-//using System.IO;
 using SearchOption = System.IO.SearchOption;
 using Alphaleonis.Win32.Filesystem;
 
@@ -59,16 +58,15 @@ namespace PathLengthChecker
         /// Gets the paths.
         /// </summary>
         /// <param name="searchOptions">The search options to use.</param>
-        [Obsolete]
         public static IEnumerable<string> GetPaths(PathSearchOptions searchOptions)
 		{
 			// If no Search Pattern was provided, then find everything.
 			if (string.IsNullOrEmpty(searchOptions.SearchPattern))
 				searchOptions.SearchPattern = "*";
 
-			// Get the paths according to the search parameters
-			IEnumerable<string> paths = null;
-			try
+            // Get the paths according to the search parameters
+            IEnumerable<string> paths;
+            try
             {
 				DirectoryEnumerationOptions options = (DirectoryEnumerationOptions)searchOptions.TypesToGet | 
 					DirectoryEnumerationOptions.ContinueOnException | DirectoryEnumerationOptions.SkipReparsePoints;
@@ -76,31 +74,8 @@ namespace PathLengthChecker
 				if (searchOptions.SearchOption == SearchOption.AllDirectories)
 					options |= DirectoryEnumerationOptions.Recursive;
 
-				//DirectoryEnumerationFilters filters = new DirectoryEnumerationFilters
-				//{
-				//	InclusionFilter = new FileSystemEntryInfo()
-				//	{
-				//		FileName = searchOptions.SearchPattern
-				//	}
-				//};
-				//paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, options, filters);
-
 				paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, options);
 
-				//switch (searchOptions.TypesToGet)
-				//{
-				//	case FileSystemTypes.All:
-				//		paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
-				//		break;
-
-				//	case FileSystemTypes.Directories:
-				//		paths = Directory.EnumerateDirectories(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
-				//		break;
-
-				//	case FileSystemTypes.Files:
-				//		paths = Directory.EnumerateFiles(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption);
-				//		break;
-				//}
 			} catch (Exception ex)
             {
 				Debug.Print(ex.Message);
