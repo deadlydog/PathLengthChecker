@@ -85,7 +85,7 @@ namespace PathLengthChecker
 			// Return each of the paths, replacing the Root Directory if specified to do so.
 			foreach (var path in paths)
 			{
-				if (!(searchOptions.RootDirectoryReplacement == null))
+				if (searchOptions.RootDirectoryReplacement == null)
 					yield return path;
 				else
 					yield return path.Replace(searchOptions.RootDirectory, searchOptions.RootDirectoryReplacement);
