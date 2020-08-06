@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.IO.Pipes;
-using System.Linq;
-using System.Text;
+using SearchOption = System.IO.SearchOption;
+using Alphaleonis.Win32.Filesystem;
 
 namespace PathLengthChecker
 {
-	/// <summary>
-	/// The type of Paths that should be included.
-	/// </summary>
-	[Flags]
+    /// <summary>
+    /// The type of Paths that should be included.
+    /// </summary>
+    [Flags]
 	public enum FileSystemTypes
 	{
 		Files = 1,
@@ -56,34 +54,39 @@ namespace PathLengthChecker
 	/// </summary>
 	public static class PathRetriever
 	{
-		/// <summary>
-		/// Gets the paths.
-		/// </summary>
-		/// <param name="searchOptions">The search options to use.</param>
-		public static IEnumerable<string> GetPaths(PathSearchOptions searchOptions)
+        /// <summary>
+        /// Gets the paths.
+        /// </summary>
+        /// <param name="searchOptions">The search options to use.</param>
+        public static IEnumerable<string> GetPaths(PathSearchOptions searchOptions)
 		{
+			if (!Directory.Exists(searchOptions.RootDirectory))
+			{
+				throw new System.IO.DirectoryNotFoundException($"The specified root directory '{searchOptions.RootDirectory}' does not exist. Please provide a valid directory.");
+			}
+
 			// If no Search Pattern was provided, then find everything.
 			if (string.IsNullOrEmpty(searchOptions.SearchPattern))
 				searchOptions.SearchPattern = "*";
 
-			// Get the paths according to the search parameters
-			var paths = new List<string>();
+            // Get the paths according to the search parameters
+            IEnumerable<string> paths;
+            try
+            {
+				DirectoryEnumerationOptions options = (DirectoryEnumerationOptions)searchOptions.TypesToGet | 
+					DirectoryEnumerationOptions.ContinueOnException | DirectoryEnumerationOptions.SkipReparsePoints;
 
-			switch (searchOptions.TypesToGet)
-			{
-				case FileSystemTypes.All:
-					paths = Directory.GetFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption).ToList();
-					break;
-					
-				case FileSystemTypes.Directories:
-					paths = Directory.GetDirectories(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption).ToList();
-					break;
+				if (searchOptions.SearchOption == SearchOption.AllDirectories)
+					options |= DirectoryEnumerationOptions.Recursive;
 
-				case FileSystemTypes.Files:
-					paths = Directory.GetFiles(searchOptions.RootDirectory, searchOptions.SearchPattern, searchOptions.SearchOption).ToList();
-					break;
+				paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, options);
+
+			} catch (Exception ex)
+            {
+				Debug.Print(ex.Message);
+				yield break;
 			}
-			
+
 			// Return each of the paths, replacing the Root Directory if specified to do so.
 			foreach (var path in paths)
 			{
