@@ -60,6 +60,11 @@ namespace PathLengthChecker
         /// <param name="searchOptions">The search options to use.</param>
         public static IEnumerable<string> GetPaths(PathSearchOptions searchOptions)
 		{
+			if (!Directory.Exists(searchOptions.RootDirectory))
+			{
+				throw new System.IO.DirectoryNotFoundException($"The specified root directory '{searchOptions.RootDirectory}' does not exist. Please provide a valid directory.");
+			}
+
 			// If no Search Pattern was provided, then find everything.
 			if (string.IsNullOrEmpty(searchOptions.SearchPattern))
 				searchOptions.SearchPattern = "*";
