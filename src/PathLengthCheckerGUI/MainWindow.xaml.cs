@@ -25,6 +25,11 @@ namespace PathLengthCheckerGUI
 			// Set the default type for the combo boxes.
 			cmbTypesToInclude.SelectedValue = FileSystemTypes.All;
 
+			SetWindowTitle();
+		}
+
+		private void SetWindowTitle()
+		{
 			this.Title = "Path Length Checker v" + Assembly.GetEntryAssembly().GetName().Version + " - Written by Daniel Schroeder";
 		}
 

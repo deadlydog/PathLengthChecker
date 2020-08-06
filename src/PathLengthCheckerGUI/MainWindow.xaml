@@ -5,8 +5,7 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:PathLengthChecker="clr-namespace:PathLengthChecker;assembly=PathLengthChecker"
 		Height="700" Width="900" MinWidth="770" MinHeight="400" WindowStartupLocation="CenterScreen"
-		FocusManager.FocusedElement="{Binding ElementName=txtRootDirectory}"
-		Title="Path Length Checker v1.3.0 - Written by Daniel Schroeder">
+		FocusManager.FocusedElement="{Binding ElementName=txtRootDirectory}">
 	<Window.Resources>
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
