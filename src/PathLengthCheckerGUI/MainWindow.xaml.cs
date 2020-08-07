@@ -17,6 +17,8 @@ namespace PathLengthCheckerGUI
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private DateTime _timePathSearchingStarted = DateTime.MinValue;
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -91,6 +93,9 @@ namespace PathLengthCheckerGUI
 			this.Paths = new BindingList<PathInfo>();
 			txtNumberOfPaths.Text = string.Empty;
 			txtMinAndMaxPathLengths.Text = string.Empty;
+
+			// Mark the time that we started searching.
+			_timePathSearchingStarted = DateTime.Now;
 
 			await GetPaths(txtRootDirectory.Text.Trim(), txtReplaceRootDirectory.Text.Trim(), txtSearchPattern.Text);
 
@@ -172,8 +177,10 @@ namespace PathLengthCheckerGUI
 			{
 				this.Paths.Add(pathItem);
 
+				var timeSinceSearchingStarted = DateTime.Now - _timePathSearchingStarted;
+
 				// Display the number of paths found.
-				this.txtNumberOfPaths.Text = Paths.Count + " Paths Found";
+				this.txtNumberOfPaths.Text = $"{Paths.Count} paths found in {timeSinceSearchingStarted.ToString(@"mm\:ss\.f")}";
 			}
 		}
 
