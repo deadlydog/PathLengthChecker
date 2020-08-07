@@ -15,10 +15,36 @@ variables:
   buildConfiguration: 'Release'
   appBinariesDirectory: 'src\PathLengthCheckerGUI\bin\$(buildConfiguration)'
 
+  version.MajorMinor: '1.3' # Manually adjust the version number as needed for semantic versioning. Revision is auto-incremented.
+  version.Revision: $[counter(variables['version.MajorMinor'], 0)]
+  versionNumber: '$(version.MajorMinor).$(version.Revision)'
+
+name: 'Set dynamically below in a task'
+
 steps:
+- task: PowerShell@2
+  displayName: Set the name of the build (i.e. the Build.BuildNumber)
+  inputs:
+    targetType: 'inline'
+    script: |
+      [string] $buildName = "$(versionNumber)_$(Build.SourceBranchName)"
+      Write-Host "Setting the name of the build to '$buildName'."
+      Write-Host "##vso[build.updatebuildnumber]$buildName"
+
+- task: VersionAssemblies@2
+  displayName: Version the assemblies
+  inputs:
+    Path: '$(Build.SourcesDirectory)'
+    VersionNumber: '$(versionNumber)'
+    InjectVersion: true
+    FilenamePattern: 'AssemblyInfo.*'
+    OutputVersion: 'OutputedVersion'
+
 - task: NuGetToolInstaller@1
+  displayName: Install NuGet so it can be used to restore packages
 
 - task: NuGetCommand@2
+  displayName: Restore NuGet packages
   inputs:
     restoreSolution: '$(solution)'
 
