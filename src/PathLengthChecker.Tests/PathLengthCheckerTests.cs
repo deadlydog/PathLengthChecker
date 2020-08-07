@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using Xunit;
+using System.Threading;
 
 namespace PathLengthChecker.Tests
 {
@@ -115,7 +116,7 @@ namespace PathLengthChecker.Tests
 									};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the paths.
 			paths.Should().Contain(_filesFixture.Directories).And.Contain(_filesFixture.Files);
@@ -140,7 +141,7 @@ namespace PathLengthChecker.Tests
 			};
 
 			// Because we try and get a list of directory paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the directory paths.
 			paths.Should().Contain(_filesFixture.Directories);
@@ -165,7 +166,7 @@ namespace PathLengthChecker.Tests
 			};
 
 			// Because we try and get a list of file paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the file paths.
 			paths.Should().Contain(_filesFixture.Files);
@@ -190,7 +191,7 @@ namespace PathLengthChecker.Tests
 			};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the paths directly off of the Root Path.
 			paths.Should().Contain(p => string.Equals(Path.GetDirectoryName(p.Path), _filesFixture.RootPath));
@@ -215,7 +216,7 @@ namespace PathLengthChecker.Tests
 			};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the directory paths directly off of the Root Path.
 			paths.Should().Contain(p => string.Equals(Path.GetDirectoryName(p.Path), _filesFixture.RootPath));
@@ -240,7 +241,7 @@ namespace PathLengthChecker.Tests
 			};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the file paths directly off of the Root Path.
 			paths.Should().Contain(p => string.Equals(Path.GetDirectoryName(p.Path), _filesFixture.RootPath));
@@ -265,7 +266,7 @@ namespace PathLengthChecker.Tests
 			};
 
 			// Because we try and get a list of paths from an empty directory.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// There shouldn't be any paths found.
 			paths.Should().HaveCount(0);
@@ -287,7 +288,7 @@ namespace PathLengthChecker.Tests
 			};
 
 			// Because we try and get a list of paths from a directory that does not exist.
-			Action act = () => PathLengthChecker.GetPathsWithLengths(searchOptions).Count();
+			Action act = () => PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None).Count();
 
 			// A DirectoryNotFound exception should be thrown.
 			act.Should().Throw<DirectoryNotFoundException>();
@@ -313,7 +314,7 @@ namespace PathLengthChecker.Tests
 									};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the paths.
 			paths.Should().Contain(expectedPaths);
@@ -342,7 +343,7 @@ namespace PathLengthChecker.Tests
 			};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the paths.
 			paths.Should().Contain(expectedPaths);
@@ -372,7 +373,7 @@ namespace PathLengthChecker.Tests
 			};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the paths.
 			paths.Should().Contain(expectedPaths);
@@ -397,7 +398,7 @@ namespace PathLengthChecker.Tests
 			};
 
 			// Because we try and get a list of paths from a directory that does not exist.
-			Action act = () => PathLengthChecker.GetPathsWithLengths(searchOptions).Count();
+			Action act = () => PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None).Count();
 
 			// A DirectoryNotFound exception should be thrown.
 			act.Should().Throw<MinPathLengthGreaterThanMaxPathLengthException>();
