@@ -69,7 +69,7 @@ namespace PathLengthCheckerGUI
 			// Setup the prompt
 			var folderDialog = new System.Windows.Forms.FolderBrowserDialog
 			{
-				Description = "Select the directory that you want to use to replace the root directory in the returned paths...",
+				Description = "Select the directory that you want to use to replace the Starting Directory in the returned paths...",
 				ShowNewFolderButton = false
 			};
 
@@ -113,7 +113,13 @@ namespace PathLengthCheckerGUI
 			}
 			catch
 			{
-				MessageBox.Show(string.Format("The Root Directory \"{0}\" does not exist. Please specify a valid directory.", txtRootDirectory.Text), "Invalid Root Directory");
+				MessageBox.Show($"The Starting Directory \"{txtRootDirectory.Text}\" does not exist. Please specify a valid directory.", "Invalid Starting Directory");
+				return;
+			}
+
+			if (!Directory.Exists(rootDirectory))
+			{
+				MessageBox.Show($"The Starting Directory \"{rootDirectory}\" does not exist. Please specify a valid directory.", "Invalid Starting Directory");
 				return;
 			}
 
