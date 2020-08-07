@@ -84,7 +84,7 @@ steps:
   displayName: Publish the build artifacts
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
+    ArtifactName: 'PathLengthChecker$(versionNumber)'
     publishLocation: 'Container'
 
 # - task: SonarCloudAnalyze@1
