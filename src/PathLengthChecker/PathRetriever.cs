@@ -80,7 +80,6 @@ namespace PathLengthChecker
 					options |= DirectoryEnumerationOptions.Recursive;
 
 				paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, options);
-
 			}
 			catch (Exception ex)
 			{
