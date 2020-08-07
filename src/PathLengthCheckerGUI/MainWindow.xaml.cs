@@ -45,7 +45,7 @@ namespace PathLengthCheckerGUI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void BtnBrowseForRootDirectory_Click(object sender, RoutedEventArgs e)
+        private void btnBrowseForRootDirectory_Click(object sender, RoutedEventArgs e)
 		{
             // Setup the prompt
             var folderDialog = new System.Windows.Forms.FolderBrowserDialog
@@ -64,7 +64,7 @@ namespace PathLengthCheckerGUI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void BtnBrowseForReplaceRootDirectory_Click(object sender, RoutedEventArgs e)
+        private void btnBrowseForReplaceRootDirectory_Click(object sender, RoutedEventArgs e)
 		{
             // Setup the prompt
             var folderDialog = new System.Windows.Forms.FolderBrowserDialog
@@ -83,9 +83,9 @@ namespace PathLengthCheckerGUI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private async void BtnGetPathLengths_Click(object sender, RoutedEventArgs e)
+        private async void btnGetPathLengths_Click(object sender, RoutedEventArgs e)
 		{
-			this.BtnGetPathLengths.IsEnabled = false;
+			this.btnGetPathLengths.IsEnabled = false;
 
 			// Clear any previous paths out.
 			this.Paths = new BindingList<PathInfo>();
@@ -99,7 +99,7 @@ namespace PathLengthCheckerGUI
 			int longestPathLength = Paths.Count > 0 ? Paths.Max(p => p.Length) : 0;
 			txtMinAndMaxPathLengths.Text = string.Format("Shortest Path: {0}, Longest Path: {1} characters", shortestPathLength, longestPathLength);
 
-			this.BtnGetPathLengths.IsEnabled = true;
+			this.btnGetPathLengths.IsEnabled = true;
 		}
 
 		/// <summary>
@@ -175,7 +175,7 @@ namespace PathLengthCheckerGUI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void BtnCopyToClipboardWithoutLengths_Click(object sender, RoutedEventArgs e)
+        private void btnCopyToClipboardWithoutLengths_Click(object sender, RoutedEventArgs e)
         {
             var text = new StringBuilder();
             foreach (var path in Paths)
@@ -190,7 +190,7 @@ namespace PathLengthCheckerGUI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void BtnCopyToClipboard_Click(object sender, RoutedEventArgs e)
+        private void btnCopyToClipboard_Click(object sender, RoutedEventArgs e)
 		{
 			var text = new StringBuilder();
 			foreach (var path in Paths)

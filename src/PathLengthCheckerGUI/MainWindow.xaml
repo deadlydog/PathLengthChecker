@@ -68,7 +68,7 @@
 			
 			<TextBlock Grid.Column="0" Text="Root Directory:" FontSize="14" ToolTip="The directory to look for files and/or directories in." />
 			<TextBox Grid.Column="2" Name="txtRootDirectory" FontSize="14" HorizontalAlignment="Stretch" ToolTip="The directory to look for files and/or directories in." />
-			<Button Grid.Column="3" Content="..." x:Name="BtnBrowseForRootDirectory" Click="BtnBrowseForRootDirectory_Click" FontSize="14" ToolTip="Browse for a folder to search in." />
+			<Button Grid.Column="3" Content="..." x:Name="btnBrowseForRootDirectory" Click="btnBrowseForRootDirectory_Click" FontSize="14" ToolTip="Browse for a folder to search in." />
 		</Grid>
 
 		<Grid Grid.Row="2">
@@ -114,10 +114,10 @@
 			<CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="Replace the Root Directory in the returned paths with:" Name="chkReplaceRootDirectory" FontSize="14" ToolTip="If this is not enabled, the Root Directory will not be modified in the returned paths." />
 
 			<TextBox Grid.Row="1" Grid.Column="1" Name="txtReplaceRootDirectory" FontSize="14" HorizontalAlignment="Stretch" ToolTip="The path to replace the Root Directory with in the paths that are returned." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
-			<Button Grid.Row="1" Grid.Column="2" Content="..."  Name="BtnBrowseForReplaceRootDirectory" Click="BtnBrowseForReplaceRootDirectory_Click" FontSize="14" ToolTip="Browse for a path to replace the Root Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
+			<Button Grid.Row="1" Grid.Column="2" Content="..."  Name="btnBrowseForReplaceRootDirectory" Click="btnBrowseForReplaceRootDirectory_Click" FontSize="14" ToolTip="Browse for a path to replace the Root Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
 		</Grid>
 
-		<Button Grid.Row="8" Content="Get Path Lengths..." Name="BtnGetPathLengths" FontSize="40" Click="BtnGetPathLengths_Click" IsDefault="True" />
+		<Button Grid.Row="8" Content="Get Path Lengths..." Name="btnGetPathLengths" FontSize="40" Click="btnGetPathLengths_Click" IsDefault="True" />
         
         <DataGrid Grid.Row="10" AutoGenerateColumns="False" Name="dataPaths" IsReadOnly="False" ItemsSource="{Binding Path=Paths}" IsTextSearchEnabled="True" IsTabStop="False" Grid.ColumnSpan="4">
             <DataGrid.Columns>
@@ -130,8 +130,8 @@
         <TextBlock Grid.Row="14" FontSize="14" Name="txtMinAndMaxPathLengths" Text="" />
 
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="12" Grid.RowSpan="4">
-			<Button Content="Copy Paths to Clipboard without Lengths" FontSize="14" Name="BtnCopyToClipboardWithoutLengths" Click="BtnCopyToClipboardWithoutLengths_Click" Padding="5" Margin="0,0,20,0" />
-			<Button Content="Copy Paths to Clipboard" Name="BtnCopyToClipboard" FontSize="14" Click="BtnCopyToClipboard_Click" Padding="5" />
+			<Button Content="Copy Paths to Clipboard without Lengths" FontSize="14" Name="btnCopyToClipboardWithoutLengths" Click="btnCopyToClipboardWithoutLengths_Click" Padding="5" Margin="0,0,20,0" />
+			<Button Content="Copy Paths to Clipboard" Name="btnCopyToClipboard" FontSize="14" Click="btnCopyToClipboard_Click" Padding="5" />
 		</StackPanel>
 	</Grid>
 </Window>
