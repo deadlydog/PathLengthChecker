@@ -118,6 +118,7 @@
 		</Grid>
 
 		<Button Grid.Row="8" Content="Get Path Lengths..." Name="btnGetPathLengths" FontSize="40" Click="btnGetPathLengths_Click" IsDefault="True" />
+		<Button Grid.Row="8" Content="Cancel retrieving path lengths" Name="btnCancelGetPathLengths" FontSize="40" Click="btnCancelGetPathLengths_Click" Visibility="Collapsed" />
 
 		<DataGrid Grid.Row="10" AutoGenerateColumns="False" Name="dataPaths" IsReadOnly="False" ItemsSource="{Binding Path=Paths}" IsTextSearchEnabled="True" IsTabStop="False" Grid.ColumnSpan="4">
 			<DataGrid.Columns>
@@ -126,7 +127,7 @@
 			</DataGrid.Columns>
 		</DataGrid>
 
-		<TextBlock Grid.Row="12" Name="txtNumberOfPaths" Text="" FontSize="14" />
+		<TextBlock Grid.Row="12" FontSize="14" Name="txtNumberOfPaths" Text="" />
 		<TextBlock Grid.Row="14" FontSize="14" Name="txtMinAndMaxPathLengths" Text="" />
 
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="12" Grid.RowSpan="4">

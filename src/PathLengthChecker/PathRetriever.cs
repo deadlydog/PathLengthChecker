@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using SearchOption = System.IO.SearchOption;
 
 namespace PathLengthChecker
@@ -58,7 +59,7 @@ namespace PathLengthChecker
 		/// Gets the paths.
 		/// </summary>
 		/// <param name="searchOptions">The search options to use.</param>
-		public static IEnumerable<string> GetPaths(PathSearchOptions searchOptions)
+		public static IEnumerable<string> GetPaths(PathSearchOptions searchOptions, CancellationToken cancellationToken)
 		{
 			if (!Directory.Exists(searchOptions.RootDirectory))
 			{
@@ -80,7 +81,6 @@ namespace PathLengthChecker
 					options |= DirectoryEnumerationOptions.Recursive;
 
 				paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, options);
-
 			}
 			catch (Exception ex)
 			{
@@ -91,6 +91,10 @@ namespace PathLengthChecker
 			// Return each of the paths, replacing the Root Directory if specified to do so.
 			foreach (var path in paths)
 			{
+				// If we've been asked to stop searching, just return.
+				if (cancellationToken.IsCancellationRequested)
+					yield break;
+
 				if (searchOptions.RootDirectoryReplacement == null)
 					yield return path;
 				else

@@ -17,6 +17,9 @@ namespace PathLengthCheckerGUI
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private DateTime _timePathSearchingStarted = DateTime.MinValue;
+		private CancellationTokenSource _searchCancellationTokenSource = new CancellationTokenSource();
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -85,27 +88,39 @@ namespace PathLengthCheckerGUI
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private async void btnGetPathLengths_Click(object sender, RoutedEventArgs e)
 		{
-			this.btnGetPathLengths.IsEnabled = false;
+			// Show the Cancellation button while we search.
+			_searchCancellationTokenSource = new CancellationTokenSource();
+			btnGetPathLengths.IsEnabled = false;
+			btnGetPathLengths.Visibility = Visibility.Collapsed;
+			btnCancelGetPathLengths.IsEnabled = true;
+			btnCancelGetPathLengths.Visibility = Visibility.Visible;
 
 			// Clear any previous paths out.
 			this.Paths = new BindingList<PathInfo>();
 			txtNumberOfPaths.Text = string.Empty;
 			txtMinAndMaxPathLengths.Text = string.Empty;
 
-			await GetPaths(txtRootDirectory.Text.Trim(), txtReplaceRootDirectory.Text.Trim(), txtSearchPattern.Text);
+			// Mark the time that we started searching.
+			_timePathSearchingStarted = DateTime.Now;
+
+			await GetPaths(txtRootDirectory.Text.Trim(), txtReplaceRootDirectory.Text.Trim(), txtSearchPattern.Text, _searchCancellationTokenSource.Token);
 
 			// Display the shortest and longest path lengths.
 			int shortestPathLength = Paths.Count > 0 ? Paths.Min(p => p.Length) : 0;
 			int longestPathLength = Paths.Count > 0 ? Paths.Max(p => p.Length) : 0;
 			txtMinAndMaxPathLengths.Text = string.Format("Shortest Path: {0}, Longest Path: {1} characters", shortestPathLength, longestPathLength);
 
-			this.btnGetPathLengths.IsEnabled = true;
+			// Restore the search button.
+			btnGetPathLengths.IsEnabled = true;
+			btnGetPathLengths.Visibility = Visibility.Visible;
+			btnCancelGetPathLengths.IsEnabled = false;
+			btnCancelGetPathLengths.Visibility = Visibility.Collapsed;
 		}
 
 		/// <summary>
 		/// Gets the paths and displays them on the UI.
 		/// </summary>
-		private async Task GetPaths(string rootDirectory, string rootDirectoryReplacement, string searchPattern)
+		private async Task GetPaths(string rootDirectory, string rootDirectoryReplacement, string searchPattern, CancellationToken cancellationToken)
 		{
 			try
 			{
@@ -113,7 +128,7 @@ namespace PathLengthCheckerGUI
 			}
 			catch
 			{
-				MessageBox.Show($"The Starting Directory \"{txtRootDirectory.Text}\" does not exist. Please specify a valid directory.", "Invalid Starting Directory");
+				MessageBox.Show($"The Starting Directory \"{rootDirectory}\" does not exist. Please specify a valid directory.", "Invalid Starting Directory");
 				return;
 			}
 
@@ -148,7 +163,7 @@ namespace PathLengthCheckerGUI
 			{
 				try
 				{
-					foreach (var pathItem in PathLengthChecker.PathLengthChecker.GetPathsWithLengths(searchOptions))
+					foreach (var pathItem in PathLengthChecker.PathLengthChecker.GetPathsWithLengths(searchOptions, cancellationToken))
 					{
 						AddPathToList(pathItem);
 					}
@@ -157,7 +172,7 @@ namespace PathLengthCheckerGUI
 				{
 					MessageBox.Show(ex.Message, "Error Occurred");
 				}
-			});
+			}, cancellationToken);
 		}
 
 
@@ -173,7 +188,15 @@ namespace PathLengthCheckerGUI
 				this.Paths.Add(pathItem);
 
 				// Display the number of paths found.
-				this.txtNumberOfPaths.Text = Paths.Count + " Paths Found";
+				var timeSinceSearchingStarted = DateTime.Now - _timePathSearchingStarted;
+				var text = $"{Paths.Count} paths found in {timeSinceSearchingStarted.ToString(@"mm\:ss\.f")}";
+
+				if (_searchCancellationTokenSource.IsCancellationRequested)
+				{
+					text += " - Cancelled";
+				}
+
+				this.txtNumberOfPaths.Text = text;
 			}
 		}
 
@@ -222,6 +245,15 @@ namespace PathLengthCheckerGUI
 			catch (Exception ex)
 			{
 				Debug.Print(ex.Message);
+			}
+		}
+
+		private void btnCancelGetPathLengths_Click(object sender, RoutedEventArgs e)
+		{
+			if (!_searchCancellationTokenSource.IsCancellationRequested)
+			{
+				_searchCancellationTokenSource.Cancel();
+				btnCancelGetPathLengths.IsEnabled = false;
 			}
 		}
 	}

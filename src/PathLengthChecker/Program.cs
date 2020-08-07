@@ -27,7 +27,7 @@ namespace PathLengthChecker
 					string.Equals(_output, "MaxLength", StringComparison.InvariantCultureIgnoreCase))
 				{
 					// Do the search.
-					var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+					var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, System.Threading.CancellationToken.None);
 
 					// Output the desired information (Min Path, Max Path, or All Paths).
 					if (string.Equals(_output, "MinLength", StringComparison.InvariantCultureIgnoreCase))
@@ -37,7 +37,7 @@ namespace PathLengthChecker
 				}
 				else
 				{
-					var paths = PathLengthChecker.GetPathsWithLengthsAsString(searchOptions);
+					var paths = PathLengthChecker.GetPathsWithLengthsAsString(searchOptions, System.Threading.CancellationToken.None);
 					Console.WriteLine(paths);
 				}
 			}
