@@ -13,7 +13,7 @@ namespace PathLengthChecker
 		public string Path { get; set; }
 		public int Length
 		{
-			get { return this.Path.Length; }	
+			get { return this.Path.Length; }
 		}
 
 		public override string ToString()
@@ -48,7 +48,7 @@ namespace PathLengthChecker
 		public MinPathLengthGreaterThanMaxPathLengthException()
 			: base("MinimumPathLength can not be greater than the MaximumPathLength.")
 		{ }
-	} 
+	}
 
 	/// <summary>
 	/// Class used to retrieve file system objects in a given path along with their path lengths.
@@ -65,7 +65,7 @@ namespace PathLengthChecker
 			var paths = PathRetriever.GetPaths(options);
 
 			// Filter out paths that don't match the Minimum Path Length
-			foreach (var path in paths.Where(path => path.Length >= options.MinimumPathLength && 
+			foreach (var path in paths.Where(path => path.Length >= options.MinimumPathLength &&
 				(options.MaximumPathLength < 0 || path.Length <= options.MaximumPathLength)))
 			{
 				yield return path;
