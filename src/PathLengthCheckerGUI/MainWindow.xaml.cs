@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace PathLengthCheckerGUI
 {
@@ -42,6 +43,13 @@ namespace PathLengthCheckerGUI
 			set { SetValue(PathsProperty, value); }
 		}
 		public static readonly DependencyProperty PathsProperty = DependencyProperty.Register("Paths", typeof(BindingList<PathInfo>), typeof(MainWindow), new UIPropertyMetadata(new BindingList<PathInfo>()));
+
+		public PathInfo SelectedPath
+		{
+			get { return (PathInfo)GetValue(SelectedPathProperty); }
+			set { SetValue(SelectedPathProperty, value); }
+		}
+		public static readonly DependencyProperty SelectedPathProperty = DependencyProperty.Register("SelectedPath", typeof(PathInfo), typeof(MainWindow), new UIPropertyMetadata(new PathInfo()));
 
 		/// <summary>
 		/// Handles the Click event of the btnBrowseForRootDirectory control.
@@ -254,6 +262,31 @@ namespace PathLengthCheckerGUI
 			{
 				_searchCancellationTokenSource.Cancel();
 				btnCancelGetPathLengths.IsEnabled = false;
+			}
+		}
+
+		private void dataPaths_LoadingRow(object sender, System.Windows.Controls.DataGridRowEventArgs e)
+		{
+			// Show row numbers.
+			e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+		}
+
+		private void MenuItem_OpenDirectoryInFileExplorer_Click(object sender, RoutedEventArgs e)
+		{
+			var directoryPath = string.Empty;
+
+			if (Directory.Exists(SelectedPath.Path))
+			{
+				directoryPath = SelectedPath.Path;
+			}
+			else if (File.Exists(SelectedPath.Path))
+			{
+				directoryPath = Directory.GetParent(SelectedPath.Path).FullName;
+			}
+
+			if (!string.IsNullOrWhiteSpace(directoryPath))
+			{
+				Process.Start(directoryPath);
 			}
 		}
 	}
