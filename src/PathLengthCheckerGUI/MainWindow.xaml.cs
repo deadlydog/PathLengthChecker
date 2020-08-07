@@ -267,7 +267,7 @@ namespace PathLengthCheckerGUI
 
 		private void dataPaths_LoadingRow(object sender, System.Windows.Controls.DataGridRowEventArgs e)
 		{
-			// Show row numbers.
+			// Show row numbers in the grid.
 			e.Row.Header = (e.Row.GetIndex() + 1).ToString();
 		}
 
