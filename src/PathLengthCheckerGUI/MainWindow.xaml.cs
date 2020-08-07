@@ -177,9 +177,8 @@ namespace PathLengthCheckerGUI
 			{
 				this.Paths.Add(pathItem);
 
-				var timeSinceSearchingStarted = DateTime.Now - _timePathSearchingStarted;
-
 				// Display the number of paths found.
+				var timeSinceSearchingStarted = DateTime.Now - _timePathSearchingStarted;
 				this.txtNumberOfPaths.Text = $"{Paths.Count} paths found in {timeSinceSearchingStarted.ToString(@"mm\:ss\.f")}";
 			}
 		}
