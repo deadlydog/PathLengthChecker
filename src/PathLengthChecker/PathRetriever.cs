@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Alphaleonis.Win32.Filesystem;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using SearchOption = System.IO.SearchOption;
-using Alphaleonis.Win32.Filesystem;
 
 namespace PathLengthChecker
 {
-    /// <summary>
-    /// The type of Paths that should be included.
-    /// </summary>
-    [Flags]
+	/// <summary>
+	/// The type of Paths that should be included.
+	/// </summary>
+	[Flags]
 	public enum FileSystemTypes
 	{
 		Files = 1,
@@ -54,11 +54,11 @@ namespace PathLengthChecker
 	/// </summary>
 	public static class PathRetriever
 	{
-        /// <summary>
-        /// Gets the paths.
-        /// </summary>
-        /// <param name="searchOptions">The search options to use.</param>
-        public static IEnumerable<string> GetPaths(PathSearchOptions searchOptions)
+		/// <summary>
+		/// Gets the paths.
+		/// </summary>
+		/// <param name="searchOptions">The search options to use.</param>
+		public static IEnumerable<string> GetPaths(PathSearchOptions searchOptions)
 		{
 			if (!Directory.Exists(searchOptions.RootDirectory))
 			{
@@ -69,11 +69,11 @@ namespace PathLengthChecker
 			if (string.IsNullOrEmpty(searchOptions.SearchPattern))
 				searchOptions.SearchPattern = "*";
 
-            // Get the paths according to the search parameters
-            IEnumerable<string> paths;
-            try
-            {
-				DirectoryEnumerationOptions options = (DirectoryEnumerationOptions)searchOptions.TypesToGet | 
+			// Get the paths according to the search parameters
+			IEnumerable<string> paths;
+			try
+			{
+				DirectoryEnumerationOptions options = (DirectoryEnumerationOptions)searchOptions.TypesToGet |
 					DirectoryEnumerationOptions.ContinueOnException | DirectoryEnumerationOptions.SkipReparsePoints;
 
 				if (searchOptions.SearchOption == SearchOption.AllDirectories)
@@ -81,8 +81,9 @@ namespace PathLengthChecker
 
 				paths = Directory.EnumerateFileSystemEntries(searchOptions.RootDirectory, searchOptions.SearchPattern, options);
 
-			} catch (Exception ex)
-            {
+			}
+			catch (Exception ex)
+			{
 				Debug.Print(ex.Message);
 				yield break;
 			}

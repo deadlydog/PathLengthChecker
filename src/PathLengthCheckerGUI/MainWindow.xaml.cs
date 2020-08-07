@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PathLengthChecker;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -8,14 +9,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using PathLengthChecker;
 
 namespace PathLengthCheckerGUI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
 	{
 		public MainWindow()
 		{
@@ -40,50 +40,50 @@ namespace PathLengthCheckerGUI
 		}
 		public static readonly DependencyProperty PathsProperty = DependencyProperty.Register("Paths", typeof(BindingList<PathInfo>), typeof(MainWindow), new UIPropertyMetadata(new BindingList<PathInfo>()));
 
-        /// <summary>
-        /// Handles the Click event of the btnBrowseForRootDirectory control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void btnBrowseForRootDirectory_Click(object sender, RoutedEventArgs e)
+		/// <summary>
+		/// Handles the Click event of the btnBrowseForRootDirectory control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnBrowseForRootDirectory_Click(object sender, RoutedEventArgs e)
 		{
-            // Setup the prompt
-            var folderDialog = new System.Windows.Forms.FolderBrowserDialog
-            {
-                Description = "Select the directory that contains the paths whose length you want to check...",
-                ShowNewFolderButton = false
-            };
+			// Setup the prompt
+			var folderDialog = new System.Windows.Forms.FolderBrowserDialog
+			{
+				Description = "Select the directory that contains the paths whose length you want to check...",
+				ShowNewFolderButton = false
+			};
 
-            // If the user selected a folder, put it in the Root Directory text box.
-            if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			// If the user selected a folder, put it in the Root Directory text box.
+			if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 				txtRootDirectory.Text = folderDialog.SelectedPath;
 		}
 
-        /// <summary>
-        /// Handles the Click event of the btnBrowseForReplaceRootDirectory control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void btnBrowseForReplaceRootDirectory_Click(object sender, RoutedEventArgs e)
+		/// <summary>
+		/// Handles the Click event of the btnBrowseForReplaceRootDirectory control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnBrowseForReplaceRootDirectory_Click(object sender, RoutedEventArgs e)
 		{
-            // Setup the prompt
-            var folderDialog = new System.Windows.Forms.FolderBrowserDialog
-            {
-                Description = "Select the directory that you want to use to replace the root directory in the returned paths...",
-                ShowNewFolderButton = false
-            };
+			// Setup the prompt
+			var folderDialog = new System.Windows.Forms.FolderBrowserDialog
+			{
+				Description = "Select the directory that you want to use to replace the root directory in the returned paths...",
+				ShowNewFolderButton = false
+			};
 
-            // If the user selected a folder, put it in the Replace Root Directory text box.
-            if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			// If the user selected a folder, put it in the Replace Root Directory text box.
+			if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 				txtReplaceRootDirectory.Text = folderDialog.SelectedPath;
 		}
 
-        /// <summary>
-        /// Handles the Click event of the btnGetPathLengths control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private async void btnGetPathLengths_Click(object sender, RoutedEventArgs e)
+		/// <summary>
+		/// Handles the Click event of the btnGetPathLengths control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private async void btnGetPathLengths_Click(object sender, RoutedEventArgs e)
 		{
 			this.btnGetPathLengths.IsEnabled = false;
 
@@ -108,12 +108,13 @@ namespace PathLengthCheckerGUI
 		private async Task GetPaths(string rootDirectory, string rootDirectoryReplacement, string searchPattern)
 		{
 			try
-            {
+			{
 				rootDirectory = Path.GetFullPath(rootDirectory);
-			} catch
-            {
+			}
+			catch
+			{
 				MessageBox.Show(string.Format("The Root Directory \"{0}\" does not exist. Please specify a valid directory.", txtRootDirectory.Text), "Invalid Root Directory");
-                return;
+				return;
 			}
 
 			int minPathLength = numMinPathLength.Value ?? 0;
@@ -154,12 +155,12 @@ namespace PathLengthCheckerGUI
 		}
 
 
-		public delegate void PathInfoConsumer(PathInfo pathItem);  
+		public delegate void PathInfoConsumer(PathInfo pathItem);
 		public void AddPathToList(PathInfo pathItem)
 		{
 			if (!Dispatcher.CheckAccess())
 			{
-				Dispatcher.Invoke(new PathInfoConsumer(AddPathToList), new object[] { pathItem });  
+				Dispatcher.Invoke(new PathInfoConsumer(AddPathToList), new object[] { pathItem });
 			}
 			else
 			{
@@ -170,27 +171,27 @@ namespace PathLengthCheckerGUI
 			}
 		}
 
-        /// <summary>
-        /// Handles the Click event of the btnCopyToClipboardWithoutLengths control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void btnCopyToClipboardWithoutLengths_Click(object sender, RoutedEventArgs e)
-        {
-            var text = new StringBuilder();
-            foreach (var path in Paths)
-            {
-                text.AppendLine(path.Path);
-            }
-            SetClipboardText(text.ToString());
-        }
+		/// <summary>
+		/// Handles the Click event of the btnCopyToClipboardWithoutLengths control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnCopyToClipboardWithoutLengths_Click(object sender, RoutedEventArgs e)
+		{
+			var text = new StringBuilder();
+			foreach (var path in Paths)
+			{
+				text.AppendLine(path.Path);
+			}
+			SetClipboardText(text.ToString());
+		}
 
-        /// <summary>
-        /// Handles the Click event of the btnCopyToClipboard control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void btnCopyToClipboard_Click(object sender, RoutedEventArgs e)
+		/// <summary>
+		/// Handles the Click event of the btnCopyToClipboard control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnCopyToClipboard_Click(object sender, RoutedEventArgs e)
 		{
 			var text = new StringBuilder();
 			foreach (var path in Paths)
