@@ -4,21 +4,18 @@ Path Length Checker is a stand-alone app that allows you to specify a root direc
 
 Download it from [the Releases page](https://github.com/deadlydog/PathLengthChecker/releases).
 
-
 ## Running via the GUI (Graphical User Interface)
 
 To run the Path Length Checker using the GUI, run the `PathLengthCheckerGUI.exe`.
 
 Once the app is open, simply provide the `Root Directory` you want it to search and press the large `Get Path Lengths...` button.
 
-![](docs/Images/PathLengthChecker.png)
-
+![Path Length Checker screenshot](docs/Images/PathLengthChecker.png)
 
 ## Running via the Command Line
 
 The `PathLengthChecker.exe` is the command-line alternative to the GUI. Simply run it without any parameters to see what parameters you can pass to it.
 
-
 ## Extra Info
 
-There is currently [a bug](https://pathlengthchecker.codeplex.com/workitem/1156) with the Path Length Checker tool where it is not able to process paths in Windows restricted directories (e.g. C:\Documents and Settings).  In the meantime you can use [this PowerShell script](https://github.com/A9G-Data-Droid/PathLengthChecker/blob/AddPowershellScript/PathLengthChecker.ps1) to get those path lengths.
+If you are looking or a PowerShell equivalent of this tool, you can check out [this blog post](https://blog.danskingdom.com/powershell-script-to-check-path-lengths/) to get a PowerShell script that offers similar functionality.
