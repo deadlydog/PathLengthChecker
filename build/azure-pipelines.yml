@@ -13,6 +13,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  appBinariesDirectory: 'src\PathLengthCheckerGUI\bin\$(buildConfiguration)'
 
 steps:
 - task: NuGetToolInstaller@1
@@ -30,15 +31,35 @@ steps:
 #     projectName: 'PathLengthChecker'
 
 - task: VSBuild@1
+  displayName: Build the app
   inputs:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
 - task: VSTest@2
+  displayName: Run unit tests
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: CopyFiles@2
+  displayName: Copy only the binaries required to run the app to the artifact staging directory
+  inputs:
+    SourceFolder: '$(appBinariesDirectory)'
+    Contents: |
+      AlphaFS.dll
+      PathLengthChecker.exe
+      PathLengthCheckerGUI.exe
+      Xceed.Wpf.Toolkit.dll
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish the build artifacts
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 
 # - task: SonarCloudAnalyze@1
 
