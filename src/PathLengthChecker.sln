@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathLengthChecker", "PathLengthChecker\PathLengthChecker.csproj", "{9353EBEC-A6EA-49BC-B6F3-7169832423F6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathLengthChecker.Tests", "PathLengthChecker.Tests\PathLengthChecker.Tests.csproj", "{F2CE9DEF-4883-4C36-A37C-7B4840EBFEE0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathLengthCheckerGUI", "PathLengthCheckerGUI\PathLengthCheckerGUI.csproj", "{C8A77E53-DFBB-4078-B9FC-5016A7562322}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathLengthChecker", "PathLengthChecker\PathLengthChecker.csproj", "{4A51D771-DC33-4A66-82F9-C56BBD4E7004}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9353EBEC-A6EA-49BC-B6F3-7169832423F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9353EBEC-A6EA-49BC-B6F3-7169832423F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9353EBEC-A6EA-49BC-B6F3-7169832423F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9353EBEC-A6EA-49BC-B6F3-7169832423F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F2CE9DEF-4883-4C36-A37C-7B4840EBFEE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F2CE9DEF-4883-4C36-A37C-7B4840EBFEE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2CE9DEF-4883-4C36-A37C-7B4840EBFEE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{C8A77E53-DFBB-4078-B9FC-5016A7562322}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8A77E53-DFBB-4078-B9FC-5016A7562322}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8A77E53-DFBB-4078-B9FC-5016A7562322}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A51D771-DC33-4A66-82F9-C56BBD4E7004}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A51D771-DC33-4A66-82F9-C56BBD4E7004}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A51D771-DC33-4A66-82F9-C56BBD4E7004}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A51D771-DC33-4A66-82F9-C56BBD4E7004}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
