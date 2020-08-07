@@ -118,7 +118,7 @@ namespace PathLengthCheckerGUI
 			}
 			catch
 			{
-				MessageBox.Show($"The Starting Directory \"{txtRootDirectory.Text}\" does not exist. Please specify a valid directory.", "Invalid Starting Directory");
+				MessageBox.Show($"The Starting Directory \"{rootDirectory}\" does not exist. Please specify a valid directory.", "Invalid Starting Directory");
 				return;
 			}
 
