@@ -128,12 +128,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PathLengthChecker\PathLengthChecker.csproj">
-      <Project>{9353EBEC-A6EA-49BC-B6F3-7169832423F6}</Project>
-      <Name>PathLengthChecker</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\PathLengthCheckerIcon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +151,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PathLengthChecker\PathLengthChecker.csproj">
+      <Project>{4a51d771-dc33-4a66-82f9-c56bbd4e7004}</Project>
+      <Name>PathLengthChecker</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

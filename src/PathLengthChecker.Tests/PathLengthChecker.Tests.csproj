@@ -69,12 +69,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PathLengthChecker\PathLengthChecker.csproj">
-      <Project>{9353EBEC-A6EA-49BC-B6F3-7169832423F6}</Project>
-      <Name>PathLengthChecker</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="FluentAssertions">
       <Version>6.0.0-alpha0001</Version>
     </PackageReference>
@@ -94,6 +88,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PathLengthChecker\PathLengthChecker.csproj">
+      <Project>{4a51d771-dc33-4a66-82f9-c56bbd4e7004}</Project>
+      <Name>PathLengthChecker</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
