@@ -1,5 +1,4 @@
 ﻿using Alphaleonis.Win32.Filesystem;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,69 +7,6 @@ using SearchOption = System.IO.SearchOption;
 
 namespace PathLengthChecker
 {
-	/// <summary>
-	/// The type of Paths that should be included.
-	/// </summary>
-	[Flags]
-	public enum FileSystemTypes
-	{
-		Files = 1,
-		Directories = 2,
-		All = Files | Directories
-	}
-
-	public enum FileSystemSearchStrategies
-	{
-		/// <summary>
-		/// Uses the default .Net implementation.
-		/// Very fast, but haults when it encounters a directory it doesn't have permissions to go into.
-		/// </summary>
-		Fast = 1,
-
-		/// <summary>
-		/// Uses 3rd party AlphaFS implementation.
-		/// Safer in that it is able to enumerate over all directories, but slower.
-		/// </summary>
-		Safe = 2
-	}
-
-	/// <summary>
-	/// Options used when retrieving paths.
-	/// </summary>
-	public class PathSearchOptions
-	{
-		/// <summary>
-		/// The root directory to search in.
-		/// </summary>
-		public string RootDirectory = string.Empty;
-
-		/// <summary>
-		/// The search pattern to match against.
-		/// </summary>
-		public string SearchPattern = "*";
-
-		/// <summary>
-		/// Specifies if we should search subdirectories or not.
-		/// </summary>
-		public SearchOption SearchOption = SearchOption.AllDirectories;
-
-		/// <summary>
-		/// Specifies if we should look for Files, Directories, or both.
-		/// </summary>
-		public FileSystemTypes TypesToGet = FileSystemTypes.All;
-
-		/// <summary>
-		/// The directory that the root directory should be replaced with in the found paths.
-		/// Specify null to leave the original paths unmodified.
-		/// </summary>
-		public string RootDirectoryReplacement = null;
-
-		/// <summary>
-		/// Which implementation to use for searching the file system.
-		/// </summary>
-		public FileSystemSearchStrategies FileSystemSearchStrategy = FileSystemSearchStrategies.Fast;
-	}
-
 	/// <summary>
 	/// Class used to retrieve file system objects in a given path.
 	/// </summary>
