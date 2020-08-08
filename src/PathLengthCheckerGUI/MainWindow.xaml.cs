@@ -276,8 +276,8 @@ namespace PathLengthCheckerGUI
 
 		private void MenuItem_OpenDirectoryInFileExplorer_Click(object sender, RoutedEventArgs e)
 		{
+			// Get the directory path, as we can't open a file in File Explorer.
 			var directoryPath = string.Empty;
-
 			if (Directory.Exists(SelectedPath.Path))
 			{
 				directoryPath = SelectedPath.Path;
@@ -287,7 +287,11 @@ namespace PathLengthCheckerGUI
 				directoryPath = Directory.GetParent(SelectedPath.Path).FullName;
 			}
 
-			if (!string.IsNullOrWhiteSpace(directoryPath))
+			if (string.IsNullOrWhiteSpace(directoryPath))
+			{
+				MessageBox.Show($"The file/directory '{SelectedPath.Path}' does not appear to exist anymore, so it cannot be opened.", "Cannot open directory");
+			}
+			else
 			{
 				Process.Start(directoryPath);
 			}
