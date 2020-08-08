@@ -107,11 +107,15 @@ namespace PathLengthCheckerGUI
 			this.Paths = new BindingList<PathInfo>();
 			txtNumberOfPaths.Text = string.Empty;
 			txtMinAndMaxPathLengths.Text = string.Empty;
+			dgPaths.ItemsSource = null;	// Break the data binding as it kills performance to load in all the paths while it's searching.
 
 			// Mark the time that we started searching.
 			_timePathSearchingStarted = DateTime.Now;
 
 			await GetPaths(txtRootDirectory.Text.Trim(), txtReplaceRootDirectory.Text.Trim(), txtSearchPattern.Text, _searchCancellationTokenSource.Token);
+
+			// Display the results.
+			dgPaths.ItemsSource = Paths;
 
 			// Display the shortest and longest path lengths.
 			int shortestPathLength = Paths.Count > 0 ? Paths.Min(p => p.Length) : 0;
