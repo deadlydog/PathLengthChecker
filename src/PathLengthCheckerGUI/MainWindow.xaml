@@ -120,7 +120,7 @@
 		<Button Grid.Row="8" Content="Get Path Lengths..." Name="btnGetPathLengths" FontSize="40" Click="btnGetPathLengths_Click" IsDefault="True" />
 		<Button Grid.Row="8" Content="Cancel retrieving path lengths" Name="btnCancelGetPathLengths" FontSize="40" Click="btnCancelGetPathLengths_Click" Visibility="Collapsed" />
 
-		<DataGrid Grid.Row="10" AutoGenerateColumns="False" Name="dataPaths" IsReadOnly="False" ItemsSource="{Binding Path=Paths, IsAsync=True}" IsTextSearchEnabled="True" IsTabStop="False" Grid.ColumnSpan="4" LoadingRow="dataPaths_LoadingRow" SelectedItem="{Binding Path=SelectedPath, Mode=TwoWay}">
+		<DataGrid Grid.Row="10" AutoGenerateColumns="False" Name="grdPaths" IsReadOnly="False" ItemsSource="{Binding Path=Paths, IsAsync=True}" IsTextSearchEnabled="True" IsTabStop="False" Grid.ColumnSpan="4" CanUserSortColumns="True" LoadingRow="grdPaths_LoadingRow" SelectedItem="{Binding Path=SelectedPath, Mode=TwoWay}">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Length" IsReadOnly="True" Binding="{Binding Path=Length}" />
 				<DataGridTextColumn Header="Path" IsReadOnly="True" Binding="{Binding Path=Path}" />
