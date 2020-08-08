@@ -47,8 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileSystemSearchStrategies.cs" />
+    <Compile Include="FileSystemTypes.cs" />
+    <Compile Include="MinPathLengthGreaterThanMaxPathLengthException.cs" />
+    <Compile Include="PathInfo.cs" />
     <Compile Include="PathLengthChecker.cs" />
+    <Compile Include="PathLengthSearchOptions.cs" />
     <Compile Include="PathRetriever.cs" />
+    <Compile Include="PathSearchOptions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

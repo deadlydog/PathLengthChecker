@@ -28,6 +28,7 @@ namespace PathLengthCheckerGUI
 
 			// Set the default type for the combo boxes.
 			cmbTypesToInclude.SelectedValue = FileSystemTypes.All;
+			cmbSearchStrategy.SelectedValue = FileSystemSearchStrategies.Fast;
 
 			SetWindowTitle();
 		}
@@ -166,7 +167,8 @@ namespace PathLengthCheckerGUI
 				TypesToGet = (FileSystemTypes)cmbTypesToInclude.SelectedValue,
 				RootDirectoryReplacement = rootDirectoryReplacement,
 				MinimumPathLength = minPathLength,
-				MaximumPathLength = maxPathLength
+				MaximumPathLength = maxPathLength,
+				FileSystemSearchStrategy = (FileSystemSearchStrategies)cmbSearchStrategy.SelectedValue
 			};
 
 
@@ -182,7 +184,8 @@ namespace PathLengthCheckerGUI
 				}
 				catch (Exception ex)
 				{
-					MessageBox.Show(ex.Message, "Error Occurred");
+					MessageBox.Show($"An error occurred while retrieving paths:{Environment.NewLine}{Environment.NewLine}{ex.Message}{Environment.NewLine}{Environment.NewLine}'Access is denied' and other errors can be skipped by choosing the 'Safe' Strategy.", "Error Occurred");
+					Debug.WriteLine(ex.ToString());
 				}
 			}, cancellationToken);
 		}
@@ -255,7 +258,8 @@ namespace PathLengthCheckerGUI
 			}
 			catch (Exception ex)
 			{
-				Debug.Print(ex.Message);
+				MessageBox.Show($"An error occurred while copying text to the clipboard:{Environment.NewLine}{Environment.NewLine}{ex.Message}", "Error Occurred");
+				Debug.WriteLine(ex.ToString());
 			}
 		}
 

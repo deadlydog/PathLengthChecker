@@ -105,6 +105,12 @@ namespace PathLengthChecker
 						if (int.TryParse(value, out maxLength))
 							searchOptions.MaximumPathLength = maxLength;
 						break;
+					case "SearchStrategy":
+						if (string.Equals("Safe", value, StringComparison.OrdinalIgnoreCase))
+							searchOptions.FileSystemSearchStrategy = FileSystemSearchStrategies.Safe;
+						else
+							searchOptions.FileSystemSearchStrategy = FileSystemSearchStrategies.Fast;
+						break;
 					case "Output":
 						_output = value;
 						break;
@@ -125,6 +131,7 @@ namespace PathLengthChecker
 			Console.Error.WriteLine("SearchPattern= | The pattern to match files against. '*' is a wildcard character. Default is '*' to match against everything.");
 			Console.Error.WriteLine("MinLength= | An integer indicating the minimum length that a path must contain in order to be returned in the results. Default is -1 to ignore this flag.");
 			Console.Error.WriteLine("MaxLength= | An integer indicating the maximum length that a path may have in order to be returned in the results. Default is -1 to ignore this flag.");
+			Console.Error.WriteLine("SearchStrategy=[Fast|Safe] | Specifies which strategy to use to retrieve paths. Safe will continue when permissions issues are encountered, but Fast will halt. Default is Fast.");
 			Console.Error.WriteLine("Output=[MinLength|MaxLength|All] | Indicates if you just want the Min/Max path length to be outputted, or if you want all of the paths to be outputted. Default is All.");
 			Console.Error.WriteLine();
 			Console.Error.WriteLine("Example: PathLengthChecker.exe RootDirectory=\"C:\\MyDir\" TypesToInclude=OnlyFiles SearchPattern=*FindThis* MinLength=25");

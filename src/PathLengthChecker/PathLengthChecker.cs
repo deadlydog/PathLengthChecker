@@ -1,56 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 
 namespace PathLengthChecker
 {
-	/// <summary>
-	/// Holds info about a path.
-	/// </summary>
-	public struct PathInfo
-	{
-		public string Path { get; set; }
-		public int Length
-		{
-			get { return this.Path.Length; }
-		}
-
-		public override string ToString()
-		{
-			return Length + ": " + Path;
-		}
-	}
-
-	/// <summary>
-	/// Options used when retrieving paths with their lengths.
-	/// </summary>
-	public class PathLengthSearchOptions : PathSearchOptions
-	{
-		/// <summary>
-		/// The Minimum Length that a Path must have to be included in the search results.
-		/// Specify a value of -1 to ignore the minimum path length.
-		/// </summary>
-		public int MinimumPathLength = -1;
-
-		/// <summary>
-		/// The Maximum Length that a Path must have to be included in the search results.
-		/// Specify a value of -1 to ignore the maximum path length.
-		/// </summary>
-		public int MaximumPathLength = -1;
-	}
-
-	/// <summary>
-	/// Exception thrown when the Minimum Path Length search option is greater than the Maximum Path Length search option.
-	/// </summary>
-	public class MinPathLengthGreaterThanMaxPathLengthException : ArgumentException
-	{
-		public MinPathLengthGreaterThanMaxPathLengthException()
-			: base("MinimumPathLength can not be greater than the MaximumPathLength.")
-		{ }
-	}
-
 	/// <summary>
 	/// Class used to retrieve file system objects in a given path along with their path lengths.
 	/// </summary>
