@@ -22,16 +22,16 @@ namespace PathLengthChecker
 	public enum FileSystemSearchStrategies
 	{
 		/// <summary>
-		/// Default .Net implementation.
+		/// Uses the default .Net implementation.
 		/// Very fast, but haults when it encounters a directory it doesn't have permissions to go into.
 		/// </summary>
-		SystemIo = 1,
+		Fast = 1,
 
 		/// <summary>
-		/// 3rd party implementation.
+		/// Uses 3rd party AlphaFS implementation.
 		/// Safer in that it is able to enumerate over all directories, but slower.
 		/// </summary>
-		AlphaFs = 2
+		Safe = 2
 	}
 
 	/// <summary>
@@ -68,7 +68,7 @@ namespace PathLengthChecker
 		/// <summary>
 		/// Which implementation to use for searching the file system.
 		/// </summary>
-		public FileSystemSearchStrategies FileSystemSearchStrategy = FileSystemSearchStrategies.SystemIo;
+		public FileSystemSearchStrategies FileSystemSearchStrategy = FileSystemSearchStrategies.Fast;
 	}
 
 	/// <summary>
@@ -95,12 +95,12 @@ namespace PathLengthChecker
 			IEnumerable<string> paths = Enumerable.Empty<string>();
 			switch (searchOptions.FileSystemSearchStrategy)
 			{
-				case FileSystemSearchStrategies.AlphaFs:
+				case FileSystemSearchStrategies.Safe:
 					paths = GetPathsUsingAlphaFs(searchOptions);
 					break;
 
 				default:
-				case FileSystemSearchStrategies.SystemIo:
+				case FileSystemSearchStrategies.Fast:
 					paths = GetPathsUsingSystemIo(searchOptions);
 					break;
 			}

@@ -44,7 +44,7 @@
 
 		<ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type System:Enum}" x:Key="SearchStrategiesEnumValues" IsAsynchronous="True">
 			<ObjectDataProvider.MethodParameters>
-				<x:Type TypeName="local:SearchStrategies" />
+				<x:Type TypeName="PathLengthChecker:FileSystemSearchStrategies" />
 			</ObjectDataProvider.MethodParameters>
 		</ObjectDataProvider>
 

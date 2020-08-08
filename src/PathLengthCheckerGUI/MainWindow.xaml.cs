@@ -28,7 +28,7 @@ namespace PathLengthCheckerGUI
 
 			// Set the default type for the combo boxes.
 			cmbTypesToInclude.SelectedValue = FileSystemTypes.All;
-			cmbSearchStrategy.SelectedValue = SearchStrategies.Fast;
+			cmbSearchStrategy.SelectedValue = FileSystemSearchStrategies.Fast;
 
 			SetWindowTitle();
 		}
@@ -168,7 +168,7 @@ namespace PathLengthCheckerGUI
 				RootDirectoryReplacement = rootDirectoryReplacement,
 				MinimumPathLength = minPathLength,
 				MaximumPathLength = maxPathLength,
-				FileSystemSearchStrategy = (SearchStrategies)cmbSearchStrategy.SelectedValue == SearchStrategies.Fast ? FileSystemSearchStrategies.SystemIo : FileSystemSearchStrategies.AlphaFs
+				FileSystemSearchStrategy = (FileSystemSearchStrategies)cmbSearchStrategy.SelectedValue
 			};
 
 
