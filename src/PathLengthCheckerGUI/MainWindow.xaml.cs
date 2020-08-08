@@ -183,7 +183,6 @@ namespace PathLengthCheckerGUI
 			}, cancellationToken);
 		}
 
-
 		public delegate void PathInfoConsumer(PathInfo pathItem);
 		public void AddPathToList(PathInfo pathItem)
 		{
@@ -265,7 +264,7 @@ namespace PathLengthCheckerGUI
 			}
 		}
 
-		private void dataPaths_LoadingRow(object sender, System.Windows.Controls.DataGridRowEventArgs e)
+		private void dgPaths_LoadingRow(object sender, System.Windows.Controls.DataGridRowEventArgs e)
 		{
 			// Show row numbers in the grid.
 			e.Row.Header = (e.Row.GetIndex() + 1).ToString();
