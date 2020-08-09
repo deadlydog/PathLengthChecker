@@ -107,7 +107,6 @@ namespace PathLengthCheckerGUI
 			Paths = new BindingList<PathInfo>();
 			txtNumberOfPaths.Text = string.Empty;
 			txtMinAndMaxPathLengths.Text = string.Empty;
-			dgPaths.ItemsSource = null; // Break the data binding as it kills performance to load in all the paths while it's searching.
 
 			RecordAndDisplayTimeSearchStarted();
 
@@ -121,9 +120,6 @@ namespace PathLengthCheckerGUI
 				MessageBox.Show($"An error occurred while retrieving paths:{Environment.NewLine}{Environment.NewLine}{ex.Message}", "Error Occurred");
 				Debug.WriteLine(ex.ToString());
 			}
-
-			// Display the results.
-			dgPaths.ItemsSource = Paths;
 
 			DisplayResultsMetadata();
 
