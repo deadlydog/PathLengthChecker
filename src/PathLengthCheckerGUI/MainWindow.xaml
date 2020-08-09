@@ -96,10 +96,10 @@
 			<CheckBox Grid.Column="3" Content="Include Subdirectories" Name="chkIncludeSubdirectories" IsChecked="True" FontSize="14" VerticalAlignment="Center" ToolTip="If enabled it will search for files/directories in all subdirectories of the Starting Directory." />
 			
 			<TextBlock Grid.Column="5" FontSize="14" Margin="0,0,5,0" Text="Min Path Length:" VerticalAlignment="Center" ToolTip="Only paths with this many or more characters will be returned in the search results. Use 260 to identify long paths." />
-			<extToolkit:IntegerUpDown Grid.Column="6" Name="numMinPathLength" Value="0" DefaultValue="0" Minimum="0" Maximum="999999" FontSize="14" ToolTip="Only paths with this many or more characters will be returned in the search results. Use 260 to identify long paths." />
+			<extToolkit:IntegerUpDown Grid.Column="6" Name="numMinPathLength" Value="0" DefaultValue="0" Minimum="0" Maximum="999999" MinWidth="50" FontSize="14" ToolTip="Only paths with this many or more characters will be returned in the search results. Use 260 to identify long paths." />
 			
 			<TextBlock Grid.Column="8" FontSize="14" Margin="0,0,5,0" Text="Max Path Length:" VerticalAlignment="Center" ToolTip="Only paths with this many or less characters will be returned in the search results." />
-			<extToolkit:IntegerUpDown Grid.Column="9" DefaultValue="0" FontSize="14" Maximum="999999" Minimum="0" Name="numMaxPathLength" ToolTip="Only paths with this many or less characters will be returned in the search results." Value="999999" />
+			<extToolkit:IntegerUpDown Grid.Column="9" DefaultValue="0" FontSize="14" Minimum="0" Maximum="999999" MinWidth="50" Name="numMaxPathLength" ToolTip="Only paths with this many or less characters will be returned in the search results." Value="999999" />
 		</Grid>
 
 		<DockPanel Grid.Row="4">
