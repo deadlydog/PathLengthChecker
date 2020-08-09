@@ -105,7 +105,7 @@ namespace PathLengthCheckerGUI
 			btnCancelGetPathLengths.Visibility = Visibility.Visible;
 
 			// Clear any previous paths out.
-			this.Paths = new BindingList<PathInfo>();
+			Paths = new BindingList<PathInfo>();
 			txtNumberOfPaths.Text = string.Empty;
 			txtMinAndMaxPathLengths.Text = string.Empty;
 			dgPaths.ItemsSource = null;	// Break the data binding as it kills performance to load in all the paths while it's searching.
@@ -113,10 +113,20 @@ namespace PathLengthCheckerGUI
 			// Mark the time that we started searching.
 			_timePathSearchingStarted = DateTime.Now;
 
-			await GetPaths(txtRootDirectory.Text.Trim(), txtReplaceRootDirectory.Text.Trim(), txtSearchPattern.Text, _searchCancellationTokenSource.Token);
+			try
+			{
+				await BuildSearchOptionsAndGetPaths(txtRootDirectory.Text.Trim(), txtReplaceRootDirectory.Text.Trim(), txtSearchPattern.Text, _searchCancellationTokenSource.Token);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"An error occurred while retrieving paths:{Environment.NewLine}{Environment.NewLine}{ex.Message}{Environment.NewLine}{Environment.NewLine}'Access is denied' and other errors can be skipped by choosing the 'Safe' Strategy.", "Error Occurred");
+				Debug.WriteLine(ex.ToString());
+			}
 
 			// Display the results.
 			dgPaths.ItemsSource = Paths;
+
+			DisplayResultsMetadata();
 
 			// Display the shortest and longest path lengths.
 			int shortestPathLength = Paths.Count > 0 ? Paths.Min(p => p.Length) : 0;
@@ -133,7 +143,7 @@ namespace PathLengthCheckerGUI
 		/// <summary>
 		/// Gets the paths and displays them on the UI.
 		/// </summary>
-		private async Task GetPaths(string rootDirectory, string rootDirectoryReplacement, string searchPattern, CancellationToken cancellationToken)
+		private async Task BuildSearchOptionsAndGetPaths(string rootDirectory, string rootDirectoryReplacement, string searchPattern, CancellationToken cancellationToken)
 		{
 			try
 			{
@@ -171,47 +181,26 @@ namespace PathLengthCheckerGUI
 				FileSystemSearchStrategy = (FileSystemSearchStrategies)cmbSearchStrategy.SelectedValue
 			};
 
-
-			// Get the new paths.
-			await Task.Run(() =>
+			// Get the paths in a background task so we don't lock the UI.
+			Paths = await Task.Run(() =>
 			{
-				try
-				{
-					foreach (var pathItem in PathLengthChecker.PathLengthChecker.GetPathsWithLengths(searchOptions, cancellationToken))
-					{
-						AddPathToList(pathItem);
-					}
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show($"An error occurred while retrieving paths:{Environment.NewLine}{Environment.NewLine}{ex.Message}{Environment.NewLine}{Environment.NewLine}'Access is denied' and other errors can be skipped by choosing the 'Safe' Strategy.", "Error Occurred");
-					Debug.WriteLine(ex.ToString());
-				}
+				var paths = PathLengthChecker.PathLengthChecker.GetPathsWithLengths(searchOptions, cancellationToken);
+				return new BindingList<PathInfo>(paths.ToList());
 			}, cancellationToken);
 		}
 
-		public delegate void PathInfoConsumer(PathInfo pathItem);
-		public void AddPathToList(PathInfo pathItem)
+		private void DisplayResultsMetadata()
 		{
-			if (!Dispatcher.CheckAccess())
+			// Display the number of paths found.
+			var timeSinceSearchingStarted = DateTime.Now - _timePathSearchingStarted;
+			var text = $"{Paths.Count} paths found in {timeSinceSearchingStarted.ToString(@"mm\:ss\.f")}";
+
+			if (_searchCancellationTokenSource.IsCancellationRequested)
 			{
-				Dispatcher.Invoke(new PathInfoConsumer(AddPathToList), new object[] { pathItem });
+				text += " - Cancelled";
 			}
-			else
-			{
-				this.Paths.Add(pathItem);
 
-				// Display the number of paths found.
-				var timeSinceSearchingStarted = DateTime.Now - _timePathSearchingStarted;
-				var text = $"{Paths.Count} paths found in {timeSinceSearchingStarted.ToString(@"mm\:ss\.f")}";
-
-				if (_searchCancellationTokenSource.IsCancellationRequested)
-				{
-					text += " - Cancelled";
-				}
-
-				this.txtNumberOfPaths.Text = text;
-			}
+			this.txtNumberOfPaths.Text = text;
 		}
 
 		/// <summary>
