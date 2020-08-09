@@ -283,7 +283,7 @@ namespace PathLengthCheckerGUI
 
 			if (string.IsNullOrWhiteSpace(directoryPath))
 			{
-				MessageBox.Show($"The file/directory '{SelectedPath.Path}' does not appear to exist anymore, so it cannot be opened.", "Cannot open directory");
+				MessageBox.Show($"The following directory either does not anymore, or it's path is greater than 260 characters, so it cannot be opened.{Environment.NewLine}{Environment.NewLine}{SelectedPath.Path}", "Cannot Open Directory");
 			}
 			else
 			{
