@@ -16,7 +16,7 @@ namespace PathLengthChecker
 		/// <param name="options">The options.</param>
 		public static IEnumerable<PathInfo> GetPathsWithLengths(PathLengthSearchOptions options, CancellationToken cancellationToken)
 		{
-			foreach (var path in GetPaths(options, cancellationToken))
+			foreach (var path in RetrievePaths(options, cancellationToken))
 			{
 				yield return new PathInfo() { Path = path };
 			}
@@ -36,7 +36,7 @@ namespace PathLengthChecker
 			return text.ToString();
 		}
 
-		private static IEnumerable<string> GetPaths(PathLengthSearchOptions options, CancellationToken cancellationToken)
+		private static IEnumerable<string> RetrievePaths(PathLengthSearchOptions options, CancellationToken cancellationToken)
 		{
 			// Make sure valid lengths were supplied
 			if (options.MinimumPathLength > options.MaximumPathLength && options.MinimumPathLength >= 0 && options.MaximumPathLength >= 0)
