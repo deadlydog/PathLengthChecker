@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileSystemSearchStrategies.cs" />
     <Compile Include="FileSystemTypes.cs" />
     <Compile Include="MinPathLengthGreaterThanMaxPathLengthException.cs" />
     <Compile Include="PathInfo.cs" />

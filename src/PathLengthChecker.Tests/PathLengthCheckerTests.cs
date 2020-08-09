@@ -100,16 +100,8 @@ namespace PathLengthChecker.Tests
 			_filesFixture = filesFixture;
 		}
 
-		public static IEnumerable<object[]> FileSystemSearchStrategiesToTest =>
-			new List<object[]>
-			{
-				new object[] { FileSystemSearchStrategies.Fast },
-				new object[] { FileSystemSearchStrategies.Safe }
-			};
-
-		[Theory]
-		[MemberData(nameof(FileSystemSearchStrategiesToTest))]
-		public void GetAllPaths(FileSystemSearchStrategies searchStrategy)
+		[Fact]
+		public void GetAllPaths()
 		{
 			// Setup the Search Options
 			var searchOptions = new PathLengthSearchOptions()
@@ -120,8 +112,7 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1,
-				FileSystemSearchStrategy = searchStrategy
+				MaximumPathLength = -1
 			};
 
 			// Because we try and get a list of paths.
@@ -134,9 +125,8 @@ namespace PathLengthChecker.Tests
 			paths.Should().OnlyContain(p => _filesFixture.Directories.Contains(p) || _filesFixture.Files.Contains(p));
 		}
 
-		[Theory]
-		[MemberData(nameof(FileSystemSearchStrategiesToTest))]
-		public void GetAllDirectories(FileSystemSearchStrategies searchStrategy)
+		[Fact]
+		public void GetAllDirectories()
 		{
 			// Setup the Search Options
 			var searchOptions = new PathLengthSearchOptions()
@@ -147,8 +137,7 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1,
-				FileSystemSearchStrategy = searchStrategy
+				MaximumPathLength = -1
 			};
 
 			// Because we try and get a list of directory paths.
@@ -161,9 +150,8 @@ namespace PathLengthChecker.Tests
 			paths.Should().OnlyContain(p => _filesFixture.Directories.Contains(p));
 		}
 
-		[Theory]
-		[MemberData(nameof(FileSystemSearchStrategiesToTest))]
-		public void GetAllFiles(FileSystemSearchStrategies searchStrategy)
+		[Fact]
+		public void GetAllFiles()
 		{
 			// Setup the Search Options
 			var searchOptions = new PathLengthSearchOptions()
@@ -174,8 +162,7 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1,
-				FileSystemSearchStrategy = searchStrategy
+				MaximumPathLength = -1
 			};
 
 			// Because we try and get a list of file paths.
@@ -188,9 +175,8 @@ namespace PathLengthChecker.Tests
 			paths.Should().OnlyContain(p => _filesFixture.Files.Contains(p));
 		}
 
-		[Theory]
-		[MemberData(nameof(FileSystemSearchStrategiesToTest))]
-		public void GetAllPathsInTopLevelDirectory(FileSystemSearchStrategies searchStrategy)
+		[Fact]
+		public void GetAllPathsInTopLevelDirectory()
 		{
 			// Setup the Search Options
 			var searchOptions = new PathLengthSearchOptions()
@@ -201,8 +187,7 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1,
-				FileSystemSearchStrategy = searchStrategy
+				MaximumPathLength = -1
 			};
 
 			// Because we try and get a list of paths.
@@ -215,9 +200,8 @@ namespace PathLengthChecker.Tests
 			paths.Should().OnlyContain(p => string.Equals(Path.GetDirectoryName(p.Path), _filesFixture.RootPath));
 		}
 
-		[Theory]
-		[MemberData(nameof(FileSystemSearchStrategiesToTest))]
-		public void GetAllDirectoriesInTopLevelDirectory(FileSystemSearchStrategies searchStrategy)
+		[Fact]
+		public void GetAllDirectoriesInTopLevelDirectory()
 		{
 			// Setup the Search Options
 			var searchOptions = new PathLengthSearchOptions()
@@ -228,8 +212,7 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1,
-				FileSystemSearchStrategy = searchStrategy
+				MaximumPathLength = -1
 			};
 
 			// Because we try and get a list of paths.
@@ -242,9 +225,8 @@ namespace PathLengthChecker.Tests
 			paths.Should().OnlyContain(p => string.Equals(Path.GetDirectoryName(p.Path), _filesFixture.RootPath));
 		}
 
-		[Theory]
-		[MemberData(nameof(FileSystemSearchStrategiesToTest))]
-		public void GetAllFilesInTopLevelDirectory(FileSystemSearchStrategies searchStrategy)
+		[Fact]
+		public void GetAllFilesInTopLevelDirectory()
 		{
 			// Setup the Search Options
 			var searchOptions = new PathLengthSearchOptions()
@@ -255,8 +237,7 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1,
-				FileSystemSearchStrategy = searchStrategy
+				MaximumPathLength = -1
 			};
 
 			// Because we try and get a list of paths.
@@ -269,9 +250,8 @@ namespace PathLengthChecker.Tests
 			paths.Should().OnlyContain(p => string.Equals(Path.GetDirectoryName(p.Path), _filesFixture.RootPath));
 		}
 
-		[Theory]
-		[MemberData(nameof(FileSystemSearchStrategiesToTest))]
-		public void GetAllFilesFromEmptyDirectory(FileSystemSearchStrategies searchStrategy)
+		[Fact]
+		public void GetAllFilesFromEmptyDirectory()
 		{
 			// Setup the Search Options
 			var searchOptions = new PathLengthSearchOptions()
@@ -282,8 +262,7 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1,
-				FileSystemSearchStrategy = searchStrategy
+				MaximumPathLength = -1
 			};
 
 			// Because we try and get a list of paths from an empty directory.
@@ -293,9 +272,8 @@ namespace PathLengthChecker.Tests
 			paths.Should().HaveCount(0);
 		}
 
-		[Theory]
-		[MemberData(nameof(FileSystemSearchStrategiesToTest))]
-		public void InvalidDirectorySoShouldThrowException(FileSystemSearchStrategies searchStrategy)
+		[Fact]
+		public void InvalidDirectorySoShouldThrowException()
 		{
 			// Setup the Search Options
 			var searchOptions = new PathLengthSearchOptions()
@@ -306,8 +284,7 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1,
-				FileSystemSearchStrategy = searchStrategy
+				MaximumPathLength = -1
 			};
 
 			// Because we try and get a list of paths from a directory that does not exist.
@@ -317,9 +294,8 @@ namespace PathLengthChecker.Tests
 			act.Should().Throw<DirectoryNotFoundException>();
 		}
 
-		[Theory]
-		[MemberData(nameof(FileSystemSearchStrategiesToTest))]
-		public void GetAllPathsLessThanXCharacters(FileSystemSearchStrategies searchStrategy)
+		[Fact]
+		public void GetAllPathsLessThanXCharacters()
 		{
 			// Get a length that doesn't include all paths, and then get the list of paths that should match the length condition.
 			int maxPathLength = _filesFixture.AllPaths.Min(p => p.Length) + 1;
@@ -334,8 +310,7 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = maxPathLength,
-				FileSystemSearchStrategy = searchStrategy
+				MaximumPathLength = maxPathLength
 			};
 
 			// Because we try and get a list of paths.
@@ -348,9 +323,8 @@ namespace PathLengthChecker.Tests
 			paths.Should().OnlyContain(p => expectedPaths.Contains(p));
 		}
 
-		[Theory]
-		[MemberData(nameof(FileSystemSearchStrategiesToTest))]
-		public void GetAllPathsMoreThanXCharacters(FileSystemSearchStrategies searchStrategy)
+		[Fact]
+		public void GetAllPathsMoreThanXCharacters()
 		{
 			// Get a length that doesn't include all paths, and then get the list of paths that should match the length condition.
 			int minPathLength = _filesFixture.AllPaths.Max(p => p.Length) - 1;
@@ -365,8 +339,7 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = minPathLength,
-				MaximumPathLength = -1,
-				FileSystemSearchStrategy = searchStrategy
+				MaximumPathLength = -1
 			};
 
 			// Because we try and get a list of paths.
@@ -379,9 +352,8 @@ namespace PathLengthChecker.Tests
 			paths.Should().OnlyContain(p => expectedPaths.Contains(p));
 		}
 
-		[Theory]
-		[MemberData(nameof(FileSystemSearchStrategiesToTest))]
-		public void GetAllPathsMoreThanXAndLessThanYCharacters(FileSystemSearchStrategies searchStrategy)
+		[Fact]
+		public void GetAllPathsMoreThanXAndLessThanYCharacters()
 		{
 			// Get a length that doesn't include all paths, and then get the list of paths that should match the length condition.
 			int minPathLength = _filesFixture.AllPaths.Min(p => p.Length) + 1;
@@ -397,8 +369,7 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = minPathLength,
-				MaximumPathLength = maxPathLength,
-				FileSystemSearchStrategy = searchStrategy
+				MaximumPathLength = maxPathLength
 			};
 
 			// Because we try and get a list of paths.
@@ -411,9 +382,8 @@ namespace PathLengthChecker.Tests
 			paths.Should().OnlyContain(p => expectedPaths.Contains(p));
 		}
 
-		[Theory]
-		[MemberData(nameof(FileSystemSearchStrategiesToTest))]
-		public void MinimumPathLengthGreaterThanMaximumPathLengthSoShouldThrowException(FileSystemSearchStrategies searchStrategy)
+		[Fact]
+		public void MinimumPathLengthGreaterThanMaximumPathLengthSoShouldThrowException()
 		{
 			// Setup the Search Options
 			var searchOptions = new PathLengthSearchOptions()
@@ -424,8 +394,7 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = 2,
-				MaximumPathLength = 1,
-				FileSystemSearchStrategy = searchStrategy
+				MaximumPathLength = 1
 			};
 
 			// Because we try and get a list of paths from a directory that does not exist.

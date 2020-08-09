@@ -28,7 +28,6 @@ namespace PathLengthCheckerGUI
 
 			// Set the default type for the combo boxes.
 			cmbTypesToInclude.SelectedValue = FileSystemTypes.All;
-			cmbSearchStrategy.SelectedValue = FileSystemSearchStrategies.Fast;
 
 			SetWindowTitle();
 		}
@@ -119,7 +118,7 @@ namespace PathLengthCheckerGUI
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show($"An error occurred while retrieving paths:{Environment.NewLine}{Environment.NewLine}{ex.Message}{Environment.NewLine}{Environment.NewLine}'Access is denied' and other errors can be skipped by choosing the 'Safe' Strategy.", "Error Occurred");
+				MessageBox.Show($"An error occurred while retrieving paths:{Environment.NewLine}{Environment.NewLine}{ex.Message}", "Error Occurred");
 				Debug.WriteLine(ex.ToString());
 			}
 
@@ -177,8 +176,7 @@ namespace PathLengthCheckerGUI
 				TypesToGet = (FileSystemTypes)cmbTypesToInclude.SelectedValue,
 				RootDirectoryReplacement = rootDirectoryReplacement,
 				MinimumPathLength = minPathLength,
-				MaximumPathLength = maxPathLength,
-				FileSystemSearchStrategy = (FileSystemSearchStrategies)cmbSearchStrategy.SelectedValue
+				MaximumPathLength = maxPathLength
 			};
 
 			// Get the paths in a background task so we don't lock the UI.

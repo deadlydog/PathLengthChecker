@@ -32,10 +32,5 @@ namespace PathLengthChecker
 		/// Specify null to leave the original paths unmodified.
 		/// </summary>
 		public string RootDirectoryReplacement = null;
-
-		/// <summary>
-		/// Which implementation to use for searching the file system.
-		/// </summary>
-		public FileSystemSearchStrategies FileSystemSearchStrategy = FileSystemSearchStrategies.Fast;
 	}
 }
