@@ -107,11 +107,11 @@ namespace PathLengthCheckerGUI
 			Paths = new BindingList<PathInfo>();
 			txtNumberOfPaths.Text = string.Empty;
 			txtMinAndMaxPathLengths.Text = string.Empty;
-			dgPaths.ItemsSource = null;	// Break the data binding as it kills performance to load in all the paths while it's searching.
+			dgPaths.ItemsSource = null; // Break the data binding as it kills performance to load in all the paths while it's searching.
 
-			// Mark the time that we started searching.
-			_timePathSearchingStarted = DateTime.Now;
+			RecordAndDisplayTimeSearchStarted();
 
+			// Search for all paths that match the search criteria.
 			try
 			{
 				await BuildSearchOptionsAndGetPaths(txtRootDirectory.Text.Trim(), txtReplaceRootDirectory.Text.Trim(), txtSearchPattern.Text, _searchCancellationTokenSource.Token);
@@ -127,16 +127,17 @@ namespace PathLengthCheckerGUI
 
 			DisplayResultsMetadata();
 
-			// Display the shortest and longest path lengths.
-			int shortestPathLength = Paths.Count > 0 ? Paths.Min(p => p.Length) : 0;
-			int longestPathLength = Paths.Count > 0 ? Paths.Max(p => p.Length) : 0;
-			txtMinAndMaxPathLengths.Text = string.Format("Shortest Path: {0}, Longest Path: {1} characters", shortestPathLength, longestPathLength);
-
 			// Restore the search button.
 			btnGetPathLengths.IsEnabled = true;
 			btnGetPathLengths.Visibility = Visibility.Visible;
 			btnCancelGetPathLengths.IsEnabled = false;
 			btnCancelGetPathLengths.Visibility = Visibility.Collapsed;
+		}
+
+		private void RecordAndDisplayTimeSearchStarted()
+		{
+			_timePathSearchingStarted = DateTime.Now;
+			txtNumberOfPaths.Text = $"Started searching at {_timePathSearchingStarted.ToString("HH:mm:ss tt")}...";
 		}
 
 		/// <summary>
@@ -193,12 +194,18 @@ namespace PathLengthCheckerGUI
 			var timeSinceSearchingStarted = DateTime.Now - _timePathSearchingStarted;
 			var text = $"{Paths.Count} paths found in {timeSinceSearchingStarted.ToString(@"mm\:ss\.f")}";
 
+			// If the user cancelled the search part way through, indicate that.
 			if (_searchCancellationTokenSource.IsCancellationRequested)
 			{
-				text += " - Cancelled";
+				text += " - Search Cancelled";
 			}
 
 			this.txtNumberOfPaths.Text = text;
+
+			// Display the shortest and longest path lengths.
+			int shortestPathLength = Paths.Count > 0 ? Paths.Min(p => p.Length) : 0;
+			int longestPathLength = Paths.Count > 0 ? Paths.Max(p => p.Length) : 0;
+			txtMinAndMaxPathLengths.Text = string.Format("Shortest Path: {0}, Longest Path: {1} characters", shortestPathLength, longestPathLength);
 		}
 
 		/// <summary>
