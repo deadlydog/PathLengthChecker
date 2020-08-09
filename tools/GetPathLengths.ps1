@@ -3,10 +3,10 @@
 param
 (
     [Parameter(HelpMessage = 'The directory to scan path lengths in. Subdirectories will be scanned as well.')]
-    [string] $DirectoryPathToScan = 'C:\Users',
+    [string] $DirectoryPathToScan = 'C:\Temp',
 
     [Parameter(HelpMessage = 'Only paths this length or longer will be included in the results. Set this to 260 to find problematic paths in Windows.')]
-    [int] $MinimumPathLengthsToShow = 259,
+    [int] $MinimumPathLengthsToShow = 0,
 
     [Parameter(HelpMessage = 'If the results should be written to the console or not. Can be slow if there are many results.')]
     [bool] $WriteResultsToConsole = $false,
@@ -20,6 +20,10 @@ param
     [Parameter(HelpMessage = 'The file path to write the results to when $WriteResultsToFile is true.')]
     [string] $ResultsFilePath = 'C:\Temp\PathLengths.txt'
 )
+
+# Display the time that this script started running.
+[datetime] $startTime = Get-Date
+Write-Verbose "Starting script at '$startTime'." -Verbose
 
 # Ensure output directory exists
 [string] $resultsFileDirectoryPath = Split-Path $ResultsFilePath -Parent
@@ -53,5 +57,10 @@ Get-ChildItem -Path $DirectoryPathToScan -Recurse -Force |
 }
 
 if ($WriteResultsToFile) { $fileStream.Close() }
+
+# Display the time that this script finished running, and how long it took to run.
+[datetime] $finishTime = Get-Date
+[timespan] $elapsedTime = $finishTime - $startTime
+Write-Verbose "Finished script at '$finishTime'. Took '$elapsedTime' to run." -Verbose
 
 if ($WriteResultsToGridView) { $filePathsAndLengths | Out-GridView -Title "Paths under '$DirectoryPathToScan' longer than '$MinimumPathLengthsToShow'." }
