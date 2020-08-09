@@ -16,6 +16,6 @@ Once the app is open, simply provide the `Root Directory` you want it to search 
 
 The `PathLengthChecker.exe` is the command-line alternative to the GUI. Simply run it without any parameters to see what parameters you can pass to it.
 
-## Extra Info
+## Running via PowerShell
 
 If you are looking or a PowerShell equivalent of this tool, you can use [this PowerShell script](tools/GetPathLengths.ps1) that offers similar functionality.
