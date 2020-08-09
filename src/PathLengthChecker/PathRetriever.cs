@@ -28,18 +28,7 @@ namespace PathLengthChecker
 				searchOptions.SearchPattern = "*";
 
 			// Get the paths according to the search parameters
-			IEnumerable<string> paths = Enumerable.Empty<string>();
-			switch (searchOptions.FileSystemSearchStrategy)
-			{
-				case FileSystemSearchStrategies.Safe:
-					paths = GetPathsUsingAlphaFs(searchOptions);
-					break;
-
-				default:
-				case FileSystemSearchStrategies.Fast:
-					paths = GetPathsUsingSystemIo(searchOptions);
-					break;
-			}
+			var paths = GetPathsUsingAlphaFs(searchOptions);
 
 			// Return each of the paths, replacing the Root Directory if specified to do so.
 			foreach (var path in paths)

@@ -41,12 +41,6 @@
 				<x:Type TypeName="PathLengthChecker:FileSystemTypes" />
 			</ObjectDataProvider.MethodParameters>
 		</ObjectDataProvider>
-
-		<ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type System:Enum}" x:Key="SearchStrategiesEnumValues" IsAsynchronous="True">
-			<ObjectDataProvider.MethodParameters>
-				<x:Type TypeName="PathLengthChecker:FileSystemSearchStrategies" />
-			</ObjectDataProvider.MethodParameters>
-		</ObjectDataProvider>
 	</Window.Resources>
 	
 	<Grid Margin="5">
@@ -94,8 +88,6 @@
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="120"/>
 			</Grid.ColumnDefinitions>
 
 			<TextBlock Grid.Column="0" Text="Include:" FontSize="14" Margin="0,0,5,0" VerticalAlignment="Center"  ToolTip="The file system types to find and return the path length of." />
@@ -108,29 +100,6 @@
 			
 			<TextBlock Grid.Column="8" FontSize="14" Margin="0,0,5,0" Text="Max Path Length:" VerticalAlignment="Center" ToolTip="Only paths with this many or less characters will be returned in the search results." />
 			<extToolkit:IntegerUpDown Grid.Column="9" DefaultValue="0" FontSize="14" Maximum="999999" Minimum="0" Name="numMaxPathLength" ToolTip="Only paths with this many or less characters will be returned in the search results." Value="999999" />
-
-			<TextBlock Grid.Column="11" Text="Strategy:" FontSize="14" Margin="0,0,5,0"  VerticalAlignment="Center">
-				<TextBlock.ToolTip>
-					<TextBlock>
-						The strategy to use to search for paths.
-						<LineBreak />
-						Fast - Very fast, but stops if it encounters a directory it does not have permission to access. Also, cannot be cancelled part way through.
-						<LineBreak />
-						Safe - Slower, but ignores any permission errors encountered. Also, is able to be cancelled when searching is only partially complete.
-					</TextBlock>
-				</TextBlock.ToolTip>
-			</TextBlock>
-			<ComboBox Grid.Column="12" Name="cmbSearchStrategy" ItemsSource="{Binding Source={StaticResource SearchStrategiesEnumValues}}" FontSize="14">
-				<ComboBox.ToolTip>
-					<TextBlock>
-						The strategy to use to search for paths.
-						<LineBreak />
-						Fast - Very fast, but stops if it encounters a directory it does not have permission to access. Also, cannot be cancelled part way through.
-						<LineBreak />
-						Safe - Slower, but ignores any permission errors encountered. Also, is able to be cancelled when searching is only partially complete.
-					</TextBlock>
-				</ComboBox.ToolTip>
-			</ComboBox>
 		</Grid>
 
 		<DockPanel Grid.Row="4">
