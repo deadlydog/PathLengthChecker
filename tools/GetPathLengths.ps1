@@ -36,7 +36,7 @@ $filePathsAndLengths = [System.Collections.ArrayList]::new()
 
 # Get all file and directory paths and write them if applicable.
 Get-ChildItem -Path $DirectoryPathToScan -Recurse -Force |
-    Select-Object -Property FullName, @{Name = "FullNameLength"; Expression = { ($_.FullName.Length) } } |
+    Select-Object -Property @{Name = "FullNameLength"; Expression = { ($_.FullName.Length) } }, FullName |
     Sort-Object -Property FullNameLength -Descending |
     ForEach-Object {
 
