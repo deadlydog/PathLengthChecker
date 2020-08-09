@@ -18,4 +18,4 @@ The `PathLengthChecker.exe` is the command-line alternative to the GUI. Simply r
 
 ## Extra Info
 
-If you are looking or a PowerShell equivalent of this tool, you can check out [this blog post](https://blog.danskingdom.com/powershell-script-to-check-path-lengths/) to get a PowerShell script that offers similar functionality.
+If you are looking or a PowerShell equivalent of this tool, you can use [this PowerShell script](tools/GetPathLengths.ps1) that offers similar functionality.
