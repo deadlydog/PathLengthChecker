@@ -47,8 +47,8 @@
 				<x:Type TypeName="PathLengthChecker:FileSystemSearchStrategies" />
 			</ObjectDataProvider.MethodParameters>
 		</ObjectDataProvider>
-
 	</Window.Resources>
+	
 	<Grid Margin="5">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
