@@ -283,7 +283,7 @@ namespace PathLengthCheckerGUI
 
 			if (string.IsNullOrWhiteSpace(directoryPath))
 			{
-				MessageBox.Show($"The following directory either does not anymore, or it's path is greater than 260 characters, so it cannot be opened.{Environment.NewLine}{Environment.NewLine}{SelectedPath.Path}", "Cannot Open Directory");
+				MessageBox.Show($"The following directory (or file's directory) either does not anymore, you don't have permissions to access it, or it's path is greater than 260 characters, so it cannot be opened.{Environment.NewLine}{Environment.NewLine}{SelectedPath.Path}", "Cannot Open Directory");
 			}
 			else
 			{
