@@ -157,7 +157,7 @@ namespace PathLengthCheckerGUI
 		private void RecordAndDisplayTimeSearchStarted()
 		{
 			_timePathSearchingStarted = DateTime.Now;
-			txtNumberOfPaths.Text = $"Started searching at {_timePathSearchingStarted.ToString("HH:mm:ss tt")}...";
+			txtNumberOfPaths.Text = $"Started searching at {_timePathSearchingStarted.ToString("h:mm:ss tt")}...";
 		}
 
 		/// <summary>
