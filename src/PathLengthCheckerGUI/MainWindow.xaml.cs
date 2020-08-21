@@ -1,5 +1,6 @@
 ﻿using PathLengthChecker;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -9,15 +10,34 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace PathLengthCheckerGUI
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow : Window, INotifyPropertyChanged
 	{
+		#region Notify Property Changed
+		/// <summary>
+		/// Inherited event from INotifyPropertyChanged.
+		/// </summary>
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		/// <summary>
+		/// Fires the PropertyChanged event of INotifyPropertyChanged with the given property name.
+		/// </summary>
+		/// <param name="propertyName">The name of the property to fire the event against</param>
+		public void NotifyPropertyChanged(string propertyName)
+		{
+			if (PropertyChanged != null)
+				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+		#endregion
+
 		private DateTime _timePathSearchingStarted = DateTime.MinValue;
 		private CancellationTokenSource _searchCancellationTokenSource = new CancellationTokenSource();
 
@@ -37,12 +57,16 @@ namespace PathLengthCheckerGUI
 			this.Title = "Path Length Checker v" + Assembly.GetEntryAssembly().GetName().Version.ToString(3) + " - Written by Daniel Schroeder";
 		}
 
-		public BindingList<PathInfo> Paths
+		public ObservableCollection<PathInfo> Paths
 		{
-			get { return (BindingList<PathInfo>)GetValue(PathsProperty); }
-			set { SetValue(PathsProperty, value); }
+			get => _paths;
+			set
+			{
+				_paths = value;
+				NotifyPropertyChanged(nameof(Paths));
+			}
 		}
-		public static readonly DependencyProperty PathsProperty = DependencyProperty.Register("Paths", typeof(BindingList<PathInfo>), typeof(MainWindow), new UIPropertyMetadata(new BindingList<PathInfo>()));
+		private ObservableCollection<PathInfo> _paths = new ObservableCollection<PathInfo>();
 
 		public PathInfo SelectedPath
 		{
@@ -104,7 +128,7 @@ namespace PathLengthCheckerGUI
 			btnCancelGetPathLengths.Visibility = Visibility.Visible;
 
 			// Clear any previous paths out.
-			Paths = new BindingList<PathInfo>();
+			Paths = new ObservableCollection<PathInfo>();
 			txtNumberOfPaths.Text = string.Empty;
 			txtMinAndMaxPathLengths.Text = string.Empty;
 
@@ -180,7 +204,7 @@ namespace PathLengthCheckerGUI
 			Paths = await Task.Run(() =>
 			{
 				var paths = PathLengthChecker.PathLengthChecker.GetPathsWithLengths(searchOptions, cancellationToken);
-				return new BindingList<PathInfo>(paths.ToList());
+				return new ObservableCollection<PathInfo>(paths.ToList());
 			}, cancellationToken);
 		}
 
