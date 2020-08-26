@@ -24,6 +24,10 @@ Fixes:
 
 - Continue searching even if an inaccessible directory is found.
 
+Breaking Changes:
+
+- Minimum required .Net Framework changed from 4.0 to 4.5.2.
+
 ## v1.2.0 - May 25, 2018
 
 Features:
