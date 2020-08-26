@@ -1,6 +1,7 @@
 # Path Length Checker Description
 
-Path Length Checker is a stand-alone app that allows you to specify a root directory, and it gives you back a list of all paths (i.e. files and directories) in that root directory and their lengths. It includes features such as pattern matching and min/max length constraints, as well as the ability to specify a string that should replace the root directory in the results brought back, allowing you to quickly see path lengths if you were to move the files/folders to another location.
+Path Length Checker is a stand-alone app that allows you to specify a root (i.e. starting) directory, and it gives you back a list of all paths (i.e. files and directories) in that root directory and their lengths.
+It includes features such as pattern matching and min/max length constraints, as well as the ability to specify a string that should replace the root directory in the results brought back, allowing you to quickly see path lengths if you were to move the files/folders to another location.
 
 Download it from [the Releases page](https://github.com/deadlydog/PathLengthChecker/releases).
 
@@ -8,7 +9,7 @@ Download it from [the Releases page](https://github.com/deadlydog/PathLengthChec
 
 To run the Path Length Checker using the GUI, run the `PathLengthCheckerGUI.exe`.
 
-Once the app is open, simply provide the `Root Directory` you want it to search and press the large `Get Path Lengths...` button.
+Once the app is open, simply provide the `Starting Directory` you want it to search and press the large `Get Path Lengths...` button.
 
 ![Path Length Checker screenshot](docs/Images/PathLengthChecker.png)
 
