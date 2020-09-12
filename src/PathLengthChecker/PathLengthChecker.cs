@@ -31,7 +31,7 @@ namespace PathLengthChecker
 			var text = new StringBuilder();
 			foreach (var path in GetPathsWithLengths(options, cancellationToken))
 			{
-				text.AppendLine(path.ToString());
+				text.AppendLine($"{path.Length}: {path.Path}");
 			}
 			return text.ToString();
 		}

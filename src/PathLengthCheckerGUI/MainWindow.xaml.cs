@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -228,35 +229,52 @@ namespace PathLengthCheckerGUI
 			txtMinAndMaxPathLengths.Text = string.Format("Shortest Path: {0}, Longest Path: {1} characters", shortestPathLength, longestPathLength);
 		}
 
-		/// <summary>
-		/// Handles the Click event of the btnCopyToClipboardWithoutLengths control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-		private void btnCopyToClipboardWithoutLengths_Click(object sender, RoutedEventArgs e)
-		{
-			var text = new StringBuilder();
-			foreach (var path in Paths)
-			{
-				text.AppendLine(path.Path);
-			}
-			SetClipboardText(text.ToString());
-		}
-
-		/// <summary>
-		/// Handles the Click event of the btnCopyToClipboard control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnCopyToClipboard_Click(object sender, RoutedEventArgs e)
 		{
+			var text = GetPathsAsString(includeLength: true);
+			SetClipboardText(text);
+		}
+
+		private void btnCopyToClipboardWithoutLengths_Click(object sender, RoutedEventArgs e)
+		{
+			var text = GetPathsAsString(includeLength: false);
+			SetClipboardText(text);
+		}
+
+		private void btnCopyToClipboardAsCsv_Click(object sender, RoutedEventArgs e)
+		{
+			var text = GetPathsAsCsvString(includeLength: true);
+			SetClipboardText(text);
+		}
+		
+		private void btnCopyToClipboardWithoutLengthsAsCsv_Click(object sender, RoutedEventArgs e)
+		{
+			var text = GetPathsAsCsvString(includeLength: false);
+			SetClipboardText(text);
+		}
+
+		private string GetPathsAsString(bool includeLength)
+		{
 			var text = new StringBuilder();
 			foreach (var path in Paths)
 			{
-				text.AppendLine(path.ToString());
+				var item = includeLength ? $"{path.Length}: {path.Path}" : path.Path;
+				text.AppendLine(item);
 			}
-			SetClipboardText(text.ToString());
+			return text.ToString();
 		}
+
+		private string GetPathsAsCsvString(bool includeLength)
+		{
+			var text = new StringBuilder();
+			foreach (var path in Paths)
+			{
+				var item = includeLength ? $"{path.Length},{path.Path}" : path.Path;
+				text.Append(item + ",");
+			}
+			return text.ToString().TrimEnd(',');
+		}
+
 		/// <summary>
 		/// Handles threading issues and swallows exceptions.
 		/// </summary>
