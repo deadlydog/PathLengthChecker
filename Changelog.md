@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.5.0 - September 12, 2020
+
+Features:
+
+- Use a Split Button for all Copy To Clipboard commands.
+- Add 2 new buttons to allow copying paths to clipboard as CSV.
+
 ## v1.4.0 - August 21, 2020
 
 Features:
