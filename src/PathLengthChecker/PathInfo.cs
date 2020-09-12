@@ -10,10 +10,5 @@
 		{
 			get { return this.Path.Length; }
 		}
-
-		public override string ToString()
-		{
-			return Length + ": " + Path;
-		}
 	}
 }
