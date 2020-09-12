@@ -229,7 +229,7 @@ namespace PathLengthCheckerGUI
 			txtMinAndMaxPathLengths.Text = string.Format("Shortest Path: {0}, Longest Path: {1} characters", shortestPathLength, longestPathLength);
 		}
 
-		private void btnCopyToClipboard_Click(object sender, RoutedEventArgs e)
+		private void splitbtnCopyToClipboard_Click(object sender, RoutedEventArgs e)
 		{
 			var text = GetPathsAsString(includeLength: true);
 			SetClipboardText(text);
@@ -239,18 +239,26 @@ namespace PathLengthCheckerGUI
 		{
 			var text = GetPathsAsString(includeLength: false);
 			SetClipboardText(text);
+			CloseCopyToClipboardSplitButtonDropDown();
 		}
 
 		private void btnCopyToClipboardAsCsv_Click(object sender, RoutedEventArgs e)
 		{
 			var text = GetPathsAsCsvString(includeLength: true);
 			SetClipboardText(text);
+			CloseCopyToClipboardSplitButtonDropDown();
 		}
 		
 		private void btnCopyToClipboardWithoutLengthsAsCsv_Click(object sender, RoutedEventArgs e)
 		{
 			var text = GetPathsAsCsvString(includeLength: false);
 			SetClipboardText(text);
+			CloseCopyToClipboardSplitButtonDropDown();
+		}
+
+		private void CloseCopyToClipboardSplitButtonDropDown()
+		{
+			splitbtnCopyToClipboard.IsOpen = false;
 		}
 
 		private string GetPathsAsString(bool includeLength)

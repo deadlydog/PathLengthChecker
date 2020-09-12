@@ -147,7 +147,7 @@
 		<TextBlock Grid.Row="14" FontSize="14" Name="txtMinAndMaxPathLengths" Text="" />
 
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="12" Grid.RowSpan="4">
-			<extToolkit:SplitButton x:Name="btnCopyToClipboard" Content="Copy Paths to Clipboard" Click="btnCopyToClipboard_Click" FontSize="14" Width="350">
+			<extToolkit:SplitButton x:Name="splitbtnCopyToClipboard" Content="Copy Paths to Clipboard" Click="splitbtnCopyToClipboard_Click" FontSize="14" Width="350">
 				<extToolkit:SplitButton.DropDownContent>
 					<StackPanel Orientation="Vertical" Width="345">
 						<Button x:Name="btnCopyToClipboardWithoutLengths" Content="Copy Paths to Clipboard without Lengths" Click="btnCopyToClipboardWithoutLengths_Click" />
