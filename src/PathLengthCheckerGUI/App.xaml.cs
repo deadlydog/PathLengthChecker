@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace PathLengthCheckerGUI
 {
@@ -17,6 +16,20 @@ namespace PathLengthCheckerGUI
 		public App() : base()
 		{
 			SetupUnhandledExceptionHandling();
+			Startup += App_Startup;
+		}
+
+		private void App_Startup(object sender, StartupEventArgs e)
+		{
+			var mainWindow = new MainWindow();
+
+			if (e.Args.Length > 0 && Directory.Exists(e.Args[0]))
+			{
+				mainWindow.txtRootDirectory.Text = e.Args[0];
+				mainWindow.btnGetPathLengths.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+			}
+
+			mainWindow.Show();
 		}
 
 		private void SetupUnhandledExceptionHandling()
