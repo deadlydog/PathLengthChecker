@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.6.0 - October 6, 2020
+
+Features:
+
+- Drag-and-drop a directory onto the `PathLengthCheckerGUI.exe` to automatically start the application and have it search that directory.
+Special thanks to [@mwanchap](https://github.com/mwanchap) for the PR! 😊
+
 ## v1.5.0 - September 12, 2020
 
 Features:
