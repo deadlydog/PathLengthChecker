@@ -13,7 +13,7 @@ Once the app is open, simply provide the `Starting Directory` you want it to sea
 
 You can also drag-and-drop a directory from File Explorer onto the `PathLengthCheckerGUI.exe` file to have it open up the application and search the directory automatically.
 
-[Path Length Checker screenshot](docs/Images/PathLengthChecker.png)
+![Path Length Checker screenshot](docs/Images/PathLengthChecker.png)
 
 ## Running via the Command Line
 
