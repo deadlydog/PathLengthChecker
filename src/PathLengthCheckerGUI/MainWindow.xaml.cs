@@ -42,6 +42,8 @@ namespace PathLengthCheckerGUI
 		private DateTime _timePathSearchingStarted = DateTime.MinValue;
 		private CancellationTokenSource _searchCancellationTokenSource = new CancellationTokenSource();
 
+		internal PathLengthSearchOptions argSearchOptions = null;
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -190,7 +192,7 @@ namespace PathLengthCheckerGUI
 				rootDirectoryReplacement = null;
 
 			// Build the options to search with.
-			var searchOptions = new PathLengthSearchOptions()
+			var searchOptions = this.argSearchOptions ?? new PathLengthSearchOptions()
 			{
 				RootDirectory = rootDirectory,
 				SearchPattern = searchPattern,

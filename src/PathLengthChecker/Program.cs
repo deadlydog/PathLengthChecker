@@ -8,9 +8,6 @@ namespace PathLengthChecker
 {
 	class Program
 	{
-		// Used to tell what the console app should output.
-		private static string _output = string.Empty;
-
 		/// <summary>
 		/// Application entry point.
 		/// </summary>
@@ -20,19 +17,18 @@ namespace PathLengthChecker
 			try
 			{
 				// Fill the search options from the provided command line arguments.
-				var searchOptions = new PathLengthSearchOptions();
-				ParseArgs(args, ref searchOptions);
+				var searchOptions = ArgumentParser.ParseArgs(args);
 
-				if (string.Equals(_output, "MinLength", StringComparison.InvariantCultureIgnoreCase) ||
-					string.Equals(_output, "MaxLength", StringComparison.InvariantCultureIgnoreCase))
+				if (string.Equals(searchOptions.OutputType, "MinLength", StringComparison.InvariantCultureIgnoreCase) ||
+					string.Equals(searchOptions.OutputType, "MaxLength", StringComparison.InvariantCultureIgnoreCase))
 				{
 					// Do the search.
 					var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, System.Threading.CancellationToken.None);
 
 					// Output the desired information (Min Path, Max Path, or All Paths).
-					if (string.Equals(_output, "MinLength", StringComparison.InvariantCultureIgnoreCase))
+					if (string.Equals(searchOptions.OutputType, "MinLength", StringComparison.InvariantCultureIgnoreCase))
 						Console.WriteLine(paths.Min(p => p.Length));
-					else if (string.Equals(_output, "MaxLength", StringComparison.InvariantCultureIgnoreCase))
+					else if (string.Equals(searchOptions.OutputType, "MaxLength", StringComparison.InvariantCultureIgnoreCase))
 						Console.WriteLine(paths.Max(p => p.Length));
 				}
 				else
@@ -56,61 +52,6 @@ namespace PathLengthChecker
 			}
 		}
 
-		private static void ParseArgs(IEnumerable<string> args, ref PathLengthSearchOptions searchOptions)
-		{
-			foreach (var arg in args)
-			{
-				// Split the command-line arg on the equals sign.
-				var parameter = arg.Split("=".ToCharArray(), 2);
-				if (parameter.Count() < 2)
-					throw new ArgumentException("All parameters must be of the format 'Parameter=Value'");
-
-				// Assign the Command and Value to temp variables for processing.
-				var command = parameter[0];
-				var value = parameter[1];
-
-				// Fill in the Search Options based on the Command.
-				switch (command)
-				{
-					default:
-						throw new ArgumentException("Unrecognized command: " + command);
-					case "RootDirectory":
-						searchOptions.RootDirectory = value;
-						break;
-					case "RootDirectoryReplacement":
-						searchOptions.RootDirectoryReplacement = string.Equals(value, "null", StringComparison.InvariantCultureIgnoreCase) ? null : value;
-						break;
-					case "SearchOption":
-						searchOptions.SearchOption = string.Equals("TopDirectory", value, StringComparison.InvariantCultureIgnoreCase) ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories;
-						break;
-					case "TypesToInclude":
-						FileSystemTypes typesToInclude = FileSystemTypes.All;
-						if (string.Equals("OnlyFiles", value, StringComparison.InvariantCultureIgnoreCase))
-							typesToInclude = FileSystemTypes.Files;
-						else if (string.Equals("OnlyDirectories", value, StringComparison.InvariantCultureIgnoreCase))
-							typesToInclude = FileSystemTypes.Directories;
-
-						searchOptions.TypesToGet = typesToInclude;
-						break;
-					case "SearchPattern":
-						searchOptions.SearchPattern = value;
-						break;
-					case "MinLength":
-						int minLength = -1;
-						if (int.TryParse(value, out minLength))
-							searchOptions.MinimumPathLength = minLength;
-						break;
-					case "MaxLength":
-						int maxLength = -1;
-						if (int.TryParse(value, out maxLength))
-							searchOptions.MaximumPathLength = maxLength;
-						break;
-					case "Output":
-						_output = value;
-						break;
-				}
-			}
-		}
 
 		/// <summary>
 		/// Prints the acceptable command line arguments.

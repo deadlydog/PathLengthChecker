@@ -16,5 +16,11 @@
 		/// Specify a value of -1 to ignore the maximum path length.
 		/// </summary>
 		public int MaximumPathLength = -1;
+
+		/// <summary>
+		/// Indicates the type of result that is output once the search completes.
+		/// Valid values are MinLength, MaxLength, or All. Default is All
+		/// </summary>
+		public string OutputType = "All";
 	}
 }

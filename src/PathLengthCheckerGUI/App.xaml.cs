@@ -24,10 +24,14 @@ namespace PathLengthCheckerGUI
 			var mainWindow = new MainWindow();
 
 			// If a directory was drag-and-dropped onto the GUI executable, launch with the app searching the given directory.
-			if (e.Args.Length > 0 && Directory.Exists(e.Args[0]))
+			if (e.Args.Length == 1 && Directory.Exists(e.Args[0]))
 			{
 				mainWindow.txtRootDirectory.Text = e.Args[0];
 				mainWindow.btnGetPathLengths.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+			}
+			else if (e.Args.Length > 1)
+			{
+				mainWindow.argSearchOptions = PathLengthChecker.ArgumentParser.ParseArgs(e.Args);
 			}
 
 			mainWindow.Show();
