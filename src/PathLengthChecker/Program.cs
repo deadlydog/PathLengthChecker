@@ -42,7 +42,7 @@ namespace PathLengthChecker
 				// Write any errors that occurred.
 				Console.Error.WriteLine(ex);
 				Console.Error.WriteLine();
-				PrintUsage();
+				Console.Error.WriteLine(ArgumentParser.ArgumentUsage);
 			}
 			finally
 			{
@@ -53,22 +53,6 @@ namespace PathLengthChecker
 		}
 
 
-		/// <summary>
-		/// Prints the acceptable command line arguments.
-		/// </summary>
-		private static void PrintUsage()
-		{
-			Console.Error.WriteLine("Parameters and example:");
-			Console.Error.WriteLine("RootDirectory= | Path to the directory to search through and list the paths of. Required.");
-			Console.Error.WriteLine("RootDirectoryReplacement=[null] | Path to replace the Root Directory with in the returned results. Specify 'null' to not replace the Root Directory. Default is null.");
-			Console.Error.WriteLine("SearchOption=[TopDirectory|All] | Specifies whether sub-directories should be searched or not. Default is All.");
-			Console.Error.WriteLine("TypesToInclude=[OnlyFiles|OnlyDirectories|All] | Specifies what types of paths should be returned in the results; files, directories, or both. Default is All.");
-			Console.Error.WriteLine("SearchPattern= | The pattern to match files against. '*' is a wildcard character. Default is '*' to match against everything.");
-			Console.Error.WriteLine("MinLength= | An integer indicating the minimum length that a path must contain in order to be returned in the results. Default is -1 to ignore this flag.");
-			Console.Error.WriteLine("MaxLength= | An integer indicating the maximum length that a path may have in order to be returned in the results. Default is -1 to ignore this flag.");
-			Console.Error.WriteLine("Output=[MinLength|MaxLength|All] | Indicates if you just want the Min/Max path length to be outputted, or if you want all of the paths to be outputted. Default is All.");
-			Console.Error.WriteLine();
-			Console.Error.WriteLine("Example: PathLengthChecker.exe RootDirectory=\"C:\\MyDir\" TypesToInclude=OnlyFiles SearchPattern=*FindThis* MinLength=25");
-		}
+		
 	}
 }

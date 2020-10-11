@@ -42,8 +42,6 @@ namespace PathLengthCheckerGUI
 		private DateTime _timePathSearchingStarted = DateTime.MinValue;
 		private CancellationTokenSource _searchCancellationTokenSource = new CancellationTokenSource();
 
-		internal PathLengthSearchOptions argSearchOptions = null;
-
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -192,7 +190,7 @@ namespace PathLengthCheckerGUI
 				rootDirectoryReplacement = null;
 
 			// Build the options to search with.
-			var searchOptions = this.argSearchOptions ?? new PathLengthSearchOptions()
+			var searchOptions = new PathLengthSearchOptions()
 			{
 				RootDirectory = rootDirectory,
 				SearchPattern = searchPattern,
@@ -341,6 +339,26 @@ namespace PathLengthCheckerGUI
 			{
 				Process.Start(directoryPath);
 			}
+		}
+
+		/// <summary>
+		/// Sets the state of UI controls based on the provided search options
+		/// </summary>
+		protected internal void SetUIControlsFromSearchOptions(PathLengthSearchOptions argSearchOptions)
+		{
+			txtRootDirectory.Text = argSearchOptions.RootDirectory;
+			txtSearchPattern.Text = argSearchOptions.SearchPattern;
+			chkIncludeSubdirectories.IsChecked = argSearchOptions.SearchOption == SearchOption.AllDirectories;
+			cmbTypesToInclude.SelectedValue = argSearchOptions.TypesToGet;
+
+			if (!String.IsNullOrEmpty(argSearchOptions.RootDirectoryReplacement))
+			{
+				txtReplaceRootDirectory.Text = argSearchOptions.RootDirectoryReplacement;
+				chkReplaceRootDirectory.IsChecked = true;
+			}
+
+			numMinPathLength.Value = argSearchOptions.MinimumPathLength;
+			numMaxPathLength.Value = argSearchOptions.MaximumPathLength;
 		}
 	}
 }
