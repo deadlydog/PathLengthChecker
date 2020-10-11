@@ -9,23 +9,23 @@ namespace PathLengthChecker
 {
     public class ArgumentParser
     {
-		public readonly static string ArgumentUsage =
-			"Parameters and example:\n" +
-			"RootDirectory= | Path to the directory to search through and list the paths of. Required.\n" +
-			"RootDirectoryReplacement=[null] | Path to replace the Root Directory with in the returned results. Specify 'null' to not replace the Root Directory. Default is null.\n" +
-			"SearchOption=[TopDirectory|All] | Specifies whether sub-directories should be searched or not. Default is All.\n" +
-			"TypesToInclude=[OnlyFiles|OnlyDirectories|All] | Specifies what types of paths should be returned in the results; files, directories, or both. Default is All.\n" +
-			"SearchPattern= | The pattern to match files against. '*' is a wildcard character. Default is '*' to match against everything.\n" +
-			"MinLength= | An integer indicating the minimum length that a path must contain in order to be returned in the results. Default is -1 to ignore this flag.\n" +
-			"MaxLength= | An integer indicating the maximum length that a path may have in order to be returned in the results. Default is -1 to ignore this flag.\n" +
-			"Output=[MinLength|MaxLength|All] | Indicates if you just want the Min/Max path length to be outputted, or if you want all of the paths to be outputted. Default is All.\n" +
-			"\n" +
-			"Example: PathLengthChecker.exe RootDirectory=\"C:\\MyDir\" TypesToInclude=OnlyFiles SearchPattern=*FindThis* MinLength=25";
+        public readonly static string ArgumentUsage =
+            "Parameters and example:\n" +
+            "RootDirectory= | Path to the directory to search through and list the paths of. Required.\n" +
+            "RootDirectoryReplacement=[null] | Path to replace the Root Directory with in the returned results. Specify 'null' to not replace the Root Directory. Default is null.\n" +
+            "SearchOption=[TopDirectory|All] | Specifies whether sub-directories should be searched or not. Default is All.\n" +
+            "TypesToInclude=[OnlyFiles|OnlyDirectories|All] | Specifies what types of paths should be returned in the results; files, directories, or both. Default is All.\n" +
+            "SearchPattern= | The pattern to match files against. '*' is a wildcard character. Default is '*' to match against everything.\n" +
+            "MinLength= | An integer indicating the minimum length that a path must contain in order to be returned in the results. Default is -1 to ignore this flag.\n" +
+            "MaxLength= | An integer indicating the maximum length that a path may have in order to be returned in the results. Default is -1 to ignore this flag.\n" +
+            "Output=[MinLength|MaxLength|All] | Indicates if you just want the Min/Max path length to be outputted, or if you want all of the paths to be outputted. Default is All.\n" +
+            "\n" +
+            "Example: PathLengthChecker.exe RootDirectory=\"C:\\MyDir\" TypesToInclude=OnlyFiles SearchPattern=*FindThis* MinLength=25";
 
-		/// <summary>
-		/// Parses the specified args array into a PathLengthSearchOptions object instance.
-		/// </summary>
-		public static PathLengthSearchOptions ParseArgs(IEnumerable<string> args)
+        /// <summary>
+        /// Parses the specified args array into a PathLengthSearchOptions object instance.
+        /// </summary>
+        public static PathLengthSearchOptions ParseArgs(IEnumerable<string> args)
         {
             var searchOptions = new PathLengthSearchOptions();
 
