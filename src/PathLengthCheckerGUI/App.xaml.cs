@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using PathLengthChecker;
 
 namespace PathLengthCheckerGUI
 {
@@ -24,10 +25,31 @@ namespace PathLengthCheckerGUI
 			var mainWindow = new MainWindow();
 
 			// If a directory was drag-and-dropped onto the GUI executable, launch with the app searching the given directory.
-			if (e.Args.Length > 0 && Directory.Exists(e.Args[0]))
+			if (e.Args.Length == 1 && Directory.Exists(e.Args[0]))
 			{
 				mainWindow.txtRootDirectory.Text = e.Args[0];
 				mainWindow.btnGetPathLengths.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+			}
+			else if (e.Args.Length >= 1)
+			{
+				try
+				{
+					var searchOptions = PathLengthChecker.ArgumentParser.ParseArgs(e.Args);
+					mainWindow.SetUIControlsFromSearchOptions(searchOptions);
+
+					// Only start the search if a root dir was specified
+					if (!String.IsNullOrEmpty(searchOptions?.RootDirectory))
+					{
+						mainWindow.btnGetPathLengths.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+					}
+				}
+				catch (ArgumentException ex)
+				{
+					string title = "Incorrect arguments";
+					string message = "Incorrectly-formatted arguments were passed to the program.\n\n";
+					message += ex.Message + "\n\n" + PathLengthChecker.ArgumentParser.ArgumentUsage;
+					MessageBox.Show(message, title);
+				}
 			}
 
 			mainWindow.Show();
