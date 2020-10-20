@@ -351,7 +351,7 @@ namespace PathLengthCheckerGUI
 			chkIncludeSubdirectories.IsChecked = argSearchOptions.SearchOption == SearchOption.AllDirectories;
 			cmbTypesToInclude.SelectedValue = argSearchOptions.TypesToGet;
 
-			if (!String.IsNullOrEmpty(argSearchOptions.RootDirectoryReplacement))
+			if (!string.IsNullOrEmpty(argSearchOptions.RootDirectoryReplacement))
 			{
 				txtReplaceRootDirectory.Text = argSearchOptions.RootDirectoryReplacement;
 				chkReplaceRootDirectory.IsChecked = true;
