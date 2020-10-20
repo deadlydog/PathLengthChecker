@@ -47,7 +47,7 @@ namespace PathLengthChecker
 
 			// Filter out paths that don't match the Minimum Path Length
 			foreach (var path in paths.Where(path => path.Length >= options.MinimumPathLength &&
-				(options.MaximumPathLength < 0 || path.Length <= options.MaximumPathLength)))
+				(options.MaximumPathLength <= 0 || path.Length <= options.MaximumPathLength)))
 			{
 				yield return path;
 			}

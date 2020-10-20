@@ -183,7 +183,7 @@ namespace PathLengthCheckerGUI
 			}
 
 			int minPathLength = numMinPathLength.Value ?? 0;
-			int maxPathLength = numMaxPathLength.Value ?? 999999;
+			int maxPathLength = numMaxPathLength.Value ?? PathLengthSearchOptions.MaximumPathLengthMaxValue;
 
 			// If we should NOT be replacing the Root Directory text, make sure we don't pass anything in for that parameter.
 			if (!(chkReplaceRootDirectory.IsChecked ?? false))
@@ -351,7 +351,7 @@ namespace PathLengthCheckerGUI
 			chkIncludeSubdirectories.IsChecked = argSearchOptions.SearchOption == SearchOption.AllDirectories;
 			cmbTypesToInclude.SelectedValue = argSearchOptions.TypesToGet;
 
-			if (!String.IsNullOrEmpty(argSearchOptions.RootDirectoryReplacement))
+			if (!string.IsNullOrEmpty(argSearchOptions.RootDirectoryReplacement))
 			{
 				txtReplaceRootDirectory.Text = argSearchOptions.RootDirectoryReplacement;
 				chkReplaceRootDirectory.IsChecked = true;
