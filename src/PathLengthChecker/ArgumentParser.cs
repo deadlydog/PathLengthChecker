@@ -77,7 +77,11 @@ namespace PathLengthChecker
                             searchOptions.MaximumPathLength = maxLength;
                         break;
                     case "Output":
-                        searchOptions.OutputType = value;
+                        OutputTypes outputType = OutputTypes.Paths;
+                        if (Enum.TryParse(value, out outputType))
+                        {
+                            searchOptions.OutputType = outputType;
+                        }
                         break;
                 }
             }

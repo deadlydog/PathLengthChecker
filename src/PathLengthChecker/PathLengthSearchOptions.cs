@@ -19,8 +19,8 @@
 
 		/// <summary>
 		/// Indicates the type of result that is output once the search completes.
-		/// Valid values are MinLength, MaxLength, or All. Default is All
+		/// Valid values are MinLength, MaxLength, or Paths. Default is Paths.
 		/// </summary>
-		public string OutputType = "All";
+		public OutputTypes OutputType = OutputTypes.Paths;
 	}
 }

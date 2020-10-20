@@ -50,6 +50,7 @@
     <Compile Include="ArgumentParser.cs" />
     <Compile Include="FileSystemTypes.cs" />
     <Compile Include="MinPathLengthGreaterThanMaxPathLengthException.cs" />
+    <Compile Include="OutputTypes.cs" />
     <Compile Include="PathInfo.cs" />
     <Compile Include="PathLengthChecker.cs" />
     <Compile Include="PathLengthSearchOptions.cs" />

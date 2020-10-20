@@ -19,16 +19,15 @@ namespace PathLengthChecker
 				// Fill the search options from the provided command line arguments.
 				var searchOptions = ArgumentParser.ParseArgs(args);
 
-				if (string.Equals(searchOptions.OutputType, "MinLength", StringComparison.InvariantCultureIgnoreCase) ||
-					string.Equals(searchOptions.OutputType, "MaxLength", StringComparison.InvariantCultureIgnoreCase))
+				if (searchOptions.OutputType == OutputTypes.MinLength || searchOptions.OutputType == OutputTypes.MaxLength)
 				{
 					// Do the search.
 					var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, System.Threading.CancellationToken.None);
 
 					// Output the desired information (Min Path, Max Path, or All Paths).
-					if (string.Equals(searchOptions.OutputType, "MinLength", StringComparison.InvariantCultureIgnoreCase))
+					if (searchOptions.OutputType == OutputTypes.MinLength)
 						Console.WriteLine(paths.Min(p => p.Length));
-					else if (string.Equals(searchOptions.OutputType, "MaxLength", StringComparison.InvariantCultureIgnoreCase))
+					else if (searchOptions.OutputType == OutputTypes.MaxLength)
 						Console.WriteLine(paths.Max(p => p.Length));
 				}
 				else
