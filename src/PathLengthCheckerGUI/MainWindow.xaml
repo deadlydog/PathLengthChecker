@@ -5,6 +5,7 @@
 		xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
 		xmlns:System="clr-namespace:System;assembly=mscorlib"
 		xmlns:PathLengthChecker="clr-namespace:PathLengthChecker;assembly=PathLengthChecker"
+		Style="{StaticResource DefaultWindowStyle}"
 		MinWidth="770" MinHeight="400"
 		Width="{local:ApplicationSettingsBinding WindowWidth}"
 		Height="{local:ApplicationSettingsBinding WindowHeight}"
@@ -13,34 +14,6 @@
 		WindowState="{local:ApplicationSettingsBinding WindowState}"
 		FocusManager.FocusedElement="{Binding ElementName=txtRootDirectory}">
 	<Window.Resources>
-		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-
-		<!-- Default all tooltips to show for 60 seconds -->
-		<Style TargetType="{x:Type Button}">
-			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
-		</Style>
-		<Style TargetType="{x:Type MenuItem}">
-			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
-		</Style>
-		<Style TargetType="{x:Type TextBlock}">
-			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
-		</Style>
-		<Style TargetType="{x:Type TextBox}">
-			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
-		</Style>
-		<Style TargetType="{x:Type CheckBox}">
-			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
-		</Style>
-		<Style TargetType="{x:Type ComboBox}">
-			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
-		</Style>
-		<Style TargetType="{x:Type ListBox}">
-			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
-		</Style>
-		<Style TargetType="{x:Type extToolkit:IntegerUpDown}">
-			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
-		</Style>
-
 		<ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type System:Enum}" x:Key="FileSystemTypesEnumValues" IsAsynchronous="True">
 			<ObjectDataProvider.MethodParameters>
 				<x:Type TypeName="PathLengthChecker:FileSystemTypes" />
@@ -77,9 +50,9 @@
 				<ColumnDefinition Width="40" />
 			</Grid.ColumnDefinitions>
 
-			<TextBlock Grid.Column="0" Text="Starting Directory:" FontSize="14" ToolTip="The root directory to look for files and/or directories in." />
-			<TextBox Grid.Column="2" Name="txtRootDirectory" FontSize="14" HorizontalAlignment="Stretch" ToolTip="The directory to look for files and/or directories in." />
-			<Button Grid.Column="3" Content="..." x:Name="btnBrowseForRootDirectory" Click="btnBrowseForRootDirectory_Click" FontSize="14" ToolTip="Browse for a folder to search in." />
+			<TextBlock Grid.Column="0" Text="Starting Directory:" ToolTip="The root directory to look for files and/or directories in." />
+			<TextBox Grid.Column="2" Name="txtRootDirectory" HorizontalAlignment="Stretch" ToolTip="The directory to look for files and/or directories in." />
+			<Button Grid.Column="3" Content="..." x:Name="btnBrowseForRootDirectory" Click="btnBrowseForRootDirectory_Click" ToolTip="Browse for a folder to search in." />
 		</Grid>
 
 		<Grid Grid.Row="2">
@@ -97,21 +70,21 @@
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 
-			<TextBlock Grid.Column="0" Text="Include:" FontSize="14" Margin="0,0,5,0" VerticalAlignment="Center"  ToolTip="The file system types to find and return the path length of." />
-			<ComboBox Grid.Column="1" Name="cmbTypesToInclude" ItemsSource="{Binding Source={StaticResource FileSystemTypesEnumValues}}" FontSize="14" ToolTip="The file system types to find and return the path length of." />
+			<TextBlock Grid.Column="0" Text="Include:" Margin="0,0,5,0" VerticalAlignment="Center"  ToolTip="The file system types to find and return the path length of." />
+			<ComboBox Grid.Column="1" Name="cmbTypesToInclude" ItemsSource="{Binding Source={StaticResource FileSystemTypesEnumValues}}" ToolTip="The file system types to find and return the path length of." />
 
-			<CheckBox Grid.Column="3" Content="Include Subdirectories" Name="chkIncludeSubdirectories" IsChecked="True" FontSize="14" VerticalAlignment="Center" ToolTip="If enabled it will search for files/directories in all subdirectories of the Starting Directory." />
+			<CheckBox Grid.Column="3" Content="Include Subdirectories" Name="chkIncludeSubdirectories" IsChecked="True" VerticalAlignment="Center" ToolTip="If enabled it will search for files/directories in all subdirectories of the Starting Directory." />
 
-			<TextBlock Grid.Column="5" FontSize="14" Margin="0,0,5,0" Text="Min Path Length:" VerticalAlignment="Center" ToolTip="Only paths with this many or more characters will be returned in the search results. Use 260 to identify long paths." />
-			<extToolkit:IntegerUpDown Grid.Column="6" Name="numMinPathLength" Value="0" DefaultValue="0" Minimum="0" Maximum="999999" MinWidth="50" FontSize="14" ToolTip="Only paths with this many or more characters will be returned in the search results. Use 260 to identify long paths." />
+			<TextBlock Grid.Column="5" Margin="0,0,5,0" Text="Min Path Length:" VerticalAlignment="Center" ToolTip="Only paths with this many or more characters will be returned in the search results. Use 260 to identify long paths." />
+			<extToolkit:IntegerUpDown Grid.Column="6" Name="numMinPathLength" Value="0" DefaultValue="0" Minimum="0" Maximum="999999" MinWidth="50" ToolTip="Only paths with this many or more characters will be returned in the search results. Use 260 to identify long paths." />
 
-			<TextBlock Grid.Column="8" FontSize="14" Margin="0,0,5,0" Text="Max Path Length:" VerticalAlignment="Center" ToolTip="Only paths with this many or less characters will be returned in the search results." />
-			<extToolkit:IntegerUpDown Grid.Column="9" DefaultValue="0" FontSize="14" Minimum="0" Maximum="999999" MinWidth="50" Name="numMaxPathLength" ToolTip="Only paths with this many or less characters will be returned in the search results." Value="999999" />
+			<TextBlock Grid.Column="8" Margin="0,0,5,0" Text="Max Path Length:" VerticalAlignment="Center" ToolTip="Only paths with this many or less characters will be returned in the search results." />
+			<extToolkit:IntegerUpDown Grid.Column="9" DefaultValue="0" Minimum="0" Maximum="999999" MinWidth="50" Name="numMaxPathLength" ToolTip="Only paths with this many or less characters will be returned in the search results." Value="999999" />
 		</Grid>
 
 		<DockPanel Grid.Row="4">
-			<TextBlock Text="Search Pattern:" FontSize="14" Margin="0,0,5,0" ToolTip="Only files/directories that match the given pattern will be returned." />
-			<TextBox Name="txtSearchPattern" FontSize="14" HorizontalAlignment="Stretch" ToolTip="Only files/directories that match the given pattern will be returned. The * is a wildcard." Text="" />
+			<TextBlock Text="Search Pattern:" Margin="0,0,5,0" ToolTip="Only files/directories that match the given pattern will be returned." />
+			<TextBox Name="txtSearchPattern" HorizontalAlignment="Stretch" ToolTip="Only files/directories that match the given pattern will be returned. The * is a wildcard." Text="" />
 		</DockPanel>
 
 		<Grid Grid.Row="6">
@@ -125,10 +98,10 @@
 				<ColumnDefinition Width="40" />
 			</Grid.ColumnDefinitions>
 
-			<CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="Replace the Starting Directory in the returned paths with:" Name="chkReplaceRootDirectory" FontSize="14" ToolTip="If this is not enabled, the Starting Directory will not be modified in the returned paths." />
+			<CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="Replace the Starting Directory in the returned paths with:" Name="chkReplaceRootDirectory" ToolTip="If this is not enabled, the Starting Directory will not be modified in the returned paths." />
 
-			<TextBox Grid.Row="1" Grid.Column="1" Name="txtReplaceRootDirectory" FontSize="14" HorizontalAlignment="Stretch" ToolTip="The path to replace the Starting Directory with in the paths that are returned." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
-			<Button Grid.Row="1" Grid.Column="2" Content="..."  Name="btnBrowseForReplaceRootDirectory" Click="btnBrowseForReplaceRootDirectory_Click" FontSize="14" ToolTip="Browse for a path to replace the Starting Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
+			<TextBox Grid.Row="1" Grid.Column="1" Name="txtReplaceRootDirectory" HorizontalAlignment="Stretch" ToolTip="The path to replace the Starting Directory with in the paths that are returned." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
+			<Button Grid.Row="1" Grid.Column="2" Content="..."  Name="btnBrowseForReplaceRootDirectory" Click="btnBrowseForReplaceRootDirectory_Click" ToolTip="Browse for a path to replace the Starting Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
 		</Grid>
 
 		<Button Grid.Row="8" Content="Get Path Lengths..." Name="btnGetPathLengths" FontSize="40" Click="btnGetPathLengths_Click" IsDefault="True" Margin="30,0,30,0" />
@@ -148,11 +121,11 @@
 			</DataGrid.ContextMenu>
 		</DataGrid>
 
-		<TextBlock Grid.Row="12" FontSize="14" Name="txtNumberOfPaths" Text="" />
-		<TextBlock Grid.Row="14" FontSize="14" Name="txtMinAndMaxPathLengths" Text="" />
+		<TextBlock Grid.Row="12" Name="txtNumberOfPaths" Text="" />
+		<TextBlock Grid.Row="14" Name="txtMinAndMaxPathLengths" Text="" />
 
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="12" Grid.RowSpan="4">
-			<extToolkit:SplitButton x:Name="splitbtnCopyToClipboard" Content="Copy Paths to Clipboard" Click="splitbtnCopyToClipboard_Click" FontSize="14" Width="350">
+			<extToolkit:SplitButton x:Name="splitbtnCopyToClipboard" Content="Copy Paths to Clipboard" Click="splitbtnCopyToClipboard_Click" Width="350">
 				<extToolkit:SplitButton.DropDownContent>
 					<StackPanel Orientation="Vertical" Width="345">
 						<Button x:Name="btnCopyToClipboardWithoutLengths" Content="Copy Paths to Clipboard without Lengths" Click="btnCopyToClipboardWithoutLengths_Click" />
