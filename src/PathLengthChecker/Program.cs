@@ -50,8 +50,5 @@ namespace PathLengthChecker
 					Console.ReadKey();
 			}
 		}
-
-
-		
 	}
 }
