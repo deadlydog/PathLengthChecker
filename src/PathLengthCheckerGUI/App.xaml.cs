@@ -17,49 +17,6 @@ namespace PathLengthCheckerGUI
 		public App() : base()
 		{
 			SetupUnhandledExceptionHandling();
-			Startup += App_Startup;
-			Exit += App_Exit;
-		}
-
-		private void App_Exit(object sender, ExitEventArgs e)
-		{
-			// Save any application settings that were changed when exiting (such as window size and position).
-			PathLengthCheckerGUI.Properties.Settings.Default.Save();
-		}
-
-		private void App_Startup(object sender, StartupEventArgs e)
-		{
-			var mainWindow = new MainWindow();
-
-			// If a directory was drag-and-dropped onto the GUI executable, launch with the app searching the given directory.
-			if (e.Args.Length == 1 && Directory.Exists(e.Args[0]))
-			{
-				mainWindow.txtRootDirectory.Text = e.Args[0];
-				mainWindow.btnGetPathLengths.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-			}
-			else if (e.Args.Length >= 1)
-			{
-				try
-				{
-					var searchOptions = PathLengthChecker.ArgumentParser.ParseArgs(e.Args);
-					mainWindow.SetUIControlsFromSearchOptions(searchOptions);
-
-					// Only start the search if a root dir was specified
-					if (!String.IsNullOrEmpty(searchOptions?.RootDirectory))
-					{
-						mainWindow.btnGetPathLengths.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-					}
-				}
-				catch (ArgumentException ex)
-				{
-					string title = "Incorrect arguments";
-					string message = "Incorrectly-formatted arguments were passed to the program.\n\n";
-					message += ex.Message + "\n\n" + PathLengthChecker.ArgumentParser.ArgumentUsage;
-					MessageBox.Show(message, title);
-				}
-			}
-
-			mainWindow.Show();
 		}
 
 		private void SetupUnhandledExceptionHandling()
@@ -114,6 +71,48 @@ namespace PathLengthCheckerGUI
 			{
 				Application.Current.Shutdown();
 			}
+		}
+
+		private void Application_Startup(object sender, StartupEventArgs e)
+		{
+			InitializeComponent();
+			var mainWindow = new MainWindow();
+
+			// If a directory was drag-and-dropped onto the GUI executable, launch with the app searching the given directory.
+			if (e.Args.Length == 1 && Directory.Exists(e.Args[0]))
+			{
+				mainWindow.txtRootDirectory.Text = e.Args[0];
+				mainWindow.btnGetPathLengths.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+			}
+			else if (e.Args.Length >= 1)
+			{
+				try
+				{
+					var searchOptions = PathLengthChecker.ArgumentParser.ParseArgs(e.Args);
+					mainWindow.SetUIControlsFromSearchOptions(searchOptions);
+
+					// Only start the search if a root dir was specified
+					if (!String.IsNullOrEmpty(searchOptions?.RootDirectory))
+					{
+						mainWindow.btnGetPathLengths.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+					}
+				}
+				catch (ArgumentException ex)
+				{
+					string title = "Incorrect arguments";
+					string message = "Incorrectly-formatted arguments were passed to the program.\n\n";
+					message += ex.Message + "\n\n" + PathLengthChecker.ArgumentParser.ArgumentUsage;
+					MessageBox.Show(message, title);
+				}
+			}
+
+			mainWindow.Show();
+		}
+
+		private void Application_Exit(object sender, ExitEventArgs e)
+		{
+			// Save any application settings that were changed when exiting (such as window size and position).
+			PathLengthCheckerGUI.Properties.Settings.Default.Save();
 		}
 	}
 }
