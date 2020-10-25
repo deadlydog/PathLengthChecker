@@ -18,6 +18,13 @@ namespace PathLengthCheckerGUI
 		{
 			SetupUnhandledExceptionHandling();
 			Startup += App_Startup;
+			Exit += App_Exit;
+		}
+
+		private void App_Exit(object sender, ExitEventArgs e)
+		{
+			// Save any application settings that were changed when exiting (such as window size and position).
+			PathLengthCheckerGUI.Properties.Settings.Default.Save();
 		}
 
 		private void App_Startup(object sender, StartupEventArgs e)
