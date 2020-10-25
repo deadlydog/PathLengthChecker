@@ -47,8 +47,7 @@ namespace PathLengthCheckerGUI
 			InitializeComponent();
 			this.DataContext = this;
 
-			// Set the default type for the combo boxes.
-			cmbTypesToInclude.SelectedValue = FileSystemTypes.All;
+			ResetAllUiSearchOptionsToDefaultValues();
 
 			SetWindowTitle();
 		}
@@ -363,7 +362,22 @@ namespace PathLengthCheckerGUI
 
 		private void btnResetSearchOptions_Click(object sender, RoutedEventArgs e)
 		{
+			ResetAllUiSearchOptionsToDefaultValues();
+		}
 
+		private void ResetAllUiSearchOptionsToDefaultValues()
+		{
+			txtRootDirectory.Text = string.Empty;
+			txtSearchPattern.Text = string.Empty;
+
+			numMinPathLength.Value = 0;
+			numMaxPathLength.Value = PathLengthSearchOptions.MaximumPathLengthMaxValue;
+
+			chkIncludeSubdirectories.IsChecked = true;
+			cmbTypesToInclude.SelectedValue = FileSystemTypes.All;
+
+			txtReplaceRootDirectory.Text = string.Empty;
+			chkReplaceRootDirectory.IsChecked = false;
 		}
 	}
 }
