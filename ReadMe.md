@@ -19,11 +19,11 @@ You can also drag-and-drop a directory from File Explorer onto the `PathLengthCh
 
 The `PathLengthChecker.exe` is the command-line alternative to the GUI. Simply run it without any parameters to see what parameters you can pass to it.
 
-`PathLengthCheckerGUI.exe` also supports the same command-line parameter syntax. Additionally, specifying the target directory alone to the GUI via command-line is supported and will begin a search using defaults. This is useful for launching the GUI application from other programs, such as a Windows Explorer context menu action.
+`PathLengthCheckerGUI.exe` also supports the same command-line parameter syntax. Additionally, specifying the target directory alone as the only argument is supported and will begin a search on the supplied path using defaults. This is useful for launching the GUI application from other programs, such as a Windows Explorer context menu action.
 
 ## Running via PowerShell
 
-If you are looking or a PowerShell equivalent of this tool, you can use [this PowerShell script](tools/GetPathLengths.ps1) that offers similar functionality.
+If you are looking for a PowerShell equivalent of this tool, you can use [this PowerShell script](tools/GetPathLengths.ps1) that offers similar functionality.
 
 ## Changelog
 
