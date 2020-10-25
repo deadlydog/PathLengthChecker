@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.7.0 - October 25, 2020
+
+Features:
+
+- `PathLengthCheckerGUI.exe` now supports the same command line arguments as `PathLengthChecker.exe`, allowing the GUI application to be launched externally and begin running immediately.
+Special thanks to [@mwanchap](https://github.com/mwanchap) for the PR! 😊
+
 ## v1.6.0 - October 6, 2020
 
 Features:
