@@ -26,9 +26,9 @@ namespace PathLengthCheckerGUI.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("900")]
-        public int WindowWidth {
+        public double WindowWidth {
             get {
-                return ((int)(this["WindowWidth"]));
+                return ((double)(this["WindowWidth"]));
             }
             set {
                 this["WindowWidth"] = value;
@@ -38,9 +38,9 @@ namespace PathLengthCheckerGUI.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("700")]
-        public int WindowHeight {
+        public double WindowHeight {
             get {
-                return ((int)(this["WindowHeight"]));
+                return ((double)(this["WindowHeight"]));
             }
             set {
                 this["WindowHeight"] = value;
@@ -50,24 +50,24 @@ namespace PathLengthCheckerGUI.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int WindowLeft {
+        public double WindowLeftPosition {
             get {
-                return ((int)(this["WindowLeft"]));
+                return ((double)(this["WindowLeftPosition"]));
             }
             set {
-                this["WindowLeft"] = value;
+                this["WindowLeftPosition"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int WindowTop {
+        public double WindowTopPosition {
             get {
-                return ((int)(this["WindowTop"]));
+                return ((double)(this["WindowTopPosition"]));
             }
             set {
-                this["WindowTop"] = value;
+                this["WindowTopPosition"] = value;
             }
         }
         
