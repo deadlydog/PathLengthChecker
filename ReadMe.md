@@ -28,3 +28,9 @@ If you are looking or a PowerShell equivalent of this tool, you can use [this Po
 ## Changelog
 
 See what's changed in the application over time by viewing [the changelog](Changelog.md).
+
+## Donate
+
+Buy my dogs a new chew toy for providing this application open source and for free :)
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/deadlydogDan/5USD)
