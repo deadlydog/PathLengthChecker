@@ -5,13 +5,13 @@
 		xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
 		xmlns:System="clr-namespace:System;assembly=mscorlib"
 		xmlns:PathLengthChecker="clr-namespace:PathLengthChecker;assembly=PathLengthChecker"
-		Style="{StaticResource DefaultWindowStyle}"
+		Style="{StaticResource ResourceKey=DefaultWindowStyle}"
 		MinWidth="770" MinHeight="400"
-		Width="{local:ApplicationSettingsBinding WindowWidth}"
-		Height="{local:ApplicationSettingsBinding WindowHeight}"
-		Left="{local:ApplicationSettingsBinding WindowLeftPosition}"
-		Top="{local:ApplicationSettingsBinding WindowTopPosition}"
-		WindowState="{local:ApplicationSettingsBinding WindowState}"
+		Width="{local:ApplicationSettingsBinding Path=WindowWidth}"
+		Height="{local:ApplicationSettingsBinding Path=WindowHeight}"
+		Left="{local:ApplicationSettingsBinding Path=WindowLeftPosition}"
+		Top="{local:ApplicationSettingsBinding Path=WindowTopPosition}"
+		WindowState="{local:ApplicationSettingsBinding Path=WindowState}"
 		FocusManager.FocusedElement="{Binding ElementName=txtRootDirectory}">
 	<Window.Resources>
 		<ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type System:Enum}" x:Key="FileSystemTypesEnumValues" IsAsynchronous="True">
