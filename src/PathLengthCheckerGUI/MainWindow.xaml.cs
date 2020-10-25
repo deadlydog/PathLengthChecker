@@ -360,5 +360,10 @@ namespace PathLengthCheckerGUI
 			numMinPathLength.Value = argSearchOptions.MinimumPathLength;
 			numMaxPathLength.Value = argSearchOptions.MaximumPathLength;
 		}
+
+		private void btnResetSearchOptions_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
 	}
 }

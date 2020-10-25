@@ -75,11 +75,47 @@
 
 			<CheckBox Grid.Column="3" Content="Include Subdirectories" Name="chkIncludeSubdirectories" IsChecked="True" VerticalAlignment="Center" ToolTip="If enabled it will search for files/directories in all subdirectories of the Starting Directory." />
 
-			<TextBlock Grid.Column="5" Margin="0,0,5,0" Text="Min Path Length:" VerticalAlignment="Center" ToolTip="Only paths with this many or more characters will be returned in the search results. Use 260 to identify long paths." />
-			<extToolkit:IntegerUpDown Grid.Column="6" Name="numMinPathLength" Value="0" DefaultValue="0" Minimum="0" Maximum="999999" MinWidth="50" ToolTip="Only paths with this many or more characters will be returned in the search results. Use 260 to identify long paths." />
+			<TextBlock Grid.Column="5" Margin="0,0,5,0" Text="Min Path Length:" VerticalAlignment="Center">
+				<TextBlock.ToolTip>
+					<TextBlock>
+						Only paths with this many or more characters will be returned in the search results.
+						<LineBreak />
+						Use 260 to identify long paths that Windows may have trouble handling.
+						<LineBreak />
+						Use 0 to not filter any paths by minimum length.
+					</TextBlock>
+				</TextBlock.ToolTip>
+			</TextBlock>
+			<extToolkit:IntegerUpDown Grid.Column="6" Name="numMinPathLength" Value="0" DefaultValue="0" Minimum="0" Maximum="999999" MinWidth="50">
+				<extToolkit:IntegerUpDown.ToolTip>
+					<TextBlock>
+						Only paths with this many or more characters will be returned in the search results.
+						<LineBreak />
+						Use 260 to identify long paths that Windows may have trouble handling.
+						<LineBreak />
+						Use 0 to not filter any paths by minimum length.
+					</TextBlock>
+				</extToolkit:IntegerUpDown.ToolTip>
+			</extToolkit:IntegerUpDown>
 
-			<TextBlock Grid.Column="8" Margin="0,0,5,0" Text="Max Path Length:" VerticalAlignment="Center" ToolTip="Only paths with this many or less characters will be returned in the search results." />
-			<extToolkit:IntegerUpDown Grid.Column="9" DefaultValue="0" Minimum="0" Maximum="999999" MinWidth="50" Name="numMaxPathLength" ToolTip="Only paths with this many or less characters will be returned in the search results." Value="999999" />
+			<TextBlock Grid.Column="8" Margin="0,0,5,0" Text="Max Path Length:" VerticalAlignment="Center">
+				<TextBlock.ToolTip>
+					<TextBlock>
+						Only paths with this many or less characters will be returned in the search results.
+						<LineBreak />
+						Use a large value like 999999 to not filter any paths by maximum length.
+					</TextBlock>
+				</TextBlock.ToolTip>
+			</TextBlock>
+			<extToolkit:IntegerUpDown Grid.Column="9" DefaultValue="0" Minimum="0" Maximum="999999" MinWidth="50" Name="numMaxPathLength" Value="999999">
+				<extToolkit:IntegerUpDown.ToolTip>
+					<TextBlock>
+						Only paths with this many or less characters will be returned in the search results.
+						<LineBreak />
+						Use a large value like 999999 to not filter any paths by maximum length.
+					</TextBlock>
+				</extToolkit:IntegerUpDown.ToolTip>
+			</extToolkit:IntegerUpDown>
 		</Grid>
 
 		<DockPanel Grid.Row="4">
@@ -104,8 +140,19 @@
 			<Button Grid.Row="1" Grid.Column="2" Content="..."  Name="btnBrowseForReplaceRootDirectory" Click="btnBrowseForReplaceRootDirectory_Click" ToolTip="Browse for a path to replace the Starting Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
 		</Grid>
 
-		<Button Grid.Row="8" Content="Get Path Lengths..." Name="btnGetPathLengths" FontSize="40" Click="btnGetPathLengths_Click" IsDefault="True" Margin="30,0,30,0" />
-		<Button Grid.Row="8" Content="Cancel retrieving paths" Name="btnCancelGetPathLengths" FontSize="40" Click="btnCancelGetPathLengths_Click" Margin="30,0,30,0" Visibility="Collapsed" />
+		<Grid Grid.Row="8">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="10" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="10" />
+				<ColumnDefinition Width="100" />
+			</Grid.ColumnDefinitions>
+			<Button Grid.Column="1" Content="Get Path Lengths..." Name="btnGetPathLengths" FontSize="40" Click="btnGetPathLengths_Click" IsDefault="True" />
+			<Button Grid.Column="1" Content="Cancel retrieving paths" Name="btnCancelGetPathLengths" FontSize="40" Click="btnCancelGetPathLengths_Click" Visibility="Collapsed" />
+			<Button Grid.Column="3" Name="btnResetSearchOptions" Margin="0,10,0,10" ToolTip="Reset all of the search fields to their default values." Click="btnResetSearchOptions_Click">
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center">Reset search options</TextBlock>
+			</Button>
+		</Grid>
 
 		<DataGrid Grid.Row="10" AutoGenerateColumns="False" Name="dgPaths" IsReadOnly="True" IsTabStop="False" Grid.ColumnSpan="4" LoadingRow="dgPaths_LoadingRow" ItemsSource="{Binding Source={StaticResource PathsCollectionViewSource}}" SelectedItem="{Binding Path=SelectedPath, Mode=TwoWay}" FontFamily="Courier New">
 			<DataGrid.Columns>
