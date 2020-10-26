@@ -47,8 +47,6 @@ namespace PathLengthCheckerGUI
 			InitializeComponent();
 			this.DataContext = this;
 
-			ResetAllUiSearchOptionsToDefaultValues();
-
 			SetWindowTitle();
 		}
 
@@ -367,6 +365,8 @@ namespace PathLengthCheckerGUI
 
 		private void ResetAllUiSearchOptionsToDefaultValues()
 		{
+			// Values specified here should match the default values in the Properties\Settings.settings file.
+
 			txtRootDirectory.Text = string.Empty;
 			txtSearchPattern.Text = string.Empty;
 

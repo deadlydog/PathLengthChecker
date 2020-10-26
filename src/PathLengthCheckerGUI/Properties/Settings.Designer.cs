@@ -82,5 +82,101 @@ namespace PathLengthCheckerGUI.Properties {
                 this["WindowState"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SearchOption_RootDirectory {
+            get {
+                return ((string)(this["SearchOption_RootDirectory"]));
+            }
+            set {
+                this["SearchOption_RootDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SearchOption_ReplaceRootDirectory {
+            get {
+                return ((bool)(this["SearchOption_ReplaceRootDirectory"]));
+            }
+            set {
+                this["SearchOption_ReplaceRootDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("All")]
+        public global::PathLengthChecker.FileSystemTypes SearchOption_FileSystemTypesToInclude {
+            get {
+                return ((global::PathLengthChecker.FileSystemTypes)(this["SearchOption_FileSystemTypesToInclude"]));
+            }
+            set {
+                this["SearchOption_FileSystemTypesToInclude"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SearchOption_IncludeSubdirectories {
+            get {
+                return ((bool)(this["SearchOption_IncludeSubdirectories"]));
+            }
+            set {
+                this["SearchOption_IncludeSubdirectories"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SearchOption_MinPathLength {
+            get {
+                return ((int)(this["SearchOption_MinPathLength"]));
+            }
+            set {
+                this["SearchOption_MinPathLength"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("999999")]
+        public int SearchOption_MaxPathLength {
+            get {
+                return ((int)(this["SearchOption_MaxPathLength"]));
+            }
+            set {
+                this["SearchOption_MaxPathLength"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SearchOption_SearchPattern {
+            get {
+                return ((string)(this["SearchOption_SearchPattern"]));
+            }
+            set {
+                this["SearchOption_SearchPattern"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SearchOption_RootDirectoryReplacementText {
+            get {
+                return ((string)(this["SearchOption_RootDirectoryReplacementText"]));
+            }
+            set {
+                this["SearchOption_RootDirectoryReplacementText"] = value;
+            }
+        }
     }
 }
