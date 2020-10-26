@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.8.0 - October 25, 2020
+
+Features:
+
+- Use monospaced font for paths shown in the grid.
+- Remember user's search option settings between sessions.
+- Added button to reset search options to their default values.
+- Remember the window's position and size between sessions.
+
 ## v1.7.0 - October 25, 2020
 
 Features:
