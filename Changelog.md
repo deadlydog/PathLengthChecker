@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.8.1 - November 25, 2020
+## v1.8.2 - November 25, 2020
 
 Fixes:
 
