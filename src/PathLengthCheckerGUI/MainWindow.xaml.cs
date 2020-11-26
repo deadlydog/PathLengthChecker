@@ -245,7 +245,7 @@ namespace PathLengthCheckerGUI
 			SetClipboardText(text);
 			CloseCopyToClipboardSplitButtonDropDown();
 		}
-		
+
 		private void btnCopyToClipboardWithoutLengthsAsCsv_Click(object sender, RoutedEventArgs e)
 		{
 			var text = GetPathsAsCsvString(includeLength: false);
@@ -288,8 +288,12 @@ namespace PathLengthCheckerGUI
 		{
 			try
 			{
-				Thread thread = new Thread(() => Clipboard.SetText(text));
-				thread.SetApartmentState(ApartmentState.STA); //Set the thread to STA
+				Thread thread = new Thread(
+					// Using Clipboard.SetText(string) can result in a race condition that throws an exception, so use SetDataObject instead.
+					// For more info, see: https://stackoverflow.com/a/39125098/602585
+					() => Clipboard.SetDataObject(text, true)
+				);
+				thread.SetApartmentState(ApartmentState.STA);
 				thread.Start();
 				thread.Join();
 			}

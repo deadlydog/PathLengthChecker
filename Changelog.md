@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.8.1 - November 25, 2020
+
+Fixes:
+
+- Prevent race condition that causes copying to the clipboard to crash the application.
+
 ## v1.8.0 - October 25, 2020
 
 Features:
