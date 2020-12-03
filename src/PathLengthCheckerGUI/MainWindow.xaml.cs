@@ -274,10 +274,10 @@ namespace PathLengthCheckerGUI
 			var text = new StringBuilder();
 			foreach (var path in Paths)
 			{
-				var item = includeLength ? $"{path.Length},{path.Path}" : path.Path;
-				text.Append(item + ",");
+				var item = includeLength ? $"{path.Length};\"{path.Path}\"" : path.Path;
+				text.Append(item + (char)13 + (char)10);
 			}
-			return text.ToString().TrimEnd(',');
+			return text.ToString();
 		}
 
 		/// <summary>
