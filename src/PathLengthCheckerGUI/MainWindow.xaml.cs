@@ -286,21 +286,26 @@ namespace PathLengthCheckerGUI
 		/// <param name="text">A string for the clipboard</param>
 		private static void SetClipboardText(string text)
 		{
-			try
+			// Copying to the clipboard can be unreliable, so we need to implement retries: https://stackoverflow.com/a/69081/602585
+			int maxAttempts = 100;
+			int millisecondsBetweenAttempts = 10;
+			for (int attempts = 1; attempts <= maxAttempts; attempts++)
 			{
-				Thread thread = new Thread(
-					// Using Clipboard.SetText(string) can result in a race condition that throws an exception, so use SetDataObject instead.
-					// For more info, see: https://stackoverflow.com/a/39125098/602585
-					() => Clipboard.SetDataObject(text, true)
-				);
-				thread.SetApartmentState(ApartmentState.STA);
-				thread.Start();
-				thread.Join();
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show($"An error occurred while copying text to the clipboard:{Environment.NewLine}{Environment.NewLine}{ex.Message}", "Error Occurred");
-				Debug.WriteLine(ex.ToString());
+				try
+				{
+					Clipboard.SetText(text);
+					return;
+				}
+				catch (Exception ex)
+				{
+					Debug.WriteLine(ex.ToString());
+
+					if (attempts == maxAttempts)
+					{
+						MessageBox.Show($"An error occurred while copying text to the clipboard:{Environment.NewLine}{Environment.NewLine}{ex.Message}", "Error Occurred Copying To Clipboard");
+					}
+				}
+				System.Threading.Thread.Sleep(millisecondsBetweenAttempts);
 			}
 		}
 
