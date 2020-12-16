@@ -1,4 +1,4 @@
-using PathLengthChecker;
+﻿using PathLengthChecker;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -272,10 +272,18 @@ namespace PathLengthCheckerGUI
 		private string GetPathsAsCsvString(bool includeLength)
 		{
 			var text = new StringBuilder();
+
+			var header = includeLength ?
+					"Length,\"Path\"" :
+					"\"Path\"";
+			text.AppendLine(header);
+
 			foreach (var path in Paths)
 			{
-				var item = includeLength ? $"{path.Length};\"{path.Path}\"" : path.Path;
-				text.Append(item + (char)13 + (char)10);
+				var item = includeLength ?
+					$"{path.Length},\"{path.Path}\"" :
+					$"\"{path.Path}\"";
+				text.AppendLine(item);
 			}
 			return text.ToString().Trim();
 		}
