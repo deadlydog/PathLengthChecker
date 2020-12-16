@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.8.5 - December 16, 2020
+
+Fixes:
+
+- Perform retries on copying to clipboard to prevent race condition error.
+
 ## v1.8.2 - November 25, 2020
 
 Fixes:
