@@ -266,18 +266,26 @@ namespace PathLengthCheckerGUI
 				var item = includeLength ? $"{path.Length}: {path.Path}" : path.Path;
 				text.AppendLine(item);
 			}
-			return text.ToString();
+			return text.ToString().Trim();
 		}
 
 		private string GetPathsAsCsvString(bool includeLength)
 		{
 			var text = new StringBuilder();
+
+			var header = includeLength ?
+					"Length,\"Path\"" :
+					"\"Path\"";
+			text.AppendLine(header);
+
 			foreach (var path in Paths)
 			{
-				var item = includeLength ? $"{path.Length};\"{path.Path}\"" : path.Path;
-				text.Append(item + (char)13 + (char)10);
+				var item = includeLength ?
+					$"{path.Length},\"{path.Path}\"" :
+					$"\"{path.Path}\"";
+				text.AppendLine(item);
 			}
-			return text.ToString();
+			return text.ToString().Trim();
 		}
 
 		/// <summary>
