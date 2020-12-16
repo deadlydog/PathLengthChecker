@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.8.8 - December 16, 2020
+
+Fixes:
+
+- Remove trailing newlines when copying text to clipboard.
+- Follow proper CSV conventions when copying text to clipboard as CSV.
+  - Put each item on a newline.
+  - Enclose each item in quotes.
+
 ## v1.8.5 - December 16, 2020
 
 Fixes:
