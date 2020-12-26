@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.9.0 - December 26, 2020
+
+Features:
+
+- Copy to clipboard functions copy paths in the same order they appear in the UI grid.
+
 ## v1.8.9 - December 16, 2020
 
 Fixes:

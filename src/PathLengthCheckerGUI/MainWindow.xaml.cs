@@ -1,5 +1,6 @@
 ﻿using PathLengthChecker;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -65,6 +66,11 @@ namespace PathLengthCheckerGUI
 			}
 		}
 		private ObservableCollection<PathInfo> _paths = new ObservableCollection<PathInfo>();
+
+		/// <summary>
+		/// This returns the same items as the Paths property, but sorted however the UI happens to be sorted.
+		/// </summary>
+		private IEnumerable<PathInfo> PathsFromUiDataGrid => dgPaths.Items.Cast<PathInfo>();
 
 		public PathInfo SelectedPath
 		{
@@ -228,27 +234,27 @@ namespace PathLengthCheckerGUI
 
 		private void splitbtnCopyToClipboard_Click(object sender, RoutedEventArgs e)
 		{
-			var text = GetPathsAsString(includeLength: true);
+			var text = GetPathsFromUiDataGridAsString(includeLength: true);
 			SetClipboardText(text);
 		}
 
 		private void btnCopyToClipboardWithoutLengths_Click(object sender, RoutedEventArgs e)
 		{
-			var text = GetPathsAsString(includeLength: false);
+			var text = GetPathsFromUiDataGridAsString(includeLength: false);
 			SetClipboardText(text);
 			CloseCopyToClipboardSplitButtonDropDown();
 		}
 
 		private void btnCopyToClipboardAsCsv_Click(object sender, RoutedEventArgs e)
 		{
-			var text = GetPathsAsCsvString(includeLength: true);
+			var text = GetPathsFromUiDataGridAsCsvString(includeLength: true);
 			SetClipboardText(text);
 			CloseCopyToClipboardSplitButtonDropDown();
 		}
 
 		private void btnCopyToClipboardWithoutLengthsAsCsv_Click(object sender, RoutedEventArgs e)
 		{
-			var text = GetPathsAsCsvString(includeLength: false);
+			var text = GetPathsFromUiDataGridAsCsvString(includeLength: false);
 			SetClipboardText(text);
 			CloseCopyToClipboardSplitButtonDropDown();
 		}
@@ -258,10 +264,10 @@ namespace PathLengthCheckerGUI
 			splitbtnCopyToClipboard.IsOpen = false;
 		}
 
-		private string GetPathsAsString(bool includeLength)
+		private string GetPathsFromUiDataGridAsString(bool includeLength)
 		{
 			var text = new StringBuilder();
-			foreach (var path in Paths)
+			foreach (var path in PathsFromUiDataGrid)
 			{
 				var item = includeLength ? $"{path.Length}: {path.Path}" : path.Path;
 				text.AppendLine(item);
@@ -269,7 +275,7 @@ namespace PathLengthCheckerGUI
 			return text.ToString().Trim();
 		}
 
-		private string GetPathsAsCsvString(bool includeLength)
+		private string GetPathsFromUiDataGridAsCsvString(bool includeLength)
 		{
 			var text = new StringBuilder();
 
@@ -278,7 +284,7 @@ namespace PathLengthCheckerGUI
 					"\"Path\"";
 			text.AppendLine(header);
 
-			foreach (var path in Paths)
+			foreach (var path in PathsFromUiDataGrid)
 			{
 				var item = includeLength ?
 					$"{path.Length},\"{path.Path}\"" :
