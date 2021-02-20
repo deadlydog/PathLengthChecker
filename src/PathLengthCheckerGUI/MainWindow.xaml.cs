@@ -259,6 +259,20 @@ namespace PathLengthCheckerGUI
 			var collectionView = CollectionViewSource.GetDefaultView(dgPaths.ItemsSource);
 			collectionView.SortDescriptions.Clear();
 			sortDescriptions.ToList().ForEach(collectionView.SortDescriptions.Add);
+
+			// We need to manually update the sort direction of each column on the grid to show it's sorting glyph.
+			foreach (var column in dgPaths.Columns)
+			{
+				var columnsSortDescription = sortDescriptions.FirstOrDefault(c => string.Equals(c.PropertyName, column.SortMemberPath));
+				if (columnsSortDescription.PropertyName != null)
+				{
+					column.SortDirection = columnsSortDescription.Direction;
+				}
+				else
+				{
+					column.SortDirection = null;
+				}
+			}
 		}
 
 		private void DisplayResultsMetadata()
