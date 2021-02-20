@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.10.0 - February 20, 2021
+
+Features:
+
+- Preserve UI grid column sorting between searches and sessions.
+
 ## v1.9.0 - December 26, 2020
 
 Features:

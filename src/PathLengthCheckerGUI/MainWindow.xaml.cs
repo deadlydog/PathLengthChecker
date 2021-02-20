@@ -50,10 +50,31 @@ namespace PathLengthCheckerGUI
 
 			SetWindowTitle();
 		}
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			LoadColumnSortDescriptionsFromSettings();
+		}
+
+		private void Window_Closed(object sender, EventArgs e)
+		{
+			SaveColumnSortDescriptionsToSettings();
+		}
 
 		private void SetWindowTitle()
 		{
 			this.Title = "Path Length Checker v" + Assembly.GetEntryAssembly().GetName().Version.ToString(3) + " - Written by Daniel Schroeder";
+		}
+
+		private void LoadColumnSortDescriptionsFromSettings()
+		{
+			var previousGridColumnSortDescriptions = Properties.Settings.Default.ResultsGridColumnSortDescriptionCollection ?? SortDescriptionCollection.Empty;
+			SetGridColumnSortDescriptions(previousGridColumnSortDescriptions);
+		}
+
+		private void SaveColumnSortDescriptionsToSettings()
+		{
+			var gridColumnSortDescriptions = GetCurrentGridColumnSortDescriptions();
+			Properties.Settings.Default.ResultsGridColumnSortDescriptionCollection = gridColumnSortDescriptions;
 		}
 
 		public ObservableCollection<PathInfo> Paths
@@ -132,7 +153,7 @@ namespace PathLengthCheckerGUI
 			btnCancelGetPathLengths.Visibility = Visibility.Visible;
 
 			// Clear any previous paths out.
-			Paths = new ObservableCollection<PathInfo>();
+			Paths.Clear();
 			txtNumberOfPaths.Text = string.Empty;
 			txtMinAndMaxPathLengths.Text = string.Empty;
 
@@ -205,11 +226,53 @@ namespace PathLengthCheckerGUI
 			};
 
 			// Get the paths in a background task so we don't lock the UI.
-			Paths = await Task.Run(() =>
+			var newPaths = await Task.Run(() =>
 			{
 				var paths = PathLengthChecker.PathLengthChecker.GetPathsWithLengths(searchOptions, cancellationToken);
 				return new ObservableCollection<PathInfo>(paths.ToList());
 			}, cancellationToken);
+
+			// Assigning Paths to a new ObservableCollection wipes out the column sorting in the CollectionViewSource.
+			// Ideally we would just use Paths.Add() to repopulate the list, which would preserve the sorting, but it takes forever when there's a lot of items.
+			// So instead we backup the CollectionViewSource sorting before assigning Paths to a new ObservableCollection, and then restore it after.
+			var previousColumnSortDescriptions = GetCurrentGridColumnSortDescriptions().ToList();
+
+			Paths = newPaths;
+
+			// Restore the previous column sort directions on the GUI DataGrid.
+			SetGridColumnSortDescriptions(previousColumnSortDescriptions);
+		}
+
+		private SortDescriptionCollection GetCurrentGridColumnSortDescriptions()
+		{
+			var collectionView = CollectionViewSource.GetDefaultView(dgPaths.ItemsSource);
+			return collectionView.SortDescriptions;
+		}
+
+		private void SetGridColumnSortDescriptions(SortDescriptionCollection sortDescriptions)
+		{
+			SetGridColumnSortDescriptions(sortDescriptions.ToList());
+		}
+
+		private void SetGridColumnSortDescriptions(IEnumerable<SortDescription> sortDescriptions)
+		{
+			var collectionView = CollectionViewSource.GetDefaultView(dgPaths.ItemsSource);
+			collectionView.SortDescriptions.Clear();
+			sortDescriptions.ToList().ForEach(collectionView.SortDescriptions.Add);
+
+			// We need to manually update the sort direction of each column on the grid to show it's sorting glyph.
+			foreach (var column in dgPaths.Columns)
+			{
+				var columnsSortDescription = sortDescriptions.FirstOrDefault(c => string.Equals(c.PropertyName, column.SortMemberPath));
+				if (columnsSortDescription.PropertyName != null)
+				{
+					column.SortDirection = columnsSortDescription.Direction;
+				}
+				else
+				{
+					column.SortDirection = null;
+				}
+			}
 		}
 
 		private void DisplayResultsMetadata()
