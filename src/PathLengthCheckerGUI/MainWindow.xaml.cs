@@ -211,17 +211,17 @@ namespace PathLengthCheckerGUI
 				return new ObservableCollection<PathInfo>(paths.ToList());
 			}, cancellationToken);
 
-			// Assigning Paths to a new ObservableCollection wipes out the column sorting on the GUI DataGrid.
+			// Assigning Paths to a new ObservableCollection wipes out the column sorting in the CollectionViewSource.
 			// Ideally we would just use Paths.Add() to repopulate the list, which would preserve the sorting, but it takes forever when there's a lot of items.
-			// So instead we backup the DataGrid's sorting before assigning Paths to a new ObservableCollection, and then restore it after.
+			// So instead we backup the CollectionViewSource sorting before assigning Paths to a new ObservableCollection, and then restore it after.
 			var collectionView = CollectionViewSource.GetDefaultView(dgPaths.ItemsSource);
-			var columnSortDescriptions = collectionView.SortDescriptions.ToList();
+			var previousColumnSortDescriptions = collectionView.SortDescriptions.ToList();
 
 			Paths = newPaths;
 
 			// Restore the previous column sort directions on the GUI DataGrid.
 			collectionView = CollectionViewSource.GetDefaultView(dgPaths.ItemsSource);
-			columnSortDescriptions.ForEach(collectionView.SortDescriptions.Add);
+			previousColumnSortDescriptions.ForEach(collectionView.SortDescriptions.Add);
 		}
 
 		private void DisplayResultsMetadata()
