@@ -4,6 +4,7 @@
 		xmlns:local="clr-namespace:PathLengthCheckerGUI"
 		xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
 		xmlns:System="clr-namespace:System;assembly=mscorlib"
+		xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
 		xmlns:PathLengthChecker="clr-namespace:PathLengthChecker;assembly=PathLengthChecker"
 		Style="{StaticResource ResourceKey=DefaultWindowStyle}"
 		MinWidth="770" MinHeight="400"
@@ -20,7 +21,12 @@
 			</ObjectDataProvider.MethodParameters>
 		</ObjectDataProvider>
 
-		<CollectionViewSource x:Key="PathsCollectionViewSource" Source="{Binding Paths}" />
+		<CollectionViewSource x:Key="PathsCollectionViewSource" Source="{Binding Paths}">
+			<CollectionViewSource.SortDescriptions>
+				<scm:SortDescription PropertyName="Length" />
+				<scm:SortDescription PropertyName="Path" />
+			</CollectionViewSource.SortDescriptions>
+		</CollectionViewSource>
 	</Window.Resources>
 
 	<Grid Margin="5">
@@ -154,7 +160,7 @@
 			</Button>
 		</Grid>
 
-		<DataGrid Grid.Row="10" AutoGenerateColumns="False" Name="dgPaths" IsReadOnly="True" IsTabStop="False" Grid.ColumnSpan="4" LoadingRow="dgPaths_LoadingRow" ItemsSource="{Binding Source={StaticResource PathsCollectionViewSource}}" SelectedItem="{Binding Path=SelectedPath, Mode=TwoWay}" FontFamily="Courier New">
+		<DataGrid Grid.Row="10" AutoGenerateColumns="False" Name="dgPaths" IsReadOnly="True" IsTabStop="False" Grid.ColumnSpan="4" LoadingRow="dgPaths_LoadingRow" ItemsSource="{Binding Source={StaticResource PathsCollectionViewSource}}" SelectedItem="{Binding Path=SelectedPath, Mode=TwoWay}" FontFamily="Courier New" CanUserSortColumns="True">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Length" IsReadOnly="True" Binding="{Binding Path=Length}" SortDirection="{local:ApplicationSettingsBinding Path=ResultsGrid_LengthSortDirection}" />
 				<DataGridTextColumn Header="Path" IsReadOnly="True" Binding="{Binding Path=Path}" SortDirection="{local:ApplicationSettingsBinding Path=ResultsGrid_PathSortDirection}" />
