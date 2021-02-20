@@ -132,7 +132,7 @@ namespace PathLengthCheckerGUI
 			btnCancelGetPathLengths.Visibility = Visibility.Visible;
 
 			// Clear any previous paths out.
-			Paths = new ObservableCollection<PathInfo>();
+			Paths.Clear();
 			txtNumberOfPaths.Text = string.Empty;
 			txtMinAndMaxPathLengths.Text = string.Empty;
 
@@ -205,11 +205,29 @@ namespace PathLengthCheckerGUI
 			};
 
 			// Get the paths in a background task so we don't lock the UI.
-			Paths = await Task.Run(() =>
+			var newPaths = await Task.Run(() =>
 			{
 				var paths = PathLengthChecker.PathLengthChecker.GetPathsWithLengths(searchOptions, cancellationToken);
 				return new ObservableCollection<PathInfo>(paths.ToList());
 			}, cancellationToken);
+
+			// Assigning Paths to a new ObservableCollection wipes out the column sorting on the GUI DataGrid.
+			// Ideally we would just use Paths.Add() to repopulate the list, which would preserve the sorting, but it takes forever when there's a lot of items.
+			// So instead we backup the DataGrid's sorting before assigning Paths to a new ObservableCollection, and then restore it after.
+			var columnSortDirections = dgPaths.Columns.Select(x => x.SortDirection).ToList();
+
+			Paths = newPaths;
+
+			// Restore the previous column sort directions on the GUI DataGrid.
+			for (int index = 0; index < columnSortDirections.Count(); index++)
+			{
+				var columnSortDirection = columnSortDirections[index];
+				dgPaths.Columns[index].SortDirection = columnSortDirection;
+			}
+
+			// Apply the column sorting to the UI (NOT WORKING YET FOR SOME REASON).
+			dgPaths.Items.Refresh();
+			
 		}
 
 		private void DisplayResultsMetadata()

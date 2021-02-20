@@ -41,5 +41,11 @@
     <Setting Name="SearchOption_RootDirectoryReplacementText" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="ResultsGrid_LengthSortDirection" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ResultsGrid_PathSortDirection" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
