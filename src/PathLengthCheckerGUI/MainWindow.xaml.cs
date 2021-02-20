@@ -50,10 +50,31 @@ namespace PathLengthCheckerGUI
 
 			SetWindowTitle();
 		}
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			LoadColumnSortDescriptionsFromSettings();
+		}
+
+		private void Window_Closed(object sender, EventArgs e)
+		{
+			SaveColumnSortDescriptionsToSettings();
+		}
 
 		private void SetWindowTitle()
 		{
 			this.Title = "Path Length Checker v" + Assembly.GetEntryAssembly().GetName().Version.ToString(3) + " - Written by Daniel Schroeder";
+		}
+
+		private void LoadColumnSortDescriptionsFromSettings()
+		{
+			var previousGridColumnSortDescriptions = Properties.Settings.Default.ResultsGridColumnSortDescriptionCollection ?? SortDescriptionCollection.Empty;
+			SetGridColumnSortDescriptions(previousGridColumnSortDescriptions);
+		}
+
+		private void SaveColumnSortDescriptionsToSettings()
+		{
+			var gridColumnSortDescriptions = GetCurrentGridColumnSortDescriptions();
+			Properties.Settings.Default.ResultsGridColumnSortDescriptionCollection = gridColumnSortDescriptions;
 		}
 
 		public ObservableCollection<PathInfo> Paths
@@ -214,14 +235,30 @@ namespace PathLengthCheckerGUI
 			// Assigning Paths to a new ObservableCollection wipes out the column sorting in the CollectionViewSource.
 			// Ideally we would just use Paths.Add() to repopulate the list, which would preserve the sorting, but it takes forever when there's a lot of items.
 			// So instead we backup the CollectionViewSource sorting before assigning Paths to a new ObservableCollection, and then restore it after.
-			var collectionView = CollectionViewSource.GetDefaultView(dgPaths.ItemsSource);
-			var previousColumnSortDescriptions = collectionView.SortDescriptions.ToList();
+			var previousColumnSortDescriptions = GetCurrentGridColumnSortDescriptions().ToList();
 
 			Paths = newPaths;
 
 			// Restore the previous column sort directions on the GUI DataGrid.
-			collectionView = CollectionViewSource.GetDefaultView(dgPaths.ItemsSource);
-			previousColumnSortDescriptions.ForEach(collectionView.SortDescriptions.Add);
+			SetGridColumnSortDescriptions(previousColumnSortDescriptions);
+		}
+
+		private SortDescriptionCollection GetCurrentGridColumnSortDescriptions()
+		{
+			var collectionView = CollectionViewSource.GetDefaultView(dgPaths.ItemsSource);
+			return collectionView.SortDescriptions;
+		}
+
+		private void SetGridColumnSortDescriptions(SortDescriptionCollection sortDescriptions)
+		{
+			SetGridColumnSortDescriptions(sortDescriptions.ToList());
+		}
+
+		private void SetGridColumnSortDescriptions(IEnumerable<SortDescription> sortDescriptions)
+		{
+			var collectionView = CollectionViewSource.GetDefaultView(dgPaths.ItemsSource);
+			collectionView.SortDescriptions.Clear();
+			sortDescriptions.ToList().ForEach(collectionView.SortDescriptions.Add);
 		}
 
 		private void DisplayResultsMetadata()

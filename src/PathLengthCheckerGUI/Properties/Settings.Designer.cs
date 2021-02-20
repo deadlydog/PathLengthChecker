@@ -181,25 +181,12 @@ namespace PathLengthCheckerGUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ResultsGrid_LengthSortDirection {
+        public global::System.ComponentModel.SortDescriptionCollection ResultsGridColumnSortDescriptionCollection {
             get {
-                return ((string)(this["ResultsGrid_LengthSortDirection"]));
+                return ((global::System.ComponentModel.SortDescriptionCollection)(this["ResultsGridColumnSortDescriptionCollection"]));
             }
             set {
-                this["ResultsGrid_LengthSortDirection"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ResultsGrid_PathSortDirection {
-            get {
-                return ((string)(this["ResultsGrid_PathSortDirection"]));
-            }
-            set {
-                this["ResultsGrid_PathSortDirection"] = value;
+                this["ResultsGridColumnSortDescriptionCollection"] = value;
             }
         }
     }
