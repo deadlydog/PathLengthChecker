@@ -189,5 +189,17 @@ namespace PathLengthCheckerGUI.Properties {
                 this["ResultsGridColumnSortDescriptionCollection"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SearchOption_UrlEncodePaths {
+            get {
+                return ((bool)(this["SearchOption_UrlEncodePaths"]));
+            }
+            set {
+                this["SearchOption_UrlEncodePaths"] = value;
+            }
+        }
     }
 }

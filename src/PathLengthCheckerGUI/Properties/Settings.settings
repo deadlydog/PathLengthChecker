@@ -44,5 +44,8 @@
     <Setting Name="ResultsGridColumnSortDescriptionCollection" Type="System.ComponentModel.SortDescriptionCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="SearchOption_UrlEncodePaths" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

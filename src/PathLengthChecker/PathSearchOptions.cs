@@ -32,5 +32,10 @@ namespace PathLengthChecker
 		/// Specify null to leave the original paths unmodified.
 		/// </summary>
 		public string RootDirectoryReplacement = null;
+
+		/// <summary>
+		/// If true the returned paths will be URL encoded, such as replacing spaces with "%20".
+		/// </summary>
+		public bool UrlEncodePaths = false;
 	}
 }

@@ -18,6 +18,7 @@ namespace PathLengthChecker
 			"SearchPattern= | The pattern to match files against. '*' is a wildcard character. Default is '*' to match against everything.\n" +
 			"MinLength= | An integer indicating the minimum length that a path must contain in order to be returned in the results. Default is -1 to ignore this flag.\n" +
 			"MaxLength= | An integer indicating the maximum length that a path may have in order to be returned in the results. Default is -1 to ignore this flag.\n" +
+			"UrlEncodePaths=[True|False] | If true the paths returned will be URL encoded. e.g. Spaces will be replaced with %20, backslashes with %5C, etc. Default is false.\n" +
 			"Output=[MinLength|MaxLength|All] | Indicates if you just want the Min/Max path length to be outputted, or if you want all of the paths to be outputted. Default is All.\n" +
 			"\n" +
 			"Example: PathLengthChecker.exe RootDirectory=\"C:\\MyDir\" TypesToInclude=OnlyFiles SearchPattern=*FindThis* MinLength=25";
@@ -75,6 +76,10 @@ namespace PathLengthChecker
 						int maxLength = -1;
 						if (int.TryParse(value, out maxLength))
 							searchOptions.MaximumPathLength = maxLength;
+						break;
+					case "UrlEncodePaths":
+						if (string.Equals(value, "True", StringComparison.OrdinalIgnoreCase))
+							searchOptions.UrlEncodePaths = true;
 						break;
 					case "Output":
 						OutputTypes outputType = OutputTypes.Paths;
