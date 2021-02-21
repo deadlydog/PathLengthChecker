@@ -132,20 +132,17 @@
 		</DockPanel>
 
 		<Grid Grid.Row="6">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="20" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="5" />
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="40" />
 			</Grid.ColumnDefinitions>
 
-			<CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="Replace the Starting Directory in the returned paths with:" Name="chkReplaceRootDirectory" IsChecked="{local:ApplicationSettingsBinding Path=SearchOption_ReplaceRootDirectory}" ToolTip="If this is not enabled, the Starting Directory will not be modified in the returned paths." />
+			<CheckBox Grid.Column="0" Content="Replace the Starting Directory in the returned paths with:" Name="chkReplaceRootDirectory" IsChecked="{local:ApplicationSettingsBinding Path=SearchOption_ReplaceRootDirectory}" ToolTip="If this is not enabled, the Starting Directory will not be modified in the returned paths." />
 
-			<TextBox Grid.Row="1" Grid.Column="1" Name="txtReplaceRootDirectory" Text="{local:ApplicationSettingsBinding Path=SearchOption_RootDirectoryReplacementText, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ToolTip="The path to replace the Starting Directory with in the paths that are returned." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
-			<Button Grid.Row="1" Grid.Column="2" Content="..."  Name="btnBrowseForReplaceRootDirectory" Click="btnBrowseForReplaceRootDirectory_Click" ToolTip="Browse for a path to replace the Starting Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
+			<TextBox Grid.Column="2" Name="txtReplaceRootDirectory" Text="{local:ApplicationSettingsBinding Path=SearchOption_RootDirectoryReplacementText, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ToolTip="The path to replace the Starting Directory with in the paths that are returned." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
+			<Button Grid.Column="3" Content="..."  Name="btnBrowseForReplaceRootDirectory" Click="btnBrowseForReplaceRootDirectory_Click" ToolTip="Browse for a path to replace the Starting Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
 		</Grid>
 
 		<Grid Grid.Row="8">
