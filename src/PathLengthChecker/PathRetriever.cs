@@ -37,10 +37,14 @@ namespace PathLengthChecker
 				if (cancellationToken.IsCancellationRequested)
 					yield break;
 
+				var transformedPath = path;
+				if (searchOptions.UrlEncodePaths)
+					transformedPath = System.Web.HttpUtility.UrlEncode(path);
+
 				if (searchOptions.RootDirectoryReplacement == null)
-					yield return path;
+					yield return transformedPath;
 				else
-					yield return path.Replace(searchOptions.RootDirectory, searchOptions.RootDirectoryReplacement);
+					yield return transformedPath.Replace(searchOptions.RootDirectory, searchOptions.RootDirectoryReplacement);
 			}
 		}
 
