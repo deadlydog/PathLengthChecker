@@ -49,6 +49,7 @@
 		<GroupBox Grid.Row="0" Header="Path Search Options">
 			<Grid>
 				<Grid.RowDefinitions>
+					<RowDefinition Height="5"/>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="5"/>
 					<RowDefinition Height="Auto"/>
@@ -57,7 +58,7 @@
 					<RowDefinition Height="5"/>
 				</Grid.RowDefinitions>
 
-				<Grid Grid.Row="0">
+				<Grid Grid.Row="1">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition Width="5" />
@@ -70,7 +71,7 @@
 					<Button Grid.Column="3" Content="..." x:Name="btnBrowseForRootDirectory" Click="btnBrowseForRootDirectory_Click" ToolTip="Browse for a folder to search in." />
 				</Grid>
 
-				<Grid Grid.Row="2">
+				<Grid Grid.Row="3">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto"/>
 						<ColumnDefinition Width="120"/>
@@ -133,7 +134,7 @@
 					</extToolkit:IntegerUpDown>
 				</Grid>
 
-				<DockPanel Grid.Row="4">
+				<DockPanel Grid.Row="5">
 					<TextBlock Text="Search Pattern:" Margin="0,0,5,0" ToolTip="Only files/directories that match the given pattern will be returned." />
 					<TextBox Name="txtSearchPattern" Text="{local:ApplicationSettingsBinding Path=SearchOption_SearchPattern, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ToolTip="Only files/directories that match the given pattern will be returned. The * is a wildcard." />
 				</DockPanel>
@@ -143,13 +144,14 @@
 		<GroupBox Grid.Row="2" Header="Path Replacement Options">
 			<Grid>
 				<Grid.RowDefinitions>
+					<RowDefinition Height="5"/>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="5"/>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="5"/>
 				</Grid.RowDefinitions>
 
-				<Grid Grid.Row="0">
+				<Grid Grid.Row="1">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition Width="5" />
@@ -163,8 +165,8 @@
 					<Button Grid.Column="3" Content="..."  Name="btnBrowseForReplaceRootDirectory" Click="btnBrowseForReplaceRootDirectory_Click" ToolTip="Browse for a path to replace the Starting Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
 				</Grid>
 
-				<DockPanel Grid.Row="2">
-					<CheckBox Name="chkUrlEncodePaths" Content="Url encode paths" IsChecked="{local:ApplicationSettingsBinding Path=SearchOption_UrlEncodePaths}" VerticalAlignment="Center" ToolTip="If enabled all paths will be URL encoded. e.g. spaces will be replaced with %20." />
+				<DockPanel Grid.Row="3">
+					<CheckBox Name="chkUrlEncodePaths" Content="Url encode paths" IsChecked="{local:ApplicationSettingsBinding Path=SearchOption_UrlEncodePaths}" VerticalAlignment="Center" ToolTip="If enabled all paths will be URL encoded. e.g. Spaces will be replaced with %20, backslashes with %5C." />
 				</DockPanel>
 			</Grid>
 		</GroupBox>

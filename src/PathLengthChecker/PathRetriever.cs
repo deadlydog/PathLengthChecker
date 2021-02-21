@@ -39,7 +39,7 @@ namespace PathLengthChecker
 
 				var transformedPath = path;
 				if (searchOptions.UrlEncodePaths)
-					transformedPath = System.Web.HttpUtility.UrlEncode(path);
+					transformedPath = System.Uri.EscapeDataString(path);
 
 				if (searchOptions.RootDirectoryReplacement == null)
 					yield return transformedPath;

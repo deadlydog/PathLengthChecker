@@ -221,6 +221,7 @@ namespace PathLengthCheckerGUI
 				SearchOption = (chkIncludeSubdirectories.IsChecked ?? false) ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly,
 				TypesToGet = (FileSystemTypes)cmbTypesToInclude.SelectedValue,
 				RootDirectoryReplacement = rootDirectoryReplacement,
+				UrlEncodePaths = (chkUrlEncodePaths.IsChecked ?? false),
 				MinimumPathLength = minPathLength,
 				MaximumPathLength = maxPathLength
 			};
@@ -439,6 +440,7 @@ namespace PathLengthCheckerGUI
 				txtReplaceRootDirectory.Text = argSearchOptions.RootDirectoryReplacement;
 				chkReplaceRootDirectory.IsChecked = true;
 			}
+			chkUrlEncodePaths.IsChecked = argSearchOptions.UrlEncodePaths;
 
 			numMinPathLength.Value = argSearchOptions.MinimumPathLength;
 			numMaxPathLength.Value = argSearchOptions.MaximumPathLength;
@@ -464,6 +466,7 @@ namespace PathLengthCheckerGUI
 
 			txtReplaceRootDirectory.Text = string.Empty;
 			chkReplaceRootDirectory.IsChecked = false;
+			chkUrlEncodePaths.IsChecked = false;
 		}
 	}
 }
