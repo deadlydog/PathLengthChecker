@@ -39,10 +39,6 @@
 			<RowDefinition Height="5"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="5"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="5"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="5"/>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="5"/>
 			<RowDefinition Height="Auto"/>
@@ -50,102 +46,130 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 
-		<Grid Grid.Row="0">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="5" />
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="40" />
-			</Grid.ColumnDefinitions>
+		<GroupBox Grid.Row="0" Header="Path Search Options">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="5"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="5"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="5"/>
+				</Grid.RowDefinitions>
 
-			<TextBlock Grid.Column="0" Text="Starting Directory:" ToolTip="The root directory to look for files and/or directories in." />
-			<TextBox Grid.Column="2" Name="txtRootDirectory" Text="{local:ApplicationSettingsBinding Path=SearchOption_RootDirectory, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ToolTip="The directory to look for files and/or directories in." />
-			<Button Grid.Column="3" Content="..." x:Name="btnBrowseForRootDirectory" Click="btnBrowseForRootDirectory_Click" ToolTip="Browse for a folder to search in." />
-		</Grid>
+				<Grid Grid.Row="0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="5" />
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="40" />
+					</Grid.ColumnDefinitions>
 
-		<Grid Grid.Row="2">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="120"/>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="*"/>
-			</Grid.ColumnDefinitions>
+					<TextBlock Grid.Column="0" Text="Starting Directory:" ToolTip="The root directory to look for files and/or directories in." />
+					<TextBox Grid.Column="2" Name="txtRootDirectory" Text="{local:ApplicationSettingsBinding Path=SearchOption_RootDirectory, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ToolTip="The directory to look for files and/or directories in." />
+					<Button Grid.Column="3" Content="..." x:Name="btnBrowseForRootDirectory" Click="btnBrowseForRootDirectory_Click" ToolTip="Browse for a folder to search in." />
+				</Grid>
 
-			<TextBlock Grid.Column="0" Text="Include:" Margin="0,0,5,0" VerticalAlignment="Center"  ToolTip="The file system types to find and return the path length of." />
-			<ComboBox Grid.Column="1" Name="cmbTypesToInclude" ItemsSource="{Binding Source={StaticResource FileSystemTypesEnumValues}}" SelectedValue="{local:ApplicationSettingsBinding Path=SearchOption_FileSystemTypesToInclude}" ToolTip="The file system types to find and return the path length of." />
+				<Grid Grid.Row="2">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="120"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
 
-			<CheckBox Grid.Column="3" Content="Include Subdirectories" Name="chkIncludeSubdirectories" IsChecked="{local:ApplicationSettingsBinding Path=SearchOption_IncludeSubdirectories}" VerticalAlignment="Center" ToolTip="If enabled it will search for files/directories in all subdirectories of the Starting Directory." />
+					<TextBlock Grid.Column="0" Text="Include:" Margin="0,0,5,0" VerticalAlignment="Center"  ToolTip="The file system types to find and return the path length of." />
+					<ComboBox Grid.Column="1" Name="cmbTypesToInclude" ItemsSource="{Binding Source={StaticResource FileSystemTypesEnumValues}}" SelectedValue="{local:ApplicationSettingsBinding Path=SearchOption_FileSystemTypesToInclude}" ToolTip="The file system types to find and return the path length of." />
 
-			<TextBlock Grid.Column="5" Margin="0,0,5,0" Text="Min Path Length:" VerticalAlignment="Center">
-				<TextBlock.ToolTip>
-					<TextBlock>
-						Only paths with this many or more characters will be returned in the search results.
-						<LineBreak />
-						Use 260 to identify long paths that Windows may have trouble handling.
-						<LineBreak />
-						Use 0 to not filter any paths by minimum length.
-					</TextBlock>
-				</TextBlock.ToolTip>
-			</TextBlock>
-			<extToolkit:IntegerUpDown Grid.Column="6" Name="numMinPathLength" Value="{local:ApplicationSettingsBinding Path=SearchOption_MinPathLength}" DefaultValue="0" Minimum="0" Maximum="999999" MinWidth="50">
-				<extToolkit:IntegerUpDown.ToolTip>
-					<TextBlock>
-						Only paths with this many or more characters will be returned in the search results.
-						<LineBreak />
-						Use 260 to identify long paths that Windows may have trouble handling.
-						<LineBreak />
-						Use 0 to not filter any paths by minimum length.
-					</TextBlock>
-				</extToolkit:IntegerUpDown.ToolTip>
-			</extToolkit:IntegerUpDown>
+					<CheckBox Grid.Column="3" Content="Include Subdirectories" Name="chkIncludeSubdirectories" IsChecked="{local:ApplicationSettingsBinding Path=SearchOption_IncludeSubdirectories}" VerticalAlignment="Center" ToolTip="If enabled it will search for files/directories in all subdirectories of the Starting Directory." />
 
-			<TextBlock Grid.Column="8" Margin="0,0,5,0" Text="Max Path Length:" VerticalAlignment="Center">
-				<TextBlock.ToolTip>
-					<TextBlock>
-						Only paths with this many or less characters will be returned in the search results.
-						<LineBreak />
-						Use a large value like 999999 to not filter any paths by maximum length.
-					</TextBlock>
-				</TextBlock.ToolTip>
-			</TextBlock>
-			<extToolkit:IntegerUpDown Grid.Column="9" Name="numMaxPathLength" Value="{local:ApplicationSettingsBinding Path=SearchOption_MaxPathLength}" DefaultValue="0" Minimum="0" Maximum="999999" MinWidth="50">
-				<extToolkit:IntegerUpDown.ToolTip>
-					<TextBlock>
-						Only paths with this many or less characters will be returned in the search results.
-						<LineBreak />
-						Use a large value like 999999 to not filter any paths by maximum length.
-					</TextBlock>
-				</extToolkit:IntegerUpDown.ToolTip>
-			</extToolkit:IntegerUpDown>
-		</Grid>
+					<TextBlock Grid.Column="5" Margin="0,0,5,0" Text="Min Path Length:" VerticalAlignment="Center">
+						<TextBlock.ToolTip>
+							<TextBlock>
+							Only paths with this many or more characters will be returned in the search results.
+							<LineBreak />
+							Use 260 to identify long paths that Windows may have trouble handling.
+							<LineBreak />
+							Use 0 to not filter any paths by minimum length.
+							</TextBlock>
+						</TextBlock.ToolTip>
+				</TextBlock>
+					<extToolkit:IntegerUpDown Grid.Column="6" Name="numMinPathLength" Value="{local:ApplicationSettingsBinding Path=SearchOption_MinPathLength}" DefaultValue="0" Minimum="0" Maximum="999999" MinWidth="50">
+						<extToolkit:IntegerUpDown.ToolTip>
+							<TextBlock>
+							Only paths with this many or more characters will be returned in the search results.
+							<LineBreak />
+							Use 260 to identify long paths that Windows may have trouble handling.
+							<LineBreak />
+							Use 0 to not filter any paths by minimum length.
+							</TextBlock>
+						</extToolkit:IntegerUpDown.ToolTip>
+					</extToolkit:IntegerUpDown>
 
-		<DockPanel Grid.Row="4">
-			<TextBlock Text="Search Pattern:" Margin="0,0,5,0" ToolTip="Only files/directories that match the given pattern will be returned." />
-			<TextBox Name="txtSearchPattern" Text="{local:ApplicationSettingsBinding Path=SearchOption_SearchPattern, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ToolTip="Only files/directories that match the given pattern will be returned. The * is a wildcard." />
-		</DockPanel>
+					<TextBlock Grid.Column="8" Margin="0,0,5,0" Text="Max Path Length:" VerticalAlignment="Center">
+						<TextBlock.ToolTip>
+							<TextBlock>
+							Only paths with this many or less characters will be returned in the search results.
+							<LineBreak />
+							Use a large value like 999999 to not filter any paths by maximum length.
+							</TextBlock>
+						</TextBlock.ToolTip>
+				</TextBlock>
+					<extToolkit:IntegerUpDown Grid.Column="9" Name="numMaxPathLength" Value="{local:ApplicationSettingsBinding Path=SearchOption_MaxPathLength}" DefaultValue="0" Minimum="0" Maximum="999999" MinWidth="50">
+						<extToolkit:IntegerUpDown.ToolTip>
+							<TextBlock>
+							Only paths with this many or less characters will be returned in the search results.
+							<LineBreak />
+							Use a large value like 999999 to not filter any paths by maximum length.
+							</TextBlock>
+						</extToolkit:IntegerUpDown.ToolTip>
+					</extToolkit:IntegerUpDown>
+				</Grid>
 
-		<Grid Grid.Row="6">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="5" />
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="40" />
-			</Grid.ColumnDefinitions>
+				<DockPanel Grid.Row="4">
+					<TextBlock Text="Search Pattern:" Margin="0,0,5,0" ToolTip="Only files/directories that match the given pattern will be returned." />
+					<TextBox Name="txtSearchPattern" Text="{local:ApplicationSettingsBinding Path=SearchOption_SearchPattern, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ToolTip="Only files/directories that match the given pattern will be returned. The * is a wildcard." />
+				</DockPanel>
+			</Grid>
+		</GroupBox>
 
-			<CheckBox Grid.Column="0" Content="Replace the Starting Directory in the returned paths with:" Name="chkReplaceRootDirectory" IsChecked="{local:ApplicationSettingsBinding Path=SearchOption_ReplaceRootDirectory}" ToolTip="If this is not enabled, the Starting Directory will not be modified in the returned paths." />
+		<GroupBox Grid.Row="2" Header="Path Replacement Options">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="5"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="5"/>
+				</Grid.RowDefinitions>
 
-			<TextBox Grid.Column="2" Name="txtReplaceRootDirectory" Text="{local:ApplicationSettingsBinding Path=SearchOption_RootDirectoryReplacementText, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ToolTip="The path to replace the Starting Directory with in the paths that are returned." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
-			<Button Grid.Column="3" Content="..."  Name="btnBrowseForReplaceRootDirectory" Click="btnBrowseForReplaceRootDirectory_Click" ToolTip="Browse for a path to replace the Starting Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
-		</Grid>
+				<Grid Grid.Row="0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="5" />
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="40" />
+					</Grid.ColumnDefinitions>
 
-		<Grid Grid.Row="8">
+					<CheckBox Grid.Column="0" Content="Replace the Starting Directory in the returned paths with:" Name="chkReplaceRootDirectory" IsChecked="{local:ApplicationSettingsBinding Path=SearchOption_ReplaceRootDirectory}" ToolTip="If this is not enabled, the Starting Directory will not be modified in the returned paths." />
+
+					<TextBox Grid.Column="2" Name="txtReplaceRootDirectory" Text="{local:ApplicationSettingsBinding Path=SearchOption_RootDirectoryReplacementText, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ToolTip="The path to replace the Starting Directory with in the paths that are returned." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
+					<Button Grid.Column="3" Content="..."  Name="btnBrowseForReplaceRootDirectory" Click="btnBrowseForReplaceRootDirectory_Click" ToolTip="Browse for a path to replace the Starting Directory path with." IsEnabled="{Binding ElementName=chkReplaceRootDirectory, Path=IsChecked}" />
+				</Grid>
+
+				<DockPanel Grid.Row="2">
+					<CheckBox Name="chkUrlEncodePaths" Content="Url encode paths" IsChecked="{local:ApplicationSettingsBinding Path=SearchOption_UrlEncodePaths}" VerticalAlignment="Center" ToolTip="If enabled all paths will be URL encoded. e.g. spaces will be replaced with %20." />
+				</DockPanel>
+			</Grid>
+		</GroupBox>
+
+		<Grid Grid.Row="4">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="10" />
 				<ColumnDefinition Width="*" />
@@ -155,11 +179,11 @@
 			<Button Grid.Column="1" Content="Get Path Lengths..." Name="btnGetPathLengths" FontSize="40" Click="btnGetPathLengths_Click" IsDefault="True" />
 			<Button Grid.Column="1" Content="Cancel retrieving paths" Name="btnCancelGetPathLengths" FontSize="40" Click="btnCancelGetPathLengths_Click" Visibility="Collapsed" />
 			<Button Grid.Column="3" Name="btnResetSearchOptions" Margin="0,10,0,10" ToolTip="Reset all of the search fields to their default values." Click="btnResetSearchOptions_Click">
-				<TextBlock TextWrapping="Wrap" TextAlignment="Center">Reset search options</TextBlock>
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center">Reset all options</TextBlock>
 			</Button>
 		</Grid>
 
-		<DataGrid Grid.Row="10" AutoGenerateColumns="False" Name="dgPaths" IsReadOnly="True" IsTabStop="False" Grid.ColumnSpan="4" LoadingRow="dgPaths_LoadingRow" ItemsSource="{Binding Source={StaticResource PathsCollectionViewSource}}" SelectedItem="{Binding Path=SelectedPath, Mode=TwoWay}" FontFamily="Courier New" CanUserSortColumns="True">
+		<DataGrid Grid.Row="6" AutoGenerateColumns="False" Name="dgPaths" IsReadOnly="True" IsTabStop="False" Grid.ColumnSpan="4" LoadingRow="dgPaths_LoadingRow" ItemsSource="{Binding Source={StaticResource PathsCollectionViewSource}}" SelectedItem="{Binding Path=SelectedPath, Mode=TwoWay}" FontFamily="Courier New" CanUserSortColumns="True">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Length" IsReadOnly="True" Binding="{Binding Path=Length}" SortMemberPath="Length" />
 				<DataGridTextColumn Header="Path" IsReadOnly="True" Binding="{Binding Path=Path}" SortMemberPath="Path" />
@@ -173,10 +197,10 @@
 			</DataGrid.ContextMenu>
 		</DataGrid>
 
-		<TextBlock Grid.Row="12" Name="txtNumberOfPaths" Text="" />
-		<TextBlock Grid.Row="14" Name="txtMinAndMaxPathLengths" Text="" />
+		<TextBlock Grid.Row="8" Name="txtNumberOfPaths" Text="" />
+		<TextBlock Grid.Row="10" Name="txtMinAndMaxPathLengths" Text="" />
 
-		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="12" Grid.RowSpan="4">
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="8" Grid.RowSpan="4">
 			<extToolkit:SplitButton x:Name="splitbtnCopyToClipboard" Content="Copy Paths to Clipboard" Click="splitbtnCopyToClipboard_Click" Width="350">
 				<extToolkit:SplitButton.DropDownContent>
 					<StackPanel Orientation="Vertical" Width="345">
