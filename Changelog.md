@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.11.2 - February 21, 2021
+
+Fixes:
+
+- Fix bug where Starting Directory Replacement wouldn't take effect when also using URL Encoding.
+
 ## v1.11.0 - February 20, 2021
 
 Features:
