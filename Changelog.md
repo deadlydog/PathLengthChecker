@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.11.0 - February 20, 2021
+
+Features:
+
+- Add new URL Encode Paths option for the both the GUI and command line app.
+- Reset Options button now also clears out grid sorting, since there's no native way to do with using the mouse or keyboard.
+- Update UI to group Search Options and Replacement Options separately.
+
 ## v1.10.0 - February 20, 2021
 
 Features:

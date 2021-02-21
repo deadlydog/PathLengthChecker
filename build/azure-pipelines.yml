@@ -15,7 +15,7 @@ variables:
   buildConfiguration: 'Release'
   appBinariesDirectory: 'src\PathLengthCheckerGUI\bin\$(buildConfiguration)'
 
-  version.MajorMinor: '1.10' # Manually adjust the version number as needed for semantic versioning. Revision is auto-incremented.
+  version.MajorMinor: '1.11' # Manually adjust the version number as needed for semantic versioning. Revision is auto-incremented.
   version.Revision: $[counter(variables['version.MajorMinor'], 0)]
   versionNumber: '$(version.MajorMinor).$(version.Revision)'
 
