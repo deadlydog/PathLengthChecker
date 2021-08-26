@@ -23,16 +23,16 @@ The `PathLengthChecker.exe` is the command-line alternative to the GUI. Simply r
 
 ## Search Pattern
 
-The `Search Pattern` is used to match against specific file/directory names.
+The `Search Pattern` parameter is used to match against specific file/directory names.
 It is not case sensitive, and it supports wildcards (`*`).
 
 Examples:
 
-- `test.txt` matches only files named `test.txt`.
-- `test` matches any directory named `test`, as well as any files named `test` that do not have an extension.
-- `test*` matches any file or directory whose name begins with `test`.
-- `*txt` matches any files with a `.txt` extension, as well as any directory whose name ends in `txt`.
-- `*test*` matches any file or directory that contains `test` anywhere in the name or extension.
+- `test.txt` matches only files named "test.txt".
+- `test` matches any directory named "test", as well as any files named "test" that do not have an extension.
+- `test*` matches any file or directory whose name begins with "test".
+- `*txt` matches any files with a ".txt" extension, as well as any directory whose name ends in "txt".
+- `*test*` matches any file or directory that contains "test" anywhere in the name or extension.
 
 ## Running via PowerShell
 
