@@ -135,8 +135,8 @@
 				</Grid>
 
 				<DockPanel Grid.Row="5">
-					<TextBlock Text="Search Pattern:" Margin="0,0,5,0" ToolTip="Only files/directories that match the given pattern will be returned." />
-					<TextBox Name="txtSearchPattern" Text="{local:ApplicationSettingsBinding Path=SearchOption_SearchPattern, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ToolTip="Only files/directories that match the given pattern will be returned. The * is a wildcard." />
+					<TextBlock Text="Search Pattern:" Margin="0,0,5,0" ToolTip="Only file/directory names that match the given pattern will be returned. The * is a wildcard." />
+					<TextBox Name="txtSearchPattern" Text="{local:ApplicationSettingsBinding Path=SearchOption_SearchPattern, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ToolTip="Only file/directory names that match the given pattern will be returned. The * is a wildcard." />
 				</DockPanel>
 			</Grid>
 		</GroupBox>

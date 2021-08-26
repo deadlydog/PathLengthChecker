@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.11.4 - August 26, 2021
+
+Fixes:
+
+- Update Search Pattern tooltip to mention the `*` is a wildcard character.
+
 ## v1.11.2 - February 21, 2021
 
 Fixes:
