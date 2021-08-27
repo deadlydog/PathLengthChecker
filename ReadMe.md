@@ -34,7 +34,7 @@ Examples:
 - `*txt` matches any files with a ".txt" extension, as well as any directory whose name ends in "txt".
 - `*test*` matches any file or directory that contains "test" anywhere in the name or extension.
 
-For more information on the search pattern syntax, see [the official Microsoft documentation](https://docs.microsoft.com/en-us/dotnet/api/system.io.directory.enumeratefilesystementries?view=net-5.0).
+For more information on the search pattern syntax, see [the official Microsoft documentation](https://docs.microsoft.com/en-us/dotnet/api/system.io.directory.enumeratefilesystementries?view=net-5.0#System_IO_Directory_EnumerateFileSystemEntries_System_String_System_String_).
 
 ## Running via PowerShell
 
