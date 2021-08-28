@@ -166,7 +166,7 @@
 				</Grid>
 
 				<DockPanel Grid.Row="3">
-					<CheckBox Name="chkUrlEncodePaths" Content="Url encode paths" IsChecked="{local:ApplicationSettingsBinding Path=SearchOption_UrlEncodePaths}" VerticalAlignment="Center" ToolTip="If enabled all paths will be URL encoded. e.g. Spaces will be replaced with %20, backslashes with %5C, etc." />
+					<CheckBox Name="chkUrlEncodePaths" Content="Percent-encode paths" IsChecked="{local:ApplicationSettingsBinding Path=SearchOption_UrlEncodePaths}" VerticalAlignment="Center" ToolTip="If enabled all paths will be URL encoded. e.g. Spaces will be replaced with %20, backslashes with %5C, etc." />
 				</DockPanel>
 			</Grid>
 		</GroupBox>
