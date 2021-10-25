@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
 trigger:
-- master
+- main
 
 pool:
   vmImage: 'windows-latest'
@@ -13,35 +13,82 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  appBinariesDirectory: 'src\PathLengthCheckerGUI\bin\$(buildConfiguration)'
+
+  version.MajorMinor: '1.11' # Manually adjust the version number as needed for semantic versioning. Revision is auto-incremented.
+  version.Revision: $[counter(variables['version.MajorMinor'], 0)]
+  versionNumber: '$(version.MajorMinor).$(version.Revision)'
+
+name: 'Set dynamically below in a task'
 
 steps:
+- task: PowerShell@2
+  displayName: Set the name of the build (i.e. the Build.BuildNumber)
+  inputs:
+    targetType: 'inline'
+    script: |
+      [string] $buildName = "$(versionNumber)_$(Build.SourceBranchName)"
+      Write-Host "Setting the name of the build to '$buildName'."
+      Write-Host "##vso[build.updatebuildnumber]$buildName"
+
+- task: richardfennellBM.BM-VSTS-Versioning-Task.Version-Assemblies-Task.VersionAssemblies@2
+  displayName: Version the assemblies
+  inputs:
+    Path: '$(Build.SourcesDirectory)'
+    VersionNumber: '$(versionNumber)'
+    InjectVersion: true
+    FilenamePattern: 'AssemblyInfo.*'
+    OutputVersion: 'OutputedVersion'
+
 - task: NuGetToolInstaller@1
+  displayName: Install NuGet so it can be used to restore packages
 
 - task: NuGetCommand@2
+  displayName: Restore NuGet packages
   inputs:
     restoreSolution: '$(solution)'
 
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'deadlydog'
-    scannerMode: 'MSBuild'
-    projectKey: 'PathLengthChecker'
-    projectName: 'PathLengthChecker'
+# - task: SonarCloudPrepare@1
+#   inputs:
+#     SonarCloud: 'SonarCloud'
+#     organization: 'deadlydog'
+#     scannerMode: 'MSBuild'
+#     projectKey: 'PathLengthChecker'
+#     projectName: 'PathLengthChecker'
 
 - task: VSBuild@1
+  displayName: Build the app
   inputs:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
 - task: VSTest@2
+  displayName: Run unit tests
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: SonarCloudAnalyze@1
-
-- task: SonarCloudPublish@1
+- task: CopyFiles@2
+  displayName: Copy only the binaries required to run the app to the artifact staging directory
   inputs:
-    pollingTimeoutSec: '300'
+    SourceFolder: '$(appBinariesDirectory)'
+    Contents: |
+      AlphaFS.dll
+      PathLengthChecker.exe
+      PathLengthCheckerGUI.exe
+      Xceed.Wpf.Toolkit.dll
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish the build artifacts
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'PathLengthChecker$(versionNumber)'
+    publishLocation: 'Container'
+
+# - task: SonarCloudAnalyze@1
+
+# - task: SonarCloudPublish@1
+#   inputs:
+#     pollingTimeoutSec: '300'

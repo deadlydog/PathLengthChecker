@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using Xunit;
+using System.Threading;
 
 namespace PathLengthChecker.Tests
 {
@@ -22,20 +23,20 @@ namespace PathLengthChecker.Tests
 
 			// Specify the directories and files that the unit tests expect to be there.
 			Directories = new List<PathInfo>
-							   {
-								   new PathInfo(){Path = Path.Combine(RootPath, "TestDir1")},
-								new PathInfo(){Path = Path.Combine(RootPath, "TestDir2")},
-								new PathInfo(){Path = Path.Combine(RootPath, "TestDir2\\TestDir3")},
-								new PathInfo(){Path = EmptyDirectoryPath}
-							   };
+			{
+				new PathInfo(){Path = Path.Combine(RootPath, "TestDir1")},
+				new PathInfo(){Path = Path.Combine(RootPath, "TestDir2")},
+				new PathInfo(){Path = Path.Combine(RootPath, "TestDir2\\TestDir3")},
+				new PathInfo(){Path = EmptyDirectoryPath}
+			};
 
 			Files = new List<PathInfo>
-						 {
-							new PathInfo(){Path = Path.Combine(RootPath, "TestFile0.test")},
-							new PathInfo(){Path = Path.Combine(RootPath, "TestDir1\\TestFile1.test")},
-							new PathInfo(){Path = Path.Combine(RootPath, "TestDir2\\TestFile2.test")},
-							new PathInfo(){Path = Path.Combine(RootPath, "TestDir2\\TestDir3\\TestFile3.test")}
-						 };
+			{
+				new PathInfo(){Path = Path.Combine(RootPath, "TestFile0.test")},
+				new PathInfo(){Path = Path.Combine(RootPath, "TestDir1\\TestFile1.test")},
+				new PathInfo(){Path = Path.Combine(RootPath, "TestDir2\\TestFile2.test")},
+				new PathInfo(){Path = Path.Combine(RootPath, "TestDir2\\TestDir3\\TestFile3.test")}
+			};
 
 			// Create a list that contains all paths.
 			AllPaths = new List<PathInfo>(Directories);
@@ -97,25 +98,26 @@ namespace PathLengthChecker.Tests
 		public PathLengthCheckerTests(FilesFixtureForClassSetupAndTeardown filesFixture)
 		{
 			_filesFixture = filesFixture;
-		}		
+		}
 
 		[Fact]
 		public void GetAllPaths()
 		{
 			// Setup the Search Options
 			var searchOptions = new PathLengthSearchOptions()
-									{
-										RootDirectory = _filesFixture.RootPath,
-										SearchOption = SearchOption.AllDirectories,
-										TypesToGet = FileSystemTypes.All,
-										SearchPattern = string.Empty,
-										RootDirectoryReplacement = null,
-										MinimumPathLength = -1,
-										MaximumPathLength = -1
-									};
+			{
+				RootDirectory = _filesFixture.RootPath,
+				SearchOption = SearchOption.AllDirectories,
+				TypesToGet = FileSystemTypes.All,
+				SearchPattern = string.Empty,
+				RootDirectoryReplacement = null,
+				MinimumPathLength = -1,
+				MaximumPathLength = -1,
+				UrlEncodePaths = false
+			};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the paths.
 			paths.Should().Contain(_filesFixture.Directories).And.Contain(_filesFixture.Files);
@@ -136,11 +138,12 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1
+				MaximumPathLength = -1,
+				UrlEncodePaths = false
 			};
 
 			// Because we try and get a list of directory paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the directory paths.
 			paths.Should().Contain(_filesFixture.Directories);
@@ -161,11 +164,12 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1
+				MaximumPathLength = -1,
+				UrlEncodePaths = false
 			};
 
 			// Because we try and get a list of file paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the file paths.
 			paths.Should().Contain(_filesFixture.Files);
@@ -186,11 +190,12 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1
+				MaximumPathLength = -1,
+				UrlEncodePaths = false
 			};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the paths directly off of the Root Path.
 			paths.Should().Contain(p => string.Equals(Path.GetDirectoryName(p.Path), _filesFixture.RootPath));
@@ -211,11 +216,12 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1
+				MaximumPathLength = -1,
+				UrlEncodePaths = false
 			};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the directory paths directly off of the Root Path.
 			paths.Should().Contain(p => string.Equals(Path.GetDirectoryName(p.Path), _filesFixture.RootPath));
@@ -236,11 +242,12 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1
+				MaximumPathLength = -1,
+				UrlEncodePaths = false
 			};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the file paths directly off of the Root Path.
 			paths.Should().Contain(p => string.Equals(Path.GetDirectoryName(p.Path), _filesFixture.RootPath));
@@ -261,11 +268,12 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1
+				MaximumPathLength = -1,
+				UrlEncodePaths = false
 			};
 
 			// Because we try and get a list of paths from an empty directory.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// There shouldn't be any paths found.
 			paths.Should().HaveCount(0);
@@ -283,11 +291,12 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = -1,
-				MaximumPathLength = -1
+				MaximumPathLength = -1,
+				UrlEncodePaths = false
 			};
 
 			// Because we try and get a list of paths from a directory that does not exist.
-			Action act = () => PathLengthChecker.GetPathsWithLengths(searchOptions).Count();
+			Action act = () => PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None).Count();
 
 			// A DirectoryNotFound exception should be thrown.
 			act.Should().Throw<DirectoryNotFoundException>();
@@ -302,18 +311,19 @@ namespace PathLengthChecker.Tests
 
 			// Setup the Search Options
 			var searchOptions = new PathLengthSearchOptions()
-									{
-										RootDirectory = _filesFixture.RootPath,
-										SearchOption = SearchOption.AllDirectories,
-										TypesToGet = FileSystemTypes.All,
-										SearchPattern = string.Empty,
-										RootDirectoryReplacement = null,
-										MinimumPathLength = -1,
-										MaximumPathLength = maxPathLength
-									};
+			{
+				RootDirectory = _filesFixture.RootPath,
+				SearchOption = SearchOption.AllDirectories,
+				TypesToGet = FileSystemTypes.All,
+				SearchPattern = string.Empty,
+				RootDirectoryReplacement = null,
+				MinimumPathLength = -1,
+				MaximumPathLength = maxPathLength,
+				UrlEncodePaths = false
+			};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the paths.
 			paths.Should().Contain(expectedPaths);
@@ -338,11 +348,12 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = minPathLength,
-				MaximumPathLength = -1
+				MaximumPathLength = -1,
+				UrlEncodePaths = false
 			};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the paths.
 			paths.Should().Contain(expectedPaths);
@@ -368,11 +379,12 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = minPathLength,
-				MaximumPathLength = maxPathLength
+				MaximumPathLength = maxPathLength,
+				UrlEncodePaths = false
 			};
 
 			// Because we try and get a list of paths.
-			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions);
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
 
 			// We should have all of the paths.
 			paths.Should().Contain(expectedPaths);
@@ -393,14 +405,134 @@ namespace PathLengthChecker.Tests
 				SearchPattern = string.Empty,
 				RootDirectoryReplacement = null,
 				MinimumPathLength = 2,
-				MaximumPathLength = 1
+				MaximumPathLength = 1,
+				UrlEncodePaths = false
 			};
 
 			// Because we try and get a list of paths from a directory that does not exist.
-			Action act = () => PathLengthChecker.GetPathsWithLengths(searchOptions).Count();
+			Action act = () => PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None).Count();
 
 			// A DirectoryNotFound exception should be thrown.
 			act.Should().Throw<MinPathLengthGreaterThanMaxPathLengthException>();
+		}
+
+		[Fact]
+		public void ReplacingTheStartingDirectoryShouldAlterThePathsProperly()
+		{
+			// Setup the Search Options
+			var newRootDirectoryName = "NewRootDirectory";
+			var searchOptions = new PathLengthSearchOptions()
+			{
+				RootDirectory = _filesFixture.RootPath,
+				SearchOption = SearchOption.AllDirectories,
+				TypesToGet = FileSystemTypes.All,
+				SearchPattern = string.Empty,
+				RootDirectoryReplacement = newRootDirectoryName,
+				MinimumPathLength = -1,
+				MaximumPathLength = -1,
+				UrlEncodePaths = false
+			};
+
+			var expectedPaths = _filesFixture.AllPaths.Select(p =>
+			{
+				return new PathInfo()
+				{
+					Path = p.Path.Replace(_filesFixture.RootPath, newRootDirectoryName)
+				};
+			});
+
+			// Act.
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
+
+			// We should not have any of the original paths.
+			paths.Should().NotContain(_filesFixture.AllPaths);
+
+			// We should have the expected transformed paths.
+			paths.Should().Contain(expectedPaths);
+
+			// And we should not have any extra paths.
+			paths.Should().OnlyContain(p => expectedPaths.Contains(p));
+		}
+
+		[Fact]
+		public void UrlEncodingThePathsShouldAlterThePathsProperly()
+		{
+			// Setup the Search Options
+			var newRootDirectoryName = "NewRootDirectory";
+			var searchOptions = new PathLengthSearchOptions()
+			{
+				RootDirectory = _filesFixture.RootPath,
+				SearchOption = SearchOption.AllDirectories,
+				TypesToGet = FileSystemTypes.All,
+				SearchPattern = string.Empty,
+				RootDirectoryReplacement = null,
+				MinimumPathLength = -1,
+				MaximumPathLength = -1,
+				UrlEncodePaths = true
+			};
+
+			var expectedPaths = _filesFixture.AllPaths.Select(p =>
+			{
+				return new PathInfo()
+				{
+					Path = p.Path.Replace(" ", "%20")
+						.Replace(@"\", "%5C")
+						.Replace(":", "%3A")
+				};
+			});
+
+			// Act.
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
+
+			// We should not have any of the original paths.
+			paths.Should().NotContain(_filesFixture.AllPaths);
+
+			// We should have the expected transformed paths.
+			paths.Should().Contain(expectedPaths);
+
+			// And we should not have any extra paths.
+			paths.Should().OnlyContain(p => expectedPaths.Contains(p));
+		}
+
+		[Fact]
+		public void ReplacingTheStartingDirectoryAndUsingUrlEncodingShouldAlterThePathsProperly()
+		{
+			// Setup the Search Options
+			var newRootDirectoryName = "NewRootDirectory";
+			var searchOptions = new PathLengthSearchOptions()
+			{
+				RootDirectory = _filesFixture.RootPath,
+				SearchOption = SearchOption.AllDirectories,
+				TypesToGet = FileSystemTypes.All,
+				SearchPattern = string.Empty,
+				RootDirectoryReplacement = newRootDirectoryName,
+				MinimumPathLength = -1,
+				MaximumPathLength = -1,
+				UrlEncodePaths = true
+			};
+
+			var expectedPaths = _filesFixture.AllPaths.Select(p =>
+			{
+				return new PathInfo()
+				{
+					Path = p.Path.Replace(_filesFixture.RootPath, newRootDirectoryName)
+						.Replace(" ", "%20")
+						.Replace(@"\", "%5C")
+						.Replace(":", "%3A")
+				};
+			});
+
+			// Act.
+			var paths = PathLengthChecker.GetPathsWithLengths(searchOptions, CancellationToken.None);
+
+			// We should not have any of the original paths.
+			paths.Should().NotContain(_filesFixture.AllPaths);
+
+			// We should have the expected transformed paths.
+			paths.Should().Contain(expectedPaths);
+
+			// And we should not have any extra paths.
+			paths.Should().OnlyContain(p => expectedPaths.Contains(p));
 		}
 	}
 }

@@ -1,8 +1,38 @@
 ﻿<Application x:Class="PathLengthCheckerGUI.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+		Startup="Application_Startup"
+		Exit="Application_Exit">
+	<Application.Resources>
+		<Style x:Key="DefaultWindowStyle" TargetType="{x:Type Window}">
+			<Setter Property="FontSize" Value="14" />
+		</Style>
+
+		<!-- Default all tooltips to show for 60 seconds -->
+		<Style TargetType="{x:Type Button}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+		<Style TargetType="{x:Type MenuItem}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+		<Style TargetType="{x:Type TextBlock}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+		<Style TargetType="{x:Type TextBox}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+		<Style TargetType="{x:Type CheckBox}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+		<Style TargetType="{x:Type ComboBox}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+		<Style TargetType="{x:Type ListBox}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+		<Style TargetType="{x:Type extToolkit:IntegerUpDown}">
+			<Setter Property="ToolTipService.ShowDuration" Value="60000" />
+		</Style>
+	</Application.Resources>
 </Application>
