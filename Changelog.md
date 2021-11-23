@@ -1,5 +1,11 @@
 # Changelog
 
+## vNext
+
+Fixes:
+
+- Fix grammar in message box message (thanks [@tech189](https://github.com/tech189)! [PR #71](https://github.com/deadlydog/PathLengthChecker/pull/71)).
+
 ## v1.11.7 - August 26, 2021
 
 Fixes:
