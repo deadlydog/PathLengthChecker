@@ -48,4 +48,4 @@ See what's changed in the application over time by viewing [the changelog](Chang
 
 Buy my dogs a new chew toy for providing this application open source and for free :)
 
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/deadlydogDan/5USD)
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YVQNLE2GT4R7J)
