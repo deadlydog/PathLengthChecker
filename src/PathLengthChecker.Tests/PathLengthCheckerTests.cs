@@ -65,7 +65,7 @@ namespace PathLengthChecker.Tests
 			{
 				var filePath = Path.Combine(RootPath, file.Path);
 				if (!File.Exists(filePath))
-					File.Create(filePath);
+					File.Create(filePath).Close();
 			}
 		}
 
